@@ -6,7 +6,12 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Link from "@material-ui/core/Link";
+// import Link from "@material-ui/core/Link";
+import Badge from "@material-ui/core/Badge";
+import MailIcon from "@material-ui/icons/Mail";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import SettingsIcon from "@material-ui/icons/Settings";
+import SwitchLabels from "./Switch";
 
 const drawerWidth = 240;
 
@@ -35,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 function NavBar(props) {
   const classes = useStyles();
 
-  const preventDefault = event => event.preventDefault();
+  // const preventDefault = event => event.preventDefault();
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -52,16 +57,21 @@ function NavBar(props) {
         <Typography className={classes.title} variant="h6" noWrap>
           Dashboard
         </Typography>
-        <Link
-          href="#"
-          className={classes.toolbar}
-          onClick={preventDefault}
-          color="inherit"
-        >
-          <Typography variant="h6" noWrap>
-            Link
-          </Typography>
-        </Link>
+
+        <SwitchLabels />
+        <IconButton aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={0} color="secondary">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        <IconButton aria-label="show 17 new notifications" color="inherit">
+          <Badge badgeContent={0} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <IconButton aria-label="show 17 new notifications" color="inherit">
+          <SettingsIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );
