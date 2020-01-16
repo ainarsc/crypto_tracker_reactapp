@@ -7,6 +7,9 @@ import Box from "@material-ui/core/Box";
 import clsx from "clsx";
 import Copyright from "../Copyright";
 import LineChart from "../charts/LineChart";
+import ChartPie from "../charts/Pie";
+import CurrTable from "../charts/Table";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -68,16 +71,27 @@ export default function Main() {
             </Paper>
           </Grid>
 
-          <Grid item xs={12} md={4} lg={3}>
-            <Paper className={fixedHeightPaper}>xs 12</Paper>
+          <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Paper className={fixedHeightPaper}>
+              <ChartPie />
+            </Paper>
           </Grid>
 
           <Grid item xs={12} md={8} lg={9}>
-            <Paper className={fixedHeightPaper}>xs 12</Paper>
+            <Paper className={fixedHeightPaper}>
+              <CurrTable />
+            </Paper>
           </Grid>
 
           <Grid item xs={12} md={4} lg={3}>
-            <Paper className={fixedHeightPaper}>xs 12</Paper>
+            <Paper className={fixedHeightPaper}>
+              <Typography variant="h5">Title</Typography>
+              <Typography variant="body1">Foof Fooo Fooo Fooo Foo</Typography>
+              <Typography variant="h5">Title</Typography>
+              <Typography variant="body1">Foof Fooo Fooo Fooo Foo</Typography>
+              <Typography variant="h5">Title</Typography>
+              <Typography variant="body1">Foof Fooo Fooo Fooo Foo</Typography>
+            </Paper>
           </Grid>
         </Grid>
         <Box pt={4}>
