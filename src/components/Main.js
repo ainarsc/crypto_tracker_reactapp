@@ -37,9 +37,6 @@ const useStyles = makeStyles(theme => ({
     height: 370
   },
   appBarSpacer: theme.mixins.toolbar
-  // orderPie: {
-  //   order: 2
-  // }
 }));
 
 export default function Main() {
