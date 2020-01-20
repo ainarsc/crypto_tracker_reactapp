@@ -3,7 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import ResponsiveDrawer from "./components/navigation/SideDrawer";
 import NavBar from "./components/navigation/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
-import Main from "./components/navigation/Main";
+import Main from "./components/Main";
 
 const useStyles = makeStyles(theme => ({
   root: {

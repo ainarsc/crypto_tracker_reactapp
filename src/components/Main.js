@@ -4,12 +4,12 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
-import clsx from "clsx";
-import Copyright from "../Copyright";
-import LineChart from "../charts/LineChart";
-import ChartPie from "../charts/Pie";
-import CurrTable from "../charts/Table";
 import Typography from "@material-ui/core/Typography";
+import clsx from "clsx";
+import Copyright from "./Copyright";
+import LineChart from "./charts/LineChart";
+import ChartPie from "./charts/Pie";
+import CurrTable from "./charts/Table";
 
 const useStyles = makeStyles(theme => ({
   root: {
