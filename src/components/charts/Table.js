@@ -44,14 +44,6 @@ const rows = [
     "Gary, IN",
     "AMEX ⠀•••• 2000",
     654.39
-  ),
-  createData(
-    4,
-    "15 Mar, 2019",
-    "Bruce Springsteen",
-    "Long Branch, NJ",
-    "VISA ⠀•••• 5919",
-    212.79
   )
 ];
 

@@ -31,9 +31,12 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column"
   },
   fixedHeight: {
-    height: 220
+    height: 370
   },
   appBarSpacer: theme.mixins.toolbar
+  // orderPie: {
+  //   order: 2
+  // }
 }));
 
 export default function Main() {
@@ -65,32 +68,30 @@ export default function Main() {
           </Grid>
         </Grid>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={8} lg={9}>
+          <Grid item xs={12} lg={8}>
             <Paper className={fixedHeightPaper}>
               <LineChart />
             </Paper>
           </Grid>
-
-          <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Grid item xs={12} md={6} lg={4}>
             <Paper className={fixedHeightPaper}>
               <ChartPie />
             </Paper>
           </Grid>
 
-          <Grid item xs={12} md={8} lg={9}>
+          <Grid item xs={12} md={6} lg={4}>
             <Paper className={fixedHeightPaper}>
-              <CurrTable />
+              <Typography variant="h5">Title</Typography>
+              <Typography variant="body1">Foof Fooo Fooo Fooo Foo</Typography>
+              <Typography variant="h5">Title</Typography>
+              <Typography variant="body1">Foof Fooo Fooo Fooo Foo</Typography>
+              <Typography variant="h5">Title</Typography>
+              <Typography variant="body1">Foof Fooo Fooo Fooo Foo</Typography>
             </Paper>
           </Grid>
-
-          <Grid item xs={12} md={4} lg={3}>
+          <Grid item xs={12} lg={8}>
             <Paper className={fixedHeightPaper}>
-              <Typography variant="h5">Title</Typography>
-              <Typography variant="body1">Foof Fooo Fooo Fooo Foo</Typography>
-              <Typography variant="h5">Title</Typography>
-              <Typography variant="body1">Foof Fooo Fooo Fooo Foo</Typography>
-              <Typography variant="h5">Title</Typography>
-              <Typography variant="body1">Foof Fooo Fooo Fooo Foo</Typography>
+              <CurrTable />
             </Paper>
           </Grid>
         </Grid>
