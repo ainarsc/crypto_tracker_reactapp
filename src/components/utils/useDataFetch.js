@@ -27,7 +27,7 @@ const dataFetchReducer = (state, action) => {
   }
 };
 
-export default function useDataFetch(initialUrl, initialData) {
+export default function useDataFetch(initialUrl, initialData = {}) {
   const [url, setUrl] = useState(initialUrl);
 
   const [state, dispatch] = useReducer(dataFetchReducer, {
