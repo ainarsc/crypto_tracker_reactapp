@@ -4,6 +4,7 @@ import ResponsiveDrawer from "./components/navigation/SideDrawer";
 import NavBar from "./components/navigation/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Main from "./components/Main";
+import useDataFetch from "./components/utils/useDataFetch";
 
 const useStyles = makeStyles(theme => ({
   root: {

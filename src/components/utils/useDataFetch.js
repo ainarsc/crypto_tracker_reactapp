@@ -14,7 +14,7 @@ const dataFetchReducer = (state, action) => {
         ...state,
         isLoading: false,
         isError: false,
-        data: action.payload
+        payload: action.payload
       };
     case "FETCH_FAILURE":
       return {
@@ -33,7 +33,7 @@ export default function useDataFetch(initialUrl, initialData = {}) {
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
     isError: false,
-    data: initialData
+    payload: initialData
   });
 
   useEffect(() => {

@@ -9,11 +9,11 @@ const PriceList = ({ classNAME }) => {
 
   return (
     <Grid container spacing={2}>
-      {Object.keys(state.data).map(key => (
-        <Grid item xs={2}>
+      {Object.keys(state.payload).map((key, index) => (
+        <Grid key={index} item xs={2}>
           <Paper
             className={classNAME}
-          >{`${key}: $${state.data[key].USD}`}</Paper>
+          >{`${key}: $${state.payload[key].USD}`}</Paper>
         </Grid>
       ))}
     </Grid>
