@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  Legend,
-  Label,
-  Sector
-} from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Sector } from "recharts";
 
 const data = [
   { name: "BTC", value: 400 },
@@ -37,8 +29,9 @@ const renderCustomizedLabel = ({
       x={x}
       y={y}
       fill="white"
-      textAnchor={x > cx ? "start" : "end"}
-      dominantBaseline="central"
+      textAnchor="middle"
+      verticalAnchor="middle"
+      dominantBaseline="middle"
     >
       {payload.name}
     </text>
@@ -46,29 +39,17 @@ const renderCustomizedLabel = ({
 };
 
 const renderActiveShape = props => {
-  const RADIAN = Math.PI / 180;
+  // const RADIAN = Math.PI / 180;
   const {
     cx,
     cy,
-    midAngle,
     innerRadius,
     outerRadius,
     startAngle,
     endAngle,
     fill,
-    payload,
-    percent,
-    value
+    payload
   } = props;
-  const sin = Math.sin(-RADIAN * midAngle);
-  const cos = Math.cos(-RADIAN * midAngle);
-  const sx = cx + (outerRadius + 10) * cos;
-  const sy = cy + (outerRadius + 10) * sin;
-  const mx = cx + (outerRadius + 30) * cos;
-  const my = cy + (outerRadius + 30) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
-  const ey = my;
-  const textAnchor = cos >= 0 ? "start" : "end";
 
   return (
     <g>
@@ -98,7 +79,7 @@ const renderActiveShape = props => {
   );
 };
 
-const ChartPie = () => {
+const MarketCap = () => {
   const [state, setState] = useState({ activeIndex: 0 });
 
   const onPieEnter = (data, index) => {
@@ -132,7 +113,7 @@ const ChartPie = () => {
   );
 };
 
-export default ChartPie;
+export default MarketCap;
 
 // import React, { PureComponent } from "react";
 // import { PieChart, Pie, Sector, Cell, Label } from "recharts";

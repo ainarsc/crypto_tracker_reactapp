@@ -1,13 +1,13 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
-import ChartPie from "../charts/Pie";
+import MarketCap from "../charts/MarketCap";
 import Grid from "@material-ui/core/Grid";
 
 const PrimaryItem = ({ classNAME, ...props }) => {
   return (
     <Grid item {...props}>
       <Paper className={classNAME}>
-        <ChartPie />
+        <MarketCap />
       </Paper>
     </Grid>
   );
