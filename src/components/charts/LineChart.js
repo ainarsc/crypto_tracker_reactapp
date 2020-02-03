@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import moment from "moment";
+
 import {
   AreaChart,
   Area,
@@ -8,59 +10,14 @@ import {
   Tooltip,
   ResponsiveContainer
 } from "recharts";
-import useDataFetch from "../utils/useDataFetch";
+// import useDataFetch from "../utils/useDataFetch";
 import axios from "axios";
 
-// const data = [
-//   {
-//     name: "Jan",
-//     uv: 4000,
-//     pv: 2400,
-//     amt: 2400
-//   },
-//   {
-//     name: "Feb",
-//     uv: 3000,
-//     pv: 1398,
-//     amt: 2210
-//   },
-//   {
-//     name: "Mar",
-//     uv: 2000,
-//     pv: 9800,
-//     amt: 2290
-//   },
-//   {
-//     name: "Apr",
-//     uv: 2780,
-//     pv: 3908,
-//     amt: 2000
-//   },
-//   {
-//     name: "May",
-//     uv: 1890,
-//     pv: 4800,
-//     amt: 2181
-//   },
-//   {
-//     name: "Jun",
-//     uv: 2390,
-//     pv: 3800,
-//     amt: 2500
-//   },
-//   {
-//     name: "Jul",
-//     uv: 3490,
-//     pv: 4300,
-//     amt: 2100
-//   }
-// ];
-
 const LineChart = () => {
-  const url = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30&aggregate=2&e=CCCAGG`;
+  const url = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30&aggregate=3`;
   const [state, setState] = useState("");
   const [isFetched, setFetched] = useState(false);
-  // const [state] = useDataFetch(url);
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(url);
@@ -68,14 +25,32 @@ const LineChart = () => {
       setFetched(true);
     };
     fetchData();
-  }, []);
+  }, [url]);
+
+  const TiltedAxisTick = props => {
+    const { x, y, payload, ...rest } = props;
+
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text
+          x={0}
+          y={0}
+          dy={16}
+          textAnchor="middle"
+          fill="#666"
+          {...rest}
+          // transform="rotate(-45)"
+        >
+          {moment.unix(payload.value).format("DD.MMM")}
+        </text>
+      </g>
+    );
+  };
 
   return (
     isFetched === true && (
       <ResponsiveContainer>
         <AreaChart
-          width={500}
-          height={400}
           data={state.data.Data.Data}
           margin={{
             top: 10,
@@ -85,10 +60,23 @@ const LineChart = () => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="time" />
-          <YAxis dataKey="close" />
+          <XAxis
+            dataKey="time"
+            name="Time"
+            domain={[state.data.Data.TimeFrom, state.data.Data.TimeTo]}
+            scale="time"
+            type="number"
+            interval={4}
+            tick={<TiltedAxisTick />}
+          />
+          <YAxis dataKey="close" domain={[state.data.Data.Data.low, "auto"]} />
           <Tooltip />
-          <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
+          <Area
+            type="monotone"
+            dataKey="close"
+            stroke="#8884d8"
+            fill="#8884d8"
+          />
         </AreaChart>
       </ResponsiveContainer>
     )
