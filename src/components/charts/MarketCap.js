@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Sector } from "recharts";
-
-const data = [
-  { name: "BTC", value: 400 },
-  { name: "ETC", value: 300 },
-  { name: "XTC", value: 300 },
-  { name: "EOS", value: 200 }
-];
+import axios from "axios";
+import _ from "lodash";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
-
 const RADIAN = Math.PI / 180;
+
+// const data = [
+//   { name: "BTC", value: 400 },
+//   { name: "ETC", value: 300 },
+//   { name: "XTC", value: 300 },
+//   { name: "EOS", value: 200 }
+// ];
 
 const renderCustomizedLabel = ({
   cx,
@@ -33,7 +34,7 @@ const renderCustomizedLabel = ({
       verticalAnchor="middle"
       dominantBaseline="middle"
     >
-      {payload.name}
+      "Value"
     </text>
   );
 };
@@ -55,7 +56,7 @@ const renderActiveShape = props => {
     <g>
       <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
         {`Market Cap
-         $${payload.value}M`}
+         $${"FOO"}M`}
       </text>
       <Sector
         cx={cx}
@@ -80,75 +81,72 @@ const renderActiveShape = props => {
 };
 
 const MarketCap = () => {
-  const [state, setState] = useState({ activeIndex: 0 });
+  const [index, setIndex] = useState({ activeIndex: 0 });
+  const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&&tsyms=USD`;
+  const [payload, setPayload] = useState([]);
+  const [isFetched, setFetched] = useState(false);
+
+  const cleanseData = obj => {
+    // d = DISPLAY
+    const result = _.mapValues(obj, (val, key) => {
+      return {
+        name: key,
+        price: val.USD.PRICE,
+        marketCap: val.USD.MKTCAP
+      };
+    });
+    return _.toArray(result); // {BTC: {price: $999, marketCap: $99B}, ETC: {price: $999, marketCap: $99B}, ...}
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(url);
+      const cleansed = cleanseData(result.data.DISPLAY);
+
+      setPayload(cleansed);
+
+      console.log(cleansed);
+      setFetched(true);
+    };
+    fetchData();
+  }, [url]);
 
   const onPieEnter = (data, index) => {
-    setState({
+    setIndex({
       activeIndex: index
     });
   };
+
   return (
-    <ResponsiveContainer>
-      <PieChart width={120} height={120}>
-        <Pie
-          activeIndex={state.activeIndex}
-          activeShape={renderActiveShape}
-          onMouseEnter={onPieEnter}
-          cx="50%"
-          cy="50%"
-          data={data}
-          label={renderCustomizedLabel}
-          labelLine={false}
-          innerRadius={80}
-          outerRadius={120}
-          fill="#8884d8"
-          dataKey="value"
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-      </PieChart>
-    </ResponsiveContainer>
+    isFetched === true && (
+      <ResponsiveContainer>
+        <PieChart width={120} height={120}>
+          <Pie
+            activeIndex={index.activeIndex}
+            activeShape={renderActiveShape}
+            onMouseEnter={onPieEnter}
+            cx="50%"
+            cy="50%"
+            data={payload}
+            label={renderCustomizedLabel}
+            labelLine={false}
+            innerRadius={80}
+            outerRadius={120}
+            fill="#8884d8"
+            nameKey="USD"
+            dataKey="MKTCAP"
+          >
+            {/* {Object.keys(payload.data.DISPLAY).map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
+            ))} */}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+    )
   );
 };
 
 export default MarketCap;
-
-// import React, { PureComponent } from "react";
-// import { PieChart, Pie, Sector, Cell, Label } from "recharts";
-
-// const data = [
-//   { name: "Group A", value: 400 },
-//   { name: "Group B", value: 300 },
-//   { name: "Group C", value: 300 },
-//   { name: "Group D", value: 200 }
-// ];
-// const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
-
-// export default class Example extends PureComponent {
-//   static jsfiddleUrl = "https://jsfiddle.net/alidingling/3Leoa7f4/";
-
-//   render() {
-//     return (
-//       <PieChart width={800} height={400} onMouseEnter={this.onPieEnter}>
-
-//         <Pie
-//           data={data}
-//           cx={100}
-//           cy={100}
-//           innerRadius={60}
-//           outerRadius={80}
-//           fill="#8884d8"
-//           paddingAngle={5}
-//           dataKey="value"
-//         >
-//           {data.map((entry, index) => (
-//             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-//           ))}
-//           <Label value="Market Cap" offset={0} position="center" />
-//         </Pie>
-//       </PieChart>
-//     );
-//   }
-// }

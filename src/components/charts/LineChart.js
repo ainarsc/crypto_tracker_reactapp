@@ -14,7 +14,7 @@ import {
 import axios from "axios";
 
 const LineChart = () => {
-  const url = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30&aggregate=3`;
+  const url = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30&aggregate=1`;
   const [state, setState] = useState("");
   const [isFetched, setFetched] = useState(false);
 
@@ -54,7 +54,7 @@ const LineChart = () => {
           data={state.data.Data.Data}
           margin={{
             top: 10,
-            right: 30,
+            right: 20,
             left: 0,
             bottom: 0
           }}
@@ -66,7 +66,7 @@ const LineChart = () => {
             domain={[state.data.Data.TimeFrom, state.data.Data.TimeTo]}
             scale="time"
             type="number"
-            interval={4}
+            interval={5}
             tick={<TiltedAxisTick />}
           />
           <YAxis dataKey="close" domain={[state.data.Data.Data.low, "auto"]} />
