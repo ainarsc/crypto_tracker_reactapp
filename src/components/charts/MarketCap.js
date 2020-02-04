@@ -34,7 +34,7 @@ const renderCustomizedLabel = ({
       verticalAnchor="middle"
       dominantBaseline="middle"
     >
-      "Value"
+      {payload.name}
     </text>
   );
 };
@@ -56,7 +56,7 @@ const renderActiveShape = props => {
     <g>
       <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
         {`Market Cap
-         $${"FOO"}M`}
+         $${payload.marketCap}B`}
       </text>
       <Sector
         cx={cx}
@@ -81,8 +81,8 @@ const renderActiveShape = props => {
 };
 
 const MarketCap = () => {
-  const [index, setIndex] = useState({ activeIndex: 0 });
   const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&&tsyms=USD`;
+  const [index, setIndex] = useState({ activeIndex: 0 });
   const [payload, setPayload] = useState([]);
   const [isFetched, setFetched] = useState(false);
 
@@ -92,16 +92,16 @@ const MarketCap = () => {
       return {
         name: key,
         price: val.USD.PRICE,
-        marketCap: val.USD.MKTCAP
+        marketCap: _.round(val.USD.MKTCAP, -7) / 1000000000
       };
     });
-    return _.toArray(result); // {BTC: {price: $999, marketCap: $99B}, ETC: {price: $999, marketCap: $99B}, ...}
+    return _.toArray(result); // [{name: "BTC", price: $999, marketCap: $99B}, {name: "BTC", price: $999, marketCap: $99B}, ...]
   };
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(url);
-      const cleansed = cleanseData(result.data.DISPLAY);
+      const cleansed = cleanseData(result.data.RAW);
 
       setPayload(cleansed);
 
@@ -131,17 +131,16 @@ const MarketCap = () => {
             label={renderCustomizedLabel}
             labelLine={false}
             innerRadius={80}
-            outerRadius={120}
+            outerRadius={130}
             fill="#8884d8"
-            nameKey="USD"
-            dataKey="MKTCAP"
+            dataKey="marketCap"
           >
-            {/* {Object.keys(payload.data.DISPLAY).map((entry, index) => (
+            {payload.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
               />
-            ))} */}
+            ))}
           </Pie>
         </PieChart>
       </ResponsiveContainer>
