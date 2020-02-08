@@ -1,11 +1,15 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-
+import moment from "moment";
+import _ from "lodash";
 import CardContent from "@material-ui/core/CardContent";
 
 import Typography from "@material-ui/core/Typography";
 
+function escapeRegExp(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 const useStyles = makeStyles(theme => ({
   root: {
     minWidth: 275,
@@ -30,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SimpleCard() {
+export default function SimpleCard({ title, url, categories, source, date }) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
@@ -42,13 +46,13 @@ export default function SimpleCard() {
           color="textSecondary"
           gutterBottom
         >
-          BTC | Business | Market | Asia
+          {_.replace(categories, new RegExp(escapeRegExp("|"), "g"), " | ")}
         </Typography>
         <Typography variant="h5" component="h2">
-          JP Morgan Invests 100M In Blockchain Research
+          {title}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          Coindesk {bull} 07.02.2020
+          {source.name} {bull} {moment.unix(date).format("MM.DD.YYYY")}
         </Typography>
       </CardContent>
     </Card>
