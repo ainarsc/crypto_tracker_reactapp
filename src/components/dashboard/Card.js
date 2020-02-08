@@ -4,12 +4,9 @@ import Card from "@material-ui/core/Card";
 import moment from "moment";
 import _ from "lodash";
 import CardContent from "@material-ui/core/CardContent";
-
 import Typography from "@material-ui/core/Typography";
+import escapeRegExp from "../utils/escapeRegExp";
 
-function escapeRegExp(text) {
-  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-}
 const useStyles = makeStyles(theme => ({
   root: {
     minWidth: 275,
