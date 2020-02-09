@@ -16,17 +16,17 @@ const useStyles = makeStyles({
   }
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+// function createData(name, calories, fat, carbs, protein) {
+//   return { name, calories, fat, carbs, protein };
+// }
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9)
-];
+// const rows = [
+//   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+//   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+//   createData("Eclair", 262, 16.0, 24, 6.0),
+//   createData("Cupcake", 305, 3.7, 67, 4.3),
+//   createData("Gingerbread", 356, 16.0, 49, 3.9)
+// ];
 
 export default function DenseTable() {
   const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&&tsyms=USD`;
@@ -52,7 +52,7 @@ export default function DenseTable() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(url);
-      const cleansed = cleanseData(result.data.RAW);
+      const cleansed = cleanseData(result.data.DISPLAY);
 
       setPayload(cleansed);
 
@@ -72,9 +72,6 @@ export default function DenseTable() {
         >
           <TableHead>
             <TableRow>
-              {/* {_.map(payload, (key, value) => (
-                <TableCell align="right">{key}</TableCell>
-              ))} */}
               <TableCell>#</TableCell>
               <TableCell align="right">Coin</TableCell>
               <TableCell align="right">Price</TableCell>
@@ -85,17 +82,6 @@ export default function DenseTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {rows.map(row => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-              </TableRow>
-            ))} */}
             {_.map(payload, (obj, index) => (
               <TableRow align="right">
                 <TableCell align="right">{index + 1}</TableCell>
