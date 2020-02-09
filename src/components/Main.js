@@ -52,7 +52,7 @@ export default function Main() {
           <PrimaryItem classNAME={fixedHeightPaper} item xs={12} lg={8} />
           <SecondaryItem classNAME={fixedHeightPaper} xs={12} md={6} lg={4} />
           <CryptoNews classNAME={fixedHeightPaper} xs={12} />
-          <CurrencyDataTable classNAME={fixedHeightPaper} xs={12} lg={8} />
+          <CurrencyDataTable classNAME={fixedHeightPaper} xs={12} />
         </Grid>
         <Box pt={4}>
           <Copyright />
