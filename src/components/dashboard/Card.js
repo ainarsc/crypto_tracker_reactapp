@@ -10,7 +10,7 @@ import escapeRegExp from "../utils/escapeRegExp";
 const useStyles = makeStyles(theme => ({
   root: {
     minWidth: 275,
-    marginBottom: theme.spacing(1)
+    margin: theme.spacing(1)
   },
   bullet: {
     display: "inline-block",
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(0)
   },
   content: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
     "&:last-child": {
       paddingBottom: theme.spacing(1)
     }

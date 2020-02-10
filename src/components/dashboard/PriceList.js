@@ -8,7 +8,7 @@ const PriceList = ({ classNAME }) => {
   const [state] = useDataFetch(url);
 
   return (
-    <Grid container spacing={2}>
+    <Grid container>
       {Object.keys(state.payload).map((key, index) => (
         <Grid key={index} item xs={2}>
           <Paper

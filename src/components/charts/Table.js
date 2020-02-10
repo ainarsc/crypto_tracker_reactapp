@@ -10,11 +10,12 @@ import Paper from "@material-ui/core/Paper";
 import axios from "axios";
 import _ from "lodash";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
+  root: { margin: theme.spacing(1) },
   table: {
-    width: "100%"
+    width: "90%"
   }
-});
+}));
 
 // function createData(name, calories, fat, carbs, protein) {
 //   return { name, calories, fat, carbs, protein };
@@ -64,7 +65,7 @@ export default function DenseTable() {
 
   return (
     isFetched && (
-      <TableContainer component={Paper}>
+      <TableContainer className={classes.root} component={Paper}>
         <Table
           className={classes.table}
           size="small"
@@ -72,7 +73,7 @@ export default function DenseTable() {
         >
           <TableHead>
             <TableRow>
-              <TableCell>#</TableCell>
+              <TableCell align="right">#</TableCell>
               <TableCell align="right">Coin</TableCell>
               <TableCell align="right">Price</TableCell>
               <TableCell align="right">Change 1H</TableCell>

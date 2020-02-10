@@ -21,17 +21,16 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     height: "100vh",
-    overflow: "auto"
+    overflow: "auto",
+    marginTop: theme.spacing(1)
   },
-  container: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2)
-  },
+
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(4),
     display: "flex",
     overflow: "auto",
-    flexDirection: "column"
+    flexDirection: "column",
+    margin: theme.spacing(1)
   },
   fixedHeight: {
     height: 370
@@ -46,9 +45,10 @@ export default function Main() {
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
-      <Container maxWidth="lg" className={classes.container}>
-        <PriceList classNAME={classes.paper} />
-        <Grid container spacing={2}>
+
+      <Container maxWidth="lg">
+        <Grid container>
+          <PriceList classNAME={classes.paper} />
           <PrimaryItem classNAME={fixedHeightPaper} item xs={12} lg={8} />
           <SecondaryItem classNAME={fixedHeightPaper} xs={12} md={6} lg={4} />
           <CryptoNews classNAME={fixedHeightPaper} xs={12} />
