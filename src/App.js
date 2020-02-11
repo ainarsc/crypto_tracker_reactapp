@@ -3,7 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import ResponsiveDrawer from "./components/navigation/SideDrawer";
 import NavBar from "./components/navigation/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import Main from "./components/Main";
 // import useDataFetch from "./components/utils/useDataFetch";
@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const darkTheme = createMuiTheme({
+let theme = createMuiTheme({
   palette: {
     type: "dark"
   },
@@ -27,6 +27,8 @@ const darkTheme = createMuiTheme({
   spacing: 4
 });
 
+theme = responsiveFontSizes(theme);
+
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -36,7 +38,7 @@ function App() {
   const classes = useStyles();
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
         <ResponsiveDrawer
