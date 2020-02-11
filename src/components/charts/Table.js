@@ -11,23 +11,11 @@ import axios from "axios";
 import _ from "lodash";
 
 const useStyles = makeStyles(theme => ({
-  root: { margin: theme.spacing(1) },
-  table: {
-    width: "90%"
+  root: {
+    margin: theme.spacing(1),
+    width: "auto"
   }
 }));
-
-// function createData(name, calories, fat, carbs, protein) {
-//   return { name, calories, fat, carbs, protein };
-// }
-
-// const rows = [
-//   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-//   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-//   createData("Eclair", 262, 16.0, 24, 6.0),
-//   createData("Cupcake", 305, 3.7, 67, 4.3),
-//   createData("Gingerbread", 356, 16.0, 49, 3.9)
-// ];
 
 export default function DenseTable() {
   const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&&tsyms=USD`;
@@ -66,11 +54,7 @@ export default function DenseTable() {
   return (
     isFetched && (
       <TableContainer className={classes.root} component={Paper}>
-        <Table
-          className={classes.table}
-          size="small"
-          aria-label="a dense table"
-        >
+        <Table size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
               <TableCell align="right">#</TableCell>
@@ -85,7 +69,9 @@ export default function DenseTable() {
           <TableBody>
             {_.map(payload, (obj, index) => (
               <TableRow align="right">
-                <TableCell align="right">{index + 1}</TableCell>
+                <TableCell component="th" scope="row" align="right">
+                  {index + 1}
+                </TableCell>
                 <TableCell align="right">{obj.FROMSYMBOL}</TableCell>
                 <TableCell align="right">{obj.PRICE}</TableCell>
                 <TableCell align="right">{obj.CHANGEHOUR}</TableCell>

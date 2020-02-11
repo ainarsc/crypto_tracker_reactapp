@@ -10,8 +10,9 @@ import Copyright from "./Copyright";
 import PrimaryItem from "./dashboard/PrimaryItem";
 import SecondaryItem from "./dashboard/SecondaryItem";
 import CryptoNews from "./dashboard/CryptoNews";
-import CurrencyDataTable from "./dashboard/CurrencyDataTable";
+// import CurrencyDataTable from "./dashboard/CurrencyDataTable";
 import PriceList from "./dashboard/PriceList";
+import CurrencyDataTable from "./charts/Table";
 
 //Styles
 const useStyles = makeStyles(theme => ({
@@ -52,8 +53,8 @@ export default function Main() {
           <PrimaryItem classNAME={fixedHeightPaper} item xs={12} lg={8} />
           <SecondaryItem classNAME={fixedHeightPaper} xs={12} md={6} lg={4} />
           <CryptoNews classNAME={fixedHeightPaper} xs={12} />
-          <CurrencyDataTable classNAME={fixedHeightPaper} xs={12} />
         </Grid>
+        <CurrencyDataTable />
         <Box pt={4}>
           <Copyright />
         </Box>
