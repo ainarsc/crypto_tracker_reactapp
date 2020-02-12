@@ -7,11 +7,14 @@ import Paper from "@material-ui/core/Paper";
 import clsx from "clsx";
 
 //Component imports
-import PriceList from "./PriceList";
-import PriceTrend from "./PriceTrend";
-import MarketCap from "./MarketCap";
-import DataTable from "./DataTable";
-import NewsStand from "./NewsStand";
+import {
+  PriceList,
+  DataTable,
+  MarketCap,
+  NewsStand,
+  PriceTrend
+} from "./components";
+
 import Copyright from "../Copyright";
 
 //Styles
@@ -59,7 +62,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Main() {
+export default function Dashboard() {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 

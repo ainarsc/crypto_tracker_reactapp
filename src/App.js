@@ -5,7 +5,7 @@ import NavBar from "./components/navigation/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import Main from "./components/dashboard/Main";
+import Dashboard from "./components/dashboard";
 // import useDataFetch from "./components/utils/useDataFetch";
 
 const useStyles = makeStyles(theme => ({
@@ -46,7 +46,7 @@ function App() {
           mobileOpen={mobileOpen}
         />
         <NavBar handleDrawerToggle={handleDrawerToggle} />
-        <Main />
+        <Dashboard />
       </div>
     </ThemeProvider>
   );
