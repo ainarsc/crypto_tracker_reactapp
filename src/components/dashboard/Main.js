@@ -7,12 +7,12 @@ import Paper from "@material-ui/core/Paper";
 import clsx from "clsx";
 
 //Component imports
-import PriceList from "./dashboard/PriceList";
-import PriceTrend from "./dashboard/PriceTrend";
-import MarketCap from "./dashboard/MarketCap";
-import DataTable from "./dashboard/DataTable";
-import NewsStand from "./dashboard/NewsStand";
-import Copyright from "./Copyright";
+import PriceList from "./PriceList";
+import PriceTrend from "./PriceTrend";
+import MarketCap from "./MarketCap";
+import DataTable from "./DataTable";
+import NewsStand from "./NewsStand";
+import Copyright from "../Copyright";
 
 //Styles
 const useStyles = makeStyles(theme => ({

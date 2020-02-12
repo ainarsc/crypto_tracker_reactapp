@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import useDataFetch from "../utils/useDataFetch";
+import useDataFetch from "../../utils/useDataFetch";
 
 const PriceList = ({ styles, ...props }) => {
   const url = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&tsyms=USD`;

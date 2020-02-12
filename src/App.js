@@ -5,7 +5,7 @@ import NavBar from "./components/navigation/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import Main from "./components/Main";
+import Main from "./components/dashboard/Main";
 // import useDataFetch from "./components/utils/useDataFetch";
 
 const useStyles = makeStyles(theme => ({
