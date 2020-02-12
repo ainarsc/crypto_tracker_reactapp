@@ -91,13 +91,13 @@ export default function Dashboard() {
         <Grid container>
           <PriceList container styles={priceListStyles} />
 
-          <Grid item xs={12} lg={8}>
+          <Grid item xs={12} md={7} lg={8}>
             <Paper className={fixedHeightPaper}>
               <PriceTrend />
             </Paper>
           </Grid>
 
-          <Grid item xs={12} md={6} lg={4}>
+          <Grid item xs={12} md={5} lg={4}>
             <Paper className={fixedHeightPaper}>
               <MarketCap />
             </Paper>
