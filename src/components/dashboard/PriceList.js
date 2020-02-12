@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import useDataFetch from "../utils/useDataFetch";
 
-const PriceList = ({ classNAME }) => {
+const PriceList = ({ styles }) => {
   const url = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&tsyms=USD`;
   const [state] = useDataFetch(url);
 
@@ -12,7 +12,7 @@ const PriceList = ({ classNAME }) => {
       {Object.keys(state.payload).map((key, index) => (
         <Grid key={index} item xs={2}>
           <Paper
-            className={classNAME}
+            className={styles}
           >{`${key}: $${state.payload[key].USD}`}</Paper>
         </Grid>
       ))}

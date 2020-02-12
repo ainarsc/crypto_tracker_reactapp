@@ -3,10 +3,10 @@ import Paper from "@material-ui/core/Paper";
 import MarketCap from "../charts/MarketCap";
 import Grid from "@material-ui/core/Grid";
 
-const PrimaryItem = ({ classNAME, ...props }) => {
+const PrimaryItem = ({ styles, ...props }) => {
   return (
     <Grid item {...props}>
-      <Paper className={classNAME}>
+      <Paper className={styles}>
         <MarketCap />
       </Paper>
     </Grid>

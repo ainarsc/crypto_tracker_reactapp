@@ -10,7 +10,6 @@ import Copyright from "./Copyright";
 import PrimaryItem from "./dashboard/PrimaryItem";
 import SecondaryItem from "./dashboard/SecondaryItem";
 import CryptoNews from "./dashboard/CryptoNews";
-// import CurrencyDataTable from "./dashboard/CurrencyDataTable";
 import PriceList from "./dashboard/PriceList";
 import CurrencyDataTable from "./charts/Table";
 
@@ -25,7 +24,6 @@ const useStyles = makeStyles(theme => ({
     overflow: "auto",
     marginTop: theme.spacing(1)
   },
-
   paper: {
     padding: theme.spacing(4),
     display: "flex",
@@ -49,12 +47,16 @@ export default function Main() {
 
       <Container maxWidth="lg">
         <Grid container>
-          <PriceList classNAME={classes.paper} />
-          <PrimaryItem classNAME={fixedHeightPaper} item xs={12} lg={8} />
-          <SecondaryItem classNAME={fixedHeightPaper} xs={12} md={6} lg={4} />
-          <CryptoNews classNAME={fixedHeightPaper} xs={12} />
+          <PriceList styles={classes.paper} />
+          <PrimaryItem styles={fixedHeightPaper} item xs={12} lg={8} />
+          <SecondaryItem styles={fixedHeightPaper} xs={12} md={6} lg={4} />
+
+          <Grid item xs={12}>
+            <CurrencyDataTable />
+          </Grid>
+          <CryptoNews xs={12} />
         </Grid>
-        <CurrencyDataTable />
+
         <Box pt={4}>
           <Copyright />
         </Box>

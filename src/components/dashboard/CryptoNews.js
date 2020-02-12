@@ -4,7 +4,7 @@ import NewsCard from "./Card";
 import axios from "axios";
 import _ from "lodash";
 
-const CryptoNews = ({ classNAME, ...props }) => {
+const CryptoNews = ({ styles, ...props }) => {
   const url = `https://min-api.cryptocompare.com/data/v2/news/?lang=EN`;
   const [payload, setPayload] = useState([]);
   const [isFetched, setFetched] = useState(false);
