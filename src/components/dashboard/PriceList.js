@@ -3,12 +3,12 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import useDataFetch from "../utils/useDataFetch";
 
-const PriceList = ({ styles }) => {
+const PriceList = ({ styles, ...props }) => {
   const url = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&tsyms=USD`;
   const [state] = useDataFetch(url);
 
   return (
-    <Grid container>
+    <Grid {...props}>
       {Object.keys(state.payload).map((key, index) => (
         <Grid key={index} item xs={2}>
           <Paper

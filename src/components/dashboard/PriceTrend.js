@@ -13,7 +13,7 @@ import {
 // import useDataFetch from "../utils/useDataFetch";
 import axios from "axios";
 
-const LineChart = () => {
+const PriceTrend = () => {
   const url = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30&aggregate=1`;
   const [state, setState] = useState("");
   const [isFetched, setFetched] = useState(false);
@@ -83,4 +83,4 @@ const LineChart = () => {
   );
 };
 
-export default LineChart;
+export default PriceTrend;

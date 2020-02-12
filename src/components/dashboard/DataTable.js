@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function DenseTable() {
+export default function DataTable() {
   const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&&tsyms=USD`;
   const [payload, setPayload] = useState([]);
   const [isFetched, setFetched] = useState(false);

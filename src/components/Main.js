@@ -3,15 +3,16 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
+import Paper from "@material-ui/core/Paper";
 import clsx from "clsx";
 
 //Component imports
-import Copyright from "./Copyright";
-import PrimaryItem from "./dashboard/PrimaryItem";
-import SecondaryItem from "./dashboard/SecondaryItem";
-import CryptoNews from "./dashboard/CryptoNews";
 import PriceList from "./dashboard/PriceList";
-import CurrencyDataTable from "./charts/Table";
+import PriceTrend from "./dashboard/PriceTrend";
+import MarketCap from "./dashboard/MarketCap";
+import DataTable from "./dashboard/DataTable";
+import NewsStand from "./dashboard/NewsStand";
+import Copyright from "./Copyright";
 
 //Styles
 const useStyles = makeStyles(theme => ({
@@ -34,7 +35,28 @@ const useStyles = makeStyles(theme => ({
   fixedHeight: {
     height: 370
   },
-  appBarSpacer: theme.mixins.toolbar
+  appBarSpacer: theme.mixins.toolbar,
+  newsCard: {
+    minWidth: 275,
+    margin: theme.spacing(1)
+  },
+  bullet: {
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)"
+  },
+  newsTitle: {
+    fontSize: 14
+  },
+  position: {
+    marginBottom: theme.spacing(0)
+  },
+  newsContent: {
+    padding: theme.spacing(2),
+    "&:last-child": {
+      paddingBottom: theme.spacing(1)
+    }
+  }
 }));
 
 export default function Main() {
@@ -47,14 +69,25 @@ export default function Main() {
 
       <Container maxWidth="lg">
         <Grid container>
-          <PriceList styles={classes.paper} />
-          <PrimaryItem styles={fixedHeightPaper} item xs={12} lg={8} />
-          <SecondaryItem styles={fixedHeightPaper} xs={12} md={6} lg={4} />
+          <PriceList container styles={classes.paper} />
+
+          <Grid item xs={12} lg={8}>
+            <Paper className={fixedHeightPaper}>
+              <PriceTrend />
+            </Paper>
+          </Grid>
+
+          <Grid item xs={12} md={6} lg={4}>
+            <Paper className={fixedHeightPaper}>
+              <MarketCap />
+            </Paper>
+          </Grid>
 
           <Grid item xs={12}>
-            <CurrencyDataTable />
+            <DataTable />
           </Grid>
-          <CryptoNews xs={12} />
+
+          <NewsStand styles={classes} xs={12} />
         </Grid>
 
         <Box pt={4}>
