@@ -60,7 +60,7 @@ const NewsStand = ({ styles, ...props }) => {
               </Typography>
               <Typography className={position} color="textSecondary">
                 {data.source_info.name} {bull}{" "}
-                {moment.unix(data.date).format("MM.DD.YYYY")}
+                {moment.unix(data.published_on).format("MM.DD.YYYY")}
               </Typography>
             </CardContent>
           </Card>

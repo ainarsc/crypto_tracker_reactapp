@@ -35,8 +35,24 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     margin: theme.spacing(1)
   },
+  paperSmall: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: theme.spacing(1),
+    fontSize: 18,
+    margin: theme.spacing(1),
+    overflow: "auto"
+  },
+  fullWidth: {
+    width: "100%"
+  },
   fixedHeight: {
     height: 370
+  },
+  fixedHeightSmall: {
+    height: 64,
+    minWidth: 100
   },
   appBarSpacer: theme.mixins.toolbar,
   newsCard: {
@@ -65,6 +81,7 @@ const useStyles = makeStyles(theme => ({
 export default function Dashboard() {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const priceListStyles = clsx(classes.paperSmall, classes.fixedHeightSmall);
 
   return (
     <main className={classes.content}>
@@ -72,7 +89,7 @@ export default function Dashboard() {
 
       <Container maxWidth="lg">
         <Grid container>
-          <PriceList container styles={classes.paper} />
+          <PriceList container styles={priceListStyles} />
 
           <Grid item xs={12} lg={8}>
             <Paper className={fixedHeightPaper}>

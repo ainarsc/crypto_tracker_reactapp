@@ -1,7 +1,9 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import useDataFetch from "../../../utils/useDataFetch";
+import Divider from "@material-ui/core/Divider";
 
 const PriceList = ({ styles, ...props }) => {
   const url = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&tsyms=USD`;
@@ -10,10 +12,17 @@ const PriceList = ({ styles, ...props }) => {
   return (
     <Grid {...props}>
       {Object.keys(state.payload).map((key, index) => (
-        <Grid key={index} item xs={2}>
-          <Paper
-            className={styles}
-          >{`${key}: $${state.payload[key].USD}`}</Paper>
+        <Grid key={index} item xs={4} md={2}>
+          <Paper className={styles}>
+            <Typography variant="title">{`${key}`}</Typography>
+            <Divider
+              width="100%"
+              orientation="horizontal"
+              variant="middle"
+              flexItem
+            />
+            <Typography variant="h6">{`$${state.payload[key].USD}`}</Typography>
+          </Paper>
         </Grid>
       ))}
     </Grid>
