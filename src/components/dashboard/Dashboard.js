@@ -78,6 +78,22 @@ const useStyles = makeStyles(theme => ({
     "&:last-child": {
       paddingBottom: theme.spacing(1)
     }
+  },
+  dataWidgetRoot: {
+    flexGrow: 1,
+    alignContent: "center",
+    margin: theme.spacing(1)
+  },
+  dataWidget: {
+    padding: theme.spacing(1)
+  },
+  widgetContent: {
+    display: "flex",
+    flexDirection: "column",
+    height: 178,
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+    justifyContent: "center"
   }
 }));
 
@@ -85,6 +101,7 @@ export default function Dashboard() {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const priceListStyles = clsx(classes.paperSmall, classes.fixedHeightSmall);
+  const dataWidgetRoot = clsx(classes.fixedHeight, classes.dataWidgetRoot);
 
   return (
     <main className={classes.content}>
@@ -99,8 +116,8 @@ export default function Dashboard() {
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Paper className={fixedHeightPaper}>
-              <DataWidget />
+            <Paper className={dataWidgetRoot}>
+              <DataWidget styles={classes} />
             </Paper>
           </Grid>
           <Grid item xs={12}>

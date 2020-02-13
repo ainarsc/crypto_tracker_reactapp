@@ -1,54 +1,54 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-    minHeight: 330
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)"
-  },
-  title: {
-    fontSize: 29
-  },
-  pos: {
-    marginBottom: 12
-  }
-});
-
-export default function DataWidget() {
-  const classes = useStyles();
-
+export default function CenteredGrid({ styles }) {
   return (
-    <Card className={classes.root}>
-      <CardContent>
-        <Typography
-          variant="h1"
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        >
-          Bitcoin
-        </Typography>
-        <Typography variant="h5" component="h2">
-          24 Hour Low $10200
-        </Typography>
-        <Typography variant="h5" component="h2">
-          24 Hour High $10400
-        </Typography>
-        <Typography variant="h5" component="h2">
-          Net Change $89.99
-        </Typography>
-        <Typography variant="h5" component="h2">
-          24 Hour Open $10100
-        </Typography>
-      </CardContent>
-    </Card>
+    <Container className={styles.dataWidget}>
+      <Grid container spacing={1}>
+        <Grid item xs={6}>
+          <Paper className={styles.widgetContent}>
+            <Typography variant="h5" component="h2">
+              24 Hour Low
+            </Typography>
+            <Typography variant="h5" component="h3">
+              $10200
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper className={styles.widgetContent}>
+            <Typography variant="h5" component="h2">
+              24 Hour High
+            </Typography>
+            <Typography variant="h5" component="h3">
+              $10200
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper className={styles.widgetContent}>
+            <Typography variant="h5" component="h2">
+              Net Change
+            </Typography>
+            <Typography variant="h5" component="h3">
+              $89.99
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper className={styles.widgetContent}>
+            <Typography variant="h5" component="h2">
+              24 Hour Open
+            </Typography>
+            <Typography variant="h5" component="h3">
+              $10100
+            </Typography>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
