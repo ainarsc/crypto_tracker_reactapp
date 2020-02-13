@@ -12,7 +12,8 @@ import {
   DataTable,
   MarketCap,
   NewsStand,
-  PriceTrend
+  PriceTrend,
+  DataWidget
 } from "./components";
 
 import Copyright from "../Copyright";
@@ -24,15 +25,17 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    height: "100vh",
-    overflow: "auto",
-    marginTop: theme.spacing(1)
+    marginTop: 68,
+    height: "90vh",
+    overflow: "auto"
   },
   paper: {
     padding: theme.spacing(4),
     display: "flex",
     overflow: "auto",
-    flexDirection: "column",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
     margin: theme.spacing(1)
   },
   paperSmall: {
@@ -85,21 +88,24 @@ export default function Dashboard() {
 
   return (
     <main className={classes.content}>
-      <div className={classes.appBarSpacer} />
+      {/* <div className={classes.appBarSpacer} /> */}
 
       <Container maxWidth="lg">
         <Grid container>
           <PriceList container styles={priceListStyles} />
-
-          <Grid item xs={12} md={7} lg={8}>
-            <Paper className={fixedHeightPaper}>
-              <PriceTrend />
-            </Paper>
-          </Grid>
-
-          <Grid item xs={12} md={5} lg={4}>
+          <Grid item xs={12} sm={6}>
             <Paper className={fixedHeightPaper}>
               <MarketCap />
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Paper className={fixedHeightPaper}>
+              <DataWidget />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={fixedHeightPaper}>
+              <PriceTrend />
             </Paper>
           </Grid>
 
@@ -110,7 +116,7 @@ export default function Dashboard() {
           <NewsStand styles={classes} xs={12} />
         </Grid>
 
-        <Box pt={4}>
+        <Box pb={4} pt={4}>
           <Copyright />
         </Box>
       </Container>

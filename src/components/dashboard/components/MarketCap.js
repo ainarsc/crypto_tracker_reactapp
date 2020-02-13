@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Sector } from "recharts";
+import { PieChart, Pie, Cell, Sector } from "recharts";
 import axios from "axios";
 import _ from "lodash";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 const RADIAN = Math.PI / 180;
-
-// const data = [
-//   { name: "BTC", value: 400 },
-//   { name: "ETC", value: 300 },
-//   { name: "XTC", value: 300 },
-//   { name: "EOS", value: 200 }
-// ];
 
 const renderCustomizedLabel = ({
   cx,
@@ -119,31 +112,26 @@ const MarketCap = () => {
 
   return (
     isFetched === true && (
-      <ResponsiveContainer>
-        <PieChart width={120} height={120}>
-          <Pie
-            activeIndex={index.activeIndex}
-            activeShape={renderActiveShape}
-            onMouseEnter={onPieEnter}
-            cx="50%"
-            cy="50%"
-            data={payload}
-            label={renderCustomizedLabel}
-            labelLine={false}
-            innerRadius={80}
-            outerRadius={130}
-            fill="#8884d8"
-            dataKey="marketCap"
-          >
-            {payload.map((_, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-        </PieChart>
-      </ResponsiveContainer>
+      <PieChart width={300} height={300}>
+        <Pie
+          activeIndex={index.activeIndex}
+          activeShape={renderActiveShape}
+          onMouseEnter={onPieEnter}
+          cx="50%"
+          cy="50%"
+          data={payload}
+          label={renderCustomizedLabel}
+          labelLine={false}
+          innerRadius={80}
+          outerRadius={130}
+          fill="#8884d8"
+          dataKey="marketCap"
+        >
+          {payload.map((_, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+      </PieChart>
     )
   );
 };
