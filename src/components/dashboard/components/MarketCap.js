@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PieChart, Pie, Cell, Sector } from "recharts";
+import { PieChart, Pie, Cell, Sector, Legend } from "recharts";
 import axios from "axios";
 import _ from "lodash";
 
@@ -112,7 +112,13 @@ const MarketCap = () => {
 
   return (
     isFetched === true && (
-      <PieChart width={300} height={300}>
+      <PieChart width={330} height={330}>
+        <Legend
+          wrapperStyle={{ top: 0 }}
+          verticalAlign="top"
+          layout="horizontal"
+          align="center"
+        />
         <Pie
           activeIndex={index.activeIndex}
           activeShape={renderActiveShape}
