@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function DataTable() {
+export default function DataTable({ styles }) {
   const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&&tsyms=USD`;
   const [payload, setPayload] = useState([]);
   const [isFetched, setFetched] = useState(false);
@@ -54,7 +54,11 @@ export default function DataTable() {
   return (
     isFetched && (
       <TableContainer className={classes.root} component={Paper}>
-        <Table size="small" aria-label="a dense table">
+        <Table
+          size="small"
+          aria-label="a dense table"
+          className={styles.darkBg}
+        >
           <TableHead>
             <TableRow>
               <TableCell align="right">#</TableCell>

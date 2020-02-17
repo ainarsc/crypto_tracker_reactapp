@@ -10,13 +10,18 @@ import Dashboard from "./components/dashboard";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex"
+    display: "flex",
+    backgroundColor: "#212121"
   }
 }));
 
 let theme = createMuiTheme({
   palette: {
-    type: "dark"
+    type: "dark",
+    primary: {
+      main: "#212121",
+      dark: "#212121"
+    }
   },
   shape: {
     borderRadius: 2
