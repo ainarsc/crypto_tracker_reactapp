@@ -6,6 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import Dashboard from "./components/dashboard";
+import { Provider } from "react-redux";
+import configureStore from "./store";
 // import useDataFetch from "./components/utils/useDataFetch";
 
 const useStyles = makeStyles(theme => ({
@@ -37,6 +39,7 @@ let theme = createMuiTheme({
 });
 
 theme = responsiveFontSizes(theme);
+const store = configureStore();
 
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -47,17 +50,19 @@ function App() {
   const classes = useStyles();
 
   return (
-    <ThemeProvider theme={theme}>
-      <div className={classes.root}>
-        <CssBaseline />
-        <ResponsiveDrawer
-          handleDrawerToggle={handleDrawerToggle}
-          mobileOpen={mobileOpen}
-        />
-        <NavBar handleDrawerToggle={handleDrawerToggle} />
-        <Dashboard />
-      </div>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <div className={classes.root}>
+          <CssBaseline />
+          <ResponsiveDrawer
+            handleDrawerToggle={handleDrawerToggle}
+            mobileOpen={mobileOpen}
+          />
+          <NavBar handleDrawerToggle={handleDrawerToggle} />
+          <Dashboard />
+        </div>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
