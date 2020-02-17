@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     padding: theme.spacing(4),
-    backgroundColor: "#252525",
+
     display: "flex",
     overflow: "auto",
     flexDirection: "row",
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   },
   paperSmall: {
     display: "flex",
-    backgroundColor: "#252525",
+
     flexDirection: "column",
     alignItems: "center",
     padding: theme.spacing(1),
@@ -77,7 +77,7 @@ const useStyles = makeStyles(theme => ({
   },
   newsContent: {
     padding: theme.spacing(2),
-    backgroundColor: "#252525",
+
     "&:last-child": {
       paddingBottom: theme.spacing(1)
     }
@@ -85,7 +85,7 @@ const useStyles = makeStyles(theme => ({
   dataWidgetRoot: {
     flexGrow: 1,
     alignContent: "center",
-    backgroundColor: "#252525",
+
     margin: theme.spacing(1)
   },
   dataWidget: {
@@ -93,15 +93,12 @@ const useStyles = makeStyles(theme => ({
   },
   widgetContent: {
     display: "flex",
-    backgroundColor: "#252525",
+
     flexDirection: "column",
     height: 178,
     textAlign: "center",
     color: theme.palette.text.secondary,
     justifyContent: "center"
-  },
-  darkBg: {
-    backgroundColor: "#252525"
   }
 }));
 

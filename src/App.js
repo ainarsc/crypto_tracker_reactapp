@@ -21,8 +21,12 @@ let theme = createMuiTheme({
     primary: {
       main: "#212121",
       dark: "#212121"
+    },
+    background: {
+      paper: "#252525"
     }
   },
+
   shape: {
     borderRadius: 2
   },
