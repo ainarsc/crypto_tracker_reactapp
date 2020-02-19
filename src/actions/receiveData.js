@@ -1,10 +1,9 @@
 import RECEIVE_DATA from "./actionTypes";
 
-export default (url, coin, data) => {
+export default (dataType, data) => {
   return {
     type: RECEIVE_DATA,
-    url,
-    coin,
+    dataType,
     payload: data,
     receivedAt: Date.now
   };
