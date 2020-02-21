@@ -1,4 +1,9 @@
-import { FETCH_INIT, FETCH_SUCCESS, INVALIDATE } from "./actionTypes";
+import {
+  FETCH_INIT,
+  FETCH_SUCCESS,
+  INVALIDATE,
+  FETCH_FAIL
+} from "./actionTypes";
 import axios from "axios";
 
 export const fetchInit = dataType => {
@@ -16,7 +21,13 @@ export const receiveData = (dataType, data) => {
     receivedAt: Date.now
   };
 };
-
+export const fetchFailure = (dataType, error) => {
+  return {
+    type: FETCH_FAIL,
+    dataType,
+    payload: error
+  };
+};
 export const invalidateData = dataType => {
   return {
     type: INVALIDATE,
@@ -29,10 +40,10 @@ export const fetchData = (dataType, url) => async dispatch => {
   dispatch(fetchInit(dataType));
 
   try {
-    const result = await axios(url);
-    dispatch(receiveData(dataType, result.data));
+    const result = await axios(url); //API data
+    dispatch(receiveData(dataType, result.data)); //Store data in the state
   } catch (error) {
     console.log(error);
-    return { error: "FOO" };
+    dispatch(fetchFailure(dataType, error));
   }
 };

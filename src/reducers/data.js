@@ -4,7 +4,8 @@ import {
   FETCH_INIT,
   INVALIDATE,
   SELECT_COIN,
-  RECEIVE_DATA
+  RECEIVE_DATA,
+  FETCH_FAIL
 } from "../actions/actionTypes";
 
 const selectCoin = (state = "BTC", event) => {
@@ -19,6 +20,7 @@ const selectCoin = (state = "BTC", event) => {
 const data = (
   state = {
     isFetching: false,
+    isError: false,
     didInvalidate: false,
     data: {}
   },
@@ -29,20 +31,31 @@ const data = (
       return {
         ...state,
         isFetching: true,
+        isError: false,
         didInvalidate: false
+      };
+
+    case RECEIVE_DATA:
+      return {
+        ...state,
+        isFetching: false,
+        isError: false,
+        didInvalidate: false,
+        data: event.payload,
+        lastUpdated: event.receivedAt
+      };
+    case FETCH_FAIL:
+      return {
+        ...state,
+        isFetching: false,
+        isError: true,
+        didInvalidate: false,
+        data: event.payload
       };
     case INVALIDATE:
       return {
         ...state,
         didInvalidate: true
-      };
-    case RECEIVE_DATA:
-      return {
-        ...state,
-        isFetching: false,
-        didInvalidate: false,
-        data: event.payload,
-        lastUpdated: event.receivedAt
       };
     default:
       return state;
