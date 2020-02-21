@@ -1,10 +1,10 @@
-import combineReducers from "redux";
+import { combineReducers } from "redux";
 
 import {
   FETCH_INIT,
   INVALIDATE,
   SELECT_COIN,
-  RECEIVE_DATA,
+  FETCH_SUCCESS,
   FETCH_FAIL
 } from "../actions/actionTypes";
 
@@ -35,7 +35,7 @@ const data = (
         didInvalidate: false
       };
 
-    case RECEIVE_DATA:
+    case FETCH_SUCCESS:
       return {
         ...state,
         isFetching: false,
@@ -65,7 +65,7 @@ const data = (
 const dataByCategory = (state = {}, event) => {
   switch (event.type) {
     case INVALIDATE:
-    case RECEIVE_DATA:
+    case FETCH_SUCCESS:
     case FETCH_INIT:
       return {
         ...state,

@@ -4,6 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import useDataFetch from "../../../utils/useDataFetch";
 import Divider from "@material-ui/core/Divider";
+import { connect } from "react-redux";
 
 const PriceList = ({ styles, ...props }) => {
   const url = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&tsyms=USD`;
@@ -29,4 +30,8 @@ const PriceList = ({ styles, ...props }) => {
   );
 };
 
-export default PriceList;
+const mapState = state => ({
+  data: state.dataByCategory
+});
+
+export default connect(mapState)(PriceList);
