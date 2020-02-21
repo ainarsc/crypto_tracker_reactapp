@@ -25,18 +25,17 @@ const data = (
   event
 ) => {
   switch (event.type) {
-    case INVALIDATE:
-      return {
-        ...state,
-        didInvalidate: true
-      };
     case FETCH_INIT:
       return {
         ...state,
         isFetching: true,
         didInvalidate: false
       };
-
+    case INVALIDATE:
+      return {
+        ...state,
+        didInvalidate: true
+      };
     case RECEIVE_DATA:
       return {
         ...state,

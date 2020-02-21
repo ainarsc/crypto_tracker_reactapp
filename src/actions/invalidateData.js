@@ -1,8 +1,8 @@
 import INVALIDATE from "./actionTypes";
 
-export default url => {
+export default dataType => {
   return {
     type: INVALIDATE,
-    url
+    dataType
   };
 };
