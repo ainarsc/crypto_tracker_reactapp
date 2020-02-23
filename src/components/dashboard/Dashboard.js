@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import clsx from "clsx";
+import { connect } from "react-redux";
+import { fetchData } from "../../actions/fetchData";
 
 //Component imports
 import {
@@ -102,11 +104,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Dashboard() {
+const Dashboard = ({ fetchData }) => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const priceListStyles = clsx(classes.paperSmall, classes.fixedHeightSmall);
   const dataWidgetRoot = clsx(classes.fixedHeight, classes.dataWidgetRoot);
+
+  useEffect(() => {
+    const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&&tsyms=USD`;
+    const keysToPick = [
+      "FROMSYMBOL",
+      "PRICE",
+      "CHANGEHOUR",
+      "CHANGE24HOUR",
+      "TOTALVOLUME24H",
+      "MKTCAP"
+    ];
+    fetchData("FULL_DATA", url, "USD", keysToPick);
+  }, [fetchData]);
 
   return (
     <main className={classes.content}>
@@ -144,4 +159,10 @@ export default function Dashboard() {
       </Container>
     </main>
   );
-}
+};
+
+const mapActions = {
+  fetchData
+};
+
+export default connect(null, mapActions)(Dashboard);
