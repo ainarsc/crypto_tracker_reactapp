@@ -1,47 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import escapeRegExp from "../../../utils/escapeRegExp";
 import moment from "moment";
-import axios from "axios";
+import { connect } from "react-redux";
+import { fetchData } from "../../../actions/fetchData";
 import _ from "lodash";
 
-const NewsStand = ({ styles, ...props }) => {
-  const url = `https://min-api.cryptocompare.com/data/v2/news/?lang=EN`;
-  const [payload, setPayload] = useState([]);
-  const [isFetched, setFetched] = useState(false);
+const NewsStand = ({ data, fetchData, styles, ...props }) => {
   const { newsCard, bullet, newsTitle, position, newsContent } = styles;
-
   const bull = <span className={bullet}>•</span>;
 
-  //SORT OUT THE DATA
-  const cleanseData = data => {
-    const picked = _.take(data, 8); //Take first 8 items from data array
-
-    return _.map(picked, obj =>
-      _.pick(obj, ["title", "published_on", "url", "categories", "source_info"])
-    );
-  };
-
-  //FETCH THE DATA
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(url); //return: axios.data
-      const cleansed = cleanseData(result.data.Data);
+    const url = `https://min-api.cryptocompare.com/data/v2/news/?lang=EN`;
+    const keysToPick = [
+      "title",
+      "published_on",
+      "url",
+      "categories",
+      "source_info"
+    ];
 
-      setPayload(cleansed);
-      setFetched(true);
-      console.log(cleansed);
-    };
-    fetchData();
-  }, [url]);
+    fetchData("NEWS", url, null, keysToPick);
+  }, [fetchData]);
 
   return (
-    isFetched && (
+    data.NEWS !== undefined && (
       <Grid item {...props}>
-        {_.map(payload, data => (
+        {_.map(data.NEWS.data, article => (
           <Card className={newsCard}>
             <CardContent className={newsContent}>
               <Typography
@@ -50,17 +38,17 @@ const NewsStand = ({ styles, ...props }) => {
                 gutterBottom
               >
                 {_.replace(
-                  data.categories,
+                  article.categories,
                   new RegExp(escapeRegExp("|"), "g"),
                   " | "
                 )}
               </Typography>
               <Typography variant="h5" component="h2">
-                {data.title}
+                {article.title}
               </Typography>
               <Typography className={position} color="textSecondary">
-                {data.source_info.name} {bull}{" "}
-                {moment.unix(data.published_on).format("MM.DD.YYYY")}
+                {article.source_info.name} {bull}{" "}
+                {moment.unix(article.published_on).format("MM.DD.YYYY")}
               </Typography>
             </CardContent>
           </Card>
@@ -70,4 +58,12 @@ const NewsStand = ({ styles, ...props }) => {
   );
 };
 
-export default NewsStand;
+const mapState = state => ({
+  data: state.dataByCategory
+});
+
+const mapActions = {
+  fetchData
+};
+
+export default connect(mapState, mapActions)(NewsStand);
