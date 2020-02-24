@@ -5,6 +5,7 @@ import {
   FETCH_FAIL
 } from "./actionTypes";
 import axios from "axios";
+import { cleanseData } from "../utils/cleanseData";
 
 export const fetchInit = dataType => {
   return {
@@ -35,13 +36,22 @@ export const invalidateData = dataType => {
   };
 };
 
-export const fetchData = (dataType, url) => async dispatch => {
+export const fetchData = (
+  dataType,
+  url,
+  currency,
+  keysToPick
+) => async dispatch => {
   //Init fetch, the API call is starting
   dispatch(fetchInit(dataType));
 
   try {
     const result = await axios(url); //API data
-    dispatch(receiveData(dataType, result.data)); //Store data in the state
+    // Should process the data here
+    const cleansed = cleanseData(result.data, currency, keysToPick);
+
+    //Store data
+    dispatch(receiveData(dataType, cleansed)); //Store data in the state
   } catch (error) {
     console.log(error);
     dispatch(fetchFailure(dataType, error));

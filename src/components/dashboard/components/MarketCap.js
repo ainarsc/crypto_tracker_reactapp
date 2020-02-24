@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PieChart, Pie, Cell, Sector, Legend } from "recharts";
-import axios from "axios";
+import { connect } from "react-redux";
 import _ from "lodash";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
@@ -27,7 +27,7 @@ const renderCustomizedLabel = ({
       verticalAnchor="middle"
       dominantBaseline="middle"
     >
-      {payload.name}
+      {payload.FROMSYMBOL}
     </text>
   );
 };
@@ -49,7 +49,7 @@ const renderActiveShape = props => {
     <g>
       <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
         {`Market Cap
-         $${payload.marketCap}B`}
+         $${_.round(payload.MKTCAP, -7) / 1000000000}B`}
       </text>
       <Sector
         cx={cx}
@@ -73,36 +73,8 @@ const renderActiveShape = props => {
   );
 };
 
-const MarketCap = () => {
-  const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&&tsyms=USD`;
+const MarketCap = ({ data }) => {
   const [index, setIndex] = useState({ activeIndex: 0 });
-  const [payload, setPayload] = useState([]);
-  const [isFetched, setFetched] = useState(false);
-
-  const cleanseData = obj => {
-    // d = DISPLAY
-    const result = _.mapValues(obj, (val, key) => {
-      return {
-        name: key,
-        price: val.USD.PRICE,
-        marketCap: _.round(val.USD.MKTCAP, -7) / 1000000000
-      };
-    });
-    return _.toArray(result); // [{name: "BTC", price: $999, marketCap: $99B}, {name: "BTC", price: $999, marketCap: $99B}, ...]
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(url);
-      const cleansed = cleanseData(result.data.RAW);
-
-      setPayload(cleansed);
-
-      console.log(cleansed);
-      setFetched(true);
-    };
-    fetchData();
-  }, [url]);
 
   const onPieEnter = (data, index) => {
     setIndex({
@@ -111,7 +83,7 @@ const MarketCap = () => {
   };
 
   return (
-    isFetched === true && (
+    data.FULL_DATA !== undefined && (
       <PieChart width={330} height={330}>
         <Legend
           wrapperStyle={{ top: 0 }}
@@ -125,15 +97,16 @@ const MarketCap = () => {
           onMouseEnter={onPieEnter}
           cx="50%"
           cy="50%"
-          data={payload}
+          data={data.FULL_DATA.data}
           label={renderCustomizedLabel}
           labelLine={false}
           innerRadius={80}
           outerRadius={130}
           fill="#8884d8"
-          dataKey="marketCap"
+          dataKey="MKTCAP"
+          nameKey="FROMSYMBOL"
         >
-          {payload.map((_, index) => (
+          {_.map(data.FULL_DATA.data, (val, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
@@ -142,4 +115,7 @@ const MarketCap = () => {
   );
 };
 
-export default MarketCap;
+const mapState = state => ({
+  data: state.dataByCategory
+});
+export default connect(mapState)(MarketCap);

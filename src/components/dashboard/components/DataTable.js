@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import axios from "axios";
+import { connect } from "react-redux";
 import _ from "lodash";
 
 const useStyles = makeStyles(theme => ({
@@ -17,42 +17,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function DataTable() {
-  const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&&tsyms=USD`;
-  const [payload, setPayload] = useState([]);
-  const [isFetched, setFetched] = useState(false);
+const DataTable = ({ data }) => {
   const classes = useStyles();
 
-  const cleanseData = obj => {
-    const result = _.map(obj, item =>
-      _.pick(item.USD, [
-        "FROMSYMBOL",
-        "PRICE",
-        "CHANGEHOUR",
-        "CHANGE24HOUR",
-        "TOTALVOLUME24H",
-        "MKTCAP"
-      ])
-    );
-
-    return result;
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(url);
-      const cleansed = cleanseData(result.data.DISPLAY);
-
-      setPayload(cleansed);
-
-      console.log(cleansed);
-      setFetched(true);
-    };
-    fetchData();
-  }, [url]);
-
   return (
-    isFetched && (
+    data.FULL_DATA !== undefined && (
       <TableContainer className={classes.root} component={Paper}>
         <Table size="small" aria-label="a dense table">
           <TableHead>
@@ -67,17 +36,17 @@ export default function DataTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {_.map(payload, (obj, index) => (
+            {_.map(data.FULL_DATA.data, (coin, index) => (
               <TableRow align="right">
                 <TableCell component="th" scope="row" align="right">
                   {index + 1}
                 </TableCell>
-                <TableCell align="right">{obj.FROMSYMBOL}</TableCell>
-                <TableCell align="right">{obj.PRICE}</TableCell>
-                <TableCell align="right">{obj.CHANGEHOUR}</TableCell>
-                <TableCell align="right">{obj.CHANGE24HOUR}</TableCell>
-                <TableCell align="right">{obj.TOTALVOLUME24H}</TableCell>
-                <TableCell align="right">{obj.MKTCAP}</TableCell>
+                <TableCell align="right">{coin.FROMSYMBOL}</TableCell>
+                <TableCell align="right">{coin.PRICE}</TableCell>
+                <TableCell align="right">{coin.CHANGEHOUR}</TableCell>
+                <TableCell align="right">{coin.CHANGE24HOUR}</TableCell>
+                <TableCell align="right">{coin.TOTALVOLUME24H}</TableCell>
+                <TableCell align="right">{coin.MKTCAP}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -85,4 +54,10 @@ export default function DataTable() {
       </TableContainer>
     )
   );
-}
+};
+
+const mapState = state => ({
+  data: state.dataByCategory
+});
+
+export default connect(mapState)(DataTable);
