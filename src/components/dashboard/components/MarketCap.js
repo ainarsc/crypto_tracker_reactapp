@@ -82,8 +82,10 @@ const MarketCap = ({ data }) => {
     });
   };
 
+  let payload = data.FULL_DATA !== undefined && _.toArray(data.FULL_DATA.data);
+
   return (
-    data.FULL_DATA !== undefined && (
+    payload !== undefined && (
       <PieChart width={330} height={330}>
         <Legend
           wrapperStyle={{ top: 0 }}
@@ -97,7 +99,7 @@ const MarketCap = ({ data }) => {
           onMouseEnter={onPieEnter}
           cx="50%"
           cy="50%"
-          data={data.FULL_DATA.data}
+          data={payload}
           label={renderCustomizedLabel}
           labelLine={false}
           innerRadius={80}
@@ -106,7 +108,7 @@ const MarketCap = ({ data }) => {
           dataKey="MKTCAP"
           nameKey="FROMSYMBOL"
         >
-          {_.map(data.FULL_DATA.data, (val, index) => (
+          {_.map(payload, (val, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
@@ -118,4 +120,5 @@ const MarketCap = ({ data }) => {
 const mapState = state => ({
   data: state.dataByCategory
 });
+
 export default connect(mapState)(MarketCap);

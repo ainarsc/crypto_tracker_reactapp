@@ -10,10 +10,10 @@ const PriceList = ({ styles, data, ...props }) => {
   return (
     data.FULL_DATA !== undefined && (
       <Grid {...props}>
-        {_.map(data.FULL_DATA.data, (coin, index) => (
-          <Grid key={index} item xs={4} md={2}>
+        {_.map(data.FULL_DATA.data, (coin, key) => (
+          <Grid key={key} item xs={4} md={2}>
             <Paper className={styles}>
-              <Typography variant="title">{`${coin.FROMSYMBOL}`}</Typography>
+              <Typography variant="title">{`${key}`}</Typography>
               <Divider
                 width="100%"
                 orientation="horizontal"

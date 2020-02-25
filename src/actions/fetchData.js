@@ -5,7 +5,7 @@ import {
   FETCH_FAIL
 } from "./actionTypes";
 import axios from "axios";
-import { cleanseData } from "../utils/cleanseData";
+import { cleanseData, cleanseDataProto } from "../utils/cleanseData";
 
 export const fetchInit = dataType => {
   return {
@@ -48,7 +48,7 @@ export const fetchData = (
   try {
     const result = await axios(url); //API data
     // Should process the data here
-    const cleansed = cleanseData(result.data, currency, keysToPick);
+    const cleansed = cleanseDataProto(result.data, currency, keysToPick);
 
     //Store data
     dispatch(receiveData(dataType, cleansed)); //Store data in the state
