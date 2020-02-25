@@ -5,7 +5,7 @@ import {
   FETCH_FAIL
 } from "./actionTypes";
 import axios from "axios";
-import { cleanseData, cleanseDataProto } from "../utils/cleanseData";
+import { cleanseDataProto } from "../utils/cleanseData";
 
 export const fetchInit = dataType => {
   return {

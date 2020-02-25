@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
 
 const CenteredGrid = ({ data, styles }) => {
-  const selectedCoin = "BTC";
   return (
     data.FULL_DATA !== undefined &&
     !data.FULL_DATA.isFetching && (
