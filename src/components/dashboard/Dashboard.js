@@ -120,7 +120,9 @@ const Dashboard = ({ fetchData }) => {
       "TOTALVOLUME24H",
       "MKTCAP"
     ];
-    fetchData("FULL_DATA", url, "USD", keysToPick);
+    const BTC = "BTC";
+    const USD = "USD";
+    fetchData("FULL_DATA", url, BTC, USD, keysToPick);
   }, [fetchData]);
 
   return (

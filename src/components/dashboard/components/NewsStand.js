@@ -23,7 +23,7 @@ const NewsStand = ({ data, fetchData, styles, ...props }) => {
       "source_info"
     ];
 
-    fetchData("NEWS", url, null, keysToPick);
+    fetchData("NEWS", url, null, null, keysToPick);
   }, [fetchData]);
 
   return (
