@@ -5,7 +5,11 @@ import {
   FETCH_FAIL
 } from "./actionTypes";
 import axios from "axios";
-import { processHistoryData, cleanseDataProto } from "../utils/cleanseData";
+import {
+  cleanupFullData,
+  cleanupNewsData,
+  cleanupHistoryData
+} from "../utils/cleanupData";
 
 export const fetchInit = dataType => {
   return {
@@ -39,35 +43,24 @@ export const invalidateData = dataType => {
 export const fetchData = (
   dataType,
   url,
-  currency = "",
+  crypto = "BTC",
+  currency = "USD",
   keysToPick = []
 ) => async dispatch => {
-  //Init fetch, the API call is starting
   dispatch(fetchInit(dataType));
 
   try {
-    const result = await axios(url); //API data
+    const result = await axios(url); //return: [instance].data
+    let processData;
+    if (dataType === "FULL_DATA") {
+      processData = cleanupFullData(result.data, currency, keysToPick);
+    } else if (dataType === "NEWS") {
+      processData = cleanupNewsData(result.data, keysToPick);
+    } else if (dataType === "HISTORY") {
+      processData = cleanupHistoryData(result.data, crypto, currency);
+    }
 
-    const cleansed = cleanseDataProto(result.data, currency, keysToPick);
-
-    //Store data
-    dispatch(receiveData(dataType, cleansed)); //Store data in the state
-  } catch (error) {
-    dispatch(fetchFailure(dataType, error));
-  }
-};
-
-export const fetchHistoryData = (
-  url,
-  crypto,
-  dataType = "HISTORY",
-  currency = "USD"
-) => async dispatch => {
-  dispatch(fetchInit(dataType));
-  try {
-    const result = await axios(url);
-    const processed = processHistoryData(result.data, crypto, currency);
-    dispatch(receiveData(dataType, processed)); //HISTORY.{crypto.{aggregated, timeFrom, timeTo, data{}}}}
+    dispatch(receiveData(dataType, processData));
   } catch (error) {
     dispatch(fetchFailure(dataType, error));
   }
