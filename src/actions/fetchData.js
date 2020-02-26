@@ -58,21 +58,16 @@ export const fetchData = (
 };
 
 export const fetchHistoryData = (
-  crypto,
   url,
-  currency = "USD",
-  keysToPick
+  crypto,
+  dataType = "HISTORY",
+  currency = "USD"
 ) => async dispatch => {
-  const dataType = `HISTORY_${crypto}`;
   dispatch(fetchInit(dataType));
   try {
     const result = await axios(url);
-    const processed = processHistoryData(
-      result.data.Data,
-      currency,
-      keysToPick
-    );
-    dispatch(receiveData(dataType, processed));
+    const processed = processHistoryData(result.data, crypto, currency);
+    dispatch(receiveData(dataType, processed)); //HISTORY.{crypto.{aggregated, timeFrom, timeTo, data{}}}}
   } catch (error) {
     dispatch(fetchFailure(dataType, error));
   }

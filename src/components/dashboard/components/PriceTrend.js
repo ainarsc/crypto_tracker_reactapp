@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import moment from "moment";
+import { fetchHistoryData } from "../../../actions/fetchData";
 
 import {
   AreaChart,
@@ -11,21 +13,14 @@ import {
   ResponsiveContainer
 } from "recharts";
 // import useDataFetch from "../utils/useDataFetch";
-import axios from "axios";
 
-const PriceTrend = () => {
-  const url = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30&aggregate=1`;
-  const [state, setState] = useState("");
-  const [isFetched, setFetched] = useState(false);
-
+const PriceTrend = ({ data, fetchHistoryData }) => {
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(url);
-      setState(result);
-      setFetched(true);
-    };
-    fetchData();
-  }, [url]);
+    const url = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30&aggregate=1`;
+    const BTC = "BTC";
+
+    fetchHistoryData(url, BTC);
+  }, [fetchHistoryData]);
 
   const TiltedAxisTick = props => {
     const { x, y, payload, ...rest } = props;
@@ -48,10 +43,11 @@ const PriceTrend = () => {
   };
 
   return (
-    isFetched === true && (
+    data.HISTORY !== undefined &&
+    !data.HISTORY.isFetching && (
       <ResponsiveContainer>
         <AreaChart
-          data={state.data.Data.Data}
+          data={data.HISTORY.data.BTC.Data}
           margin={{
             top: 10,
             right: 20,
@@ -63,13 +59,19 @@ const PriceTrend = () => {
           <XAxis
             dataKey="time"
             name="Time"
-            domain={[state.data.Data.TimeFrom, state.data.Data.TimeTo]}
+            domain={[
+              data.HISTORY.data.BTC.TimeFrom,
+              data.HISTORY.data.BTC.TimeTo
+            ]}
             scale="time"
             type="number"
             interval={5}
             tick={<TiltedAxisTick />}
           />
-          <YAxis dataKey="close" domain={[state.data.Data.Data.low, "auto"]} />
+          <YAxis
+            dataKey="close"
+            domain={[data.HISTORY.data.BTC.Data.low, "auto"]}
+          />
           <Tooltip />
           <Area
             type="monotone"
@@ -83,4 +85,11 @@ const PriceTrend = () => {
   );
 };
 
-export default PriceTrend;
+const mapState = state => ({
+  data: state.dataByCategory
+});
+const mapActions = {
+  fetchHistoryData
+};
+
+export default connect(mapState, mapActions)(PriceTrend);

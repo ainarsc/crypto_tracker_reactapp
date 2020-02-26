@@ -1,13 +1,9 @@
 import _ from "lodash";
 
-export const processHistoryData = (dataSet, currency, ...args) => {
-  let apiData = dataSet.Data.Data;
-  const result = _.map(apiData, item => {
-    return _.pick(item, ...args);
-  });
+export const processHistoryData = (dataSet, crypto, currency) => {
+  let result = { [crypto]: dataSet.Data };
 
-  //Returns an array of objects
-  return result;
+  return result; // result.{crypto.{aggregated, timeFrom, timeTo, data{}}}
 };
 
 export const cleanseDataProto = (dataSet, currency, ...args) => {
