@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import { fetchData } from "../../../actions/fetchData";
 
 import {
   AreaChart,
@@ -12,17 +11,8 @@ import {
   Tooltip,
   ResponsiveContainer
 } from "recharts";
-// import useDataFetch from "../utils/useDataFetch";
 
-const PriceTrend = ({ data, fetchData }) => {
-  useEffect(() => {
-    const url = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30&aggregate=1`;
-    // const BTC = "BTC";
-    // const USD = "USD"
-
-    fetchData("HISTORY", url);
-  }, [fetchData]);
-
+const PriceTrend = ({ data }) => {
   const TiltedAxisTick = props => {
     const { x, y, payload, ...rest } = props;
 
@@ -89,8 +79,5 @@ const PriceTrend = ({ data, fetchData }) => {
 const mapState = state => ({
   data: state.dataByCategory
 });
-const mapActions = {
-  fetchData
-};
 
-export default connect(mapState, mapActions)(PriceTrend);
+export default connect(mapState)(PriceTrend);

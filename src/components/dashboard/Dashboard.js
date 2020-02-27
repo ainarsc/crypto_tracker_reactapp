@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
@@ -7,6 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import clsx from "clsx";
 import { connect } from "react-redux";
 import { fetchData } from "../../actions/fetchData";
+import useApi from "../../utils/useApi";
 
 //Component imports
 import {
@@ -110,20 +111,8 @@ const Dashboard = ({ fetchData }) => {
   const priceListStyles = clsx(classes.paperSmall, classes.fixedHeightSmall);
   const dataWidgetRoot = clsx(classes.fixedHeight, classes.dataWidgetRoot);
 
-  useEffect(() => {
-    const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&&tsyms=USD`;
-    const keysToPick = [
-      "FROMSYMBOL",
-      "PRICE",
-      "CHANGEHOUR",
-      "CHANGE24HOUR",
-      "TOTALVOLUME24H",
-      "MKTCAP"
-    ];
-    const BTC = "BTC";
-    const USD = "USD";
-    fetchData("FULL_DATA", url, BTC, USD, keysToPick);
-  }, [fetchData]);
+  //Call initial api actions
+  useApi(fetchData);
 
   return (
     <main className={classes.content}>
