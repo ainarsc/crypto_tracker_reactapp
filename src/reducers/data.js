@@ -3,21 +3,70 @@ import { combineReducers } from "redux";
 import {
   FETCH_INIT,
   INVALIDATE,
-  SELECT_COIN,
   FETCH_SUCCESS,
-  FETCH_FAIL
+  FETCH_FAIL,
+  SELECT_COIN,
+  SELECT_CURRENCY,
+  SELECT_TIME,
+  SELECT_NEWS,
+  LIGHT_MODE,
+  DARK_MODE,
+  SELECT_COINS
 } from "../actions/actionTypes";
 
-const selectCoin = (state = "BTC", event) => {
+const appSettings = (state = { darkMode: true }, event) => {
   switch (event.type) {
-    case SELECT_COIN:
-      return event.coin;
+    case LIGHT_MODE:
+      return {
+        ...state,
+        darkMode: false
+      };
+    case DARK_MODE:
+      return {
+        ...state,
+        darkMode: true
+      };
     default:
       return state;
   }
 };
 
-const data = (
+const dashboardSettings = (
+  state = { crypto: "BTC", currency: "USD", newsArticles: 8, timePeriod: 30 },
+  event
+) => {
+  switch (event.type) {
+    case SELECT_COIN:
+      return {
+        ...state,
+        crypto: event.payload
+      };
+    case SELECT_CURRENCY:
+      return {
+        ...state,
+        currency: event.payload
+      };
+    case SELECT_TIME:
+      return {
+        ...state,
+        timePeriod: event.payload
+      };
+    case SELECT_NEWS:
+      return {
+        ...state,
+        newsArticles: event.payload
+      };
+    case SELECT_COINS:
+      return {
+        ...state,
+        cryptosList: ["BTC", "ETH", "XRP", "BTH", "BSV", "LTC"]
+      };
+    default:
+      return state;
+  }
+};
+
+const apiData = (
   state = {
     isFetching: false,
     isError: false,
@@ -69,7 +118,7 @@ const dataByCategory = (state = {}, event) => {
     case FETCH_INIT:
       return {
         ...state,
-        [event.dataType]: data(state[event.dataType], event)
+        [event.dataType]: apiData(state[event.dataType], event)
       };
     default:
       return state;
@@ -77,7 +126,8 @@ const dataByCategory = (state = {}, event) => {
 };
 
 const rootReducer = combineReducers({
-  selectCoin,
+  appSettings,
+  dashboardSettings,
   dataByCategory
 });
 
