@@ -14,7 +14,7 @@ import {
 
 const PriceTrend = ({ data }) => {
   const TiltedAxisTick = props => {
-    const { x, y, payload, ...rest } = props;
+    const { x, y, payload } = props;
 
     return (
       <g transform={`translate(${x},${y})`}>
@@ -24,7 +24,7 @@ const PriceTrend = ({ data }) => {
           dy={16}
           textAnchor="middle"
           fill="#666"
-          {...rest}
+
           // transform="rotate(-45)"
         >
           {moment.unix(payload.value).format("DD.MMM")}

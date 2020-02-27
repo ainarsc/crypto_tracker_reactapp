@@ -37,7 +37,7 @@ const DataTable = ({ data }) => {
           </TableHead>
           <TableBody>
             {_.map(data.FULL_DATA.data, (coin, index) => (
-              <TableRow align="right">
+              <TableRow key={index} align="right">
                 <TableCell component="th" scope="row" align="right">
                   {index + 1}
                 </TableCell>

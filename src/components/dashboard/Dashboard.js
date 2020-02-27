@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     height: 370
   },
   fixedHeightSmall: {
-    height: 64,
+    height: 72,
     minWidth: 100
   },
   appBarSpacer: theme.mixins.toolbar,
@@ -120,7 +120,7 @@ const Dashboard = ({ fetchData }) => {
 
       <Container maxWidth="lg">
         <Grid container>
-          <PriceList container styles={priceListStyles} />
+          <PriceList styles={priceListStyles} />
           <Grid item xs={12} sm={6}>
             <Paper className={fixedHeightPaper}>
               <MarketCap />
@@ -141,7 +141,7 @@ const Dashboard = ({ fetchData }) => {
             <DataTable styles={classes} />
           </Grid>
 
-          <NewsStand styles={classes} xs={12} />
+          <NewsStand styles={classes} />
         </Grid>
 
         <Box pb={4} pt={4}>

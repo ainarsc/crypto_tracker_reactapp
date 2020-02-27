@@ -24,7 +24,6 @@ const renderCustomizedLabel = ({
       y={y}
       fill="white"
       textAnchor="middle"
-      verticalAnchor="middle"
       dominantBaseline="middle"
     >
       {payload.FROMSYMBOL}
@@ -85,7 +84,8 @@ const MarketCap = ({ data }) => {
   let payload = data.FULL_DATA !== undefined && _.toArray(data.FULL_DATA.data);
 
   return (
-    payload !== undefined && (
+    data.FULL_DATA !== undefined &&
+    !data.FULL_DATA.isFetching && (
       <PieChart width={330} height={330}>
         <Legend
           wrapperStyle={{ top: 0 }}

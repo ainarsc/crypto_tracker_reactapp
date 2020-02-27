@@ -8,15 +8,15 @@ import moment from "moment";
 import { connect } from "react-redux";
 import _ from "lodash";
 
-const NewsStand = ({ data, styles, ...props }) => {
+const NewsStand = ({ data, styles }) => {
   const { newsCard, bullet, newsTitle, position, newsContent } = styles;
   const bull = <span className={bullet}>•</span>;
 
   return (
     data.NEWS !== undefined && (
-      <Grid item {...props}>
-        {_.map(data.NEWS.data, article => (
-          <Card className={newsCard}>
+      <Grid item xs={12}>
+        {_.map(data.NEWS.data, (article, key) => (
+          <Card key={key} className={newsCard}>
             <CardContent className={newsContent}>
               <Typography
                 className={newsTitle}
