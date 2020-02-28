@@ -6,7 +6,7 @@ import Divider from "@material-ui/core/Divider";
 import { connect } from "react-redux";
 import _ from "lodash";
 
-const PriceList = ({ styles, data }) => {
+const PriceList = ({ styles, data, settings }) => {
   return (
     data.FULL_DATA !== undefined && (
       <Grid container>
@@ -15,7 +15,9 @@ const PriceList = ({ styles, data }) => {
             <Paper className={styles}>
               <Typography variant="h6">{`${key}`}</Typography>
               <Divider width="100%" orientation="horizontal" variant="middle" />
-              <Typography variant="h6">{`$${coin.PRICE}`}</Typography>
+              <Typography variant="h6">{`$${
+                coin[settings.currency].PRICE
+              }`}</Typography>
             </Paper>
           </Grid>
         ))}
@@ -25,7 +27,8 @@ const PriceList = ({ styles, data }) => {
 };
 
 const mapState = state => ({
-  data: state.dataByCategory
+  data: state.dataByCategory,
+  settings: state.dashboardSettings
 });
 
 export default connect(mapState)(PriceList);
