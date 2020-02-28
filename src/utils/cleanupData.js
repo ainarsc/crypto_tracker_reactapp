@@ -1,9 +1,22 @@
 import _ from "lodash";
 
-export const cleanupFullData = (apiData, currency, ...args) => {
+export const cleanupFullData = (apiData, ...args) => {
+  const data = apiData.RAW; //axios.data.RAW.[crypto].[currency].Data
+
+  let mapped = {};
+  _.forIn(data, (crypto, cryptoName) => {
+    mapped[cryptoName] = _.mapValues(crypto, currency => {
+      return _.pick(currency, ...args);
+    });
+  });
+
+  return mapped;
+};
+
+export const cleanupFullData_BACKUP = (apiData, ...args) => {
   const data = apiData.RAW; //axios.data.RAW.[crypto].[currency].Data
   const result = _.mapValues(data, item => {
-    return _.pick(item[currency], ...args);
+    return _.pick(item["USD"], ...args);
   });
 
   return result;

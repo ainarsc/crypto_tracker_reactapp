@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import _ from "lodash";
 
-export default function(fetchAction) {
+export default function(fetchAction, state) {
   useEffect(() => {
     const fetchParams = {
       FULL_DATA: {
-        url:
-          "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC&&tsyms=USD",
+        url: `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC,EOS,ETC,XTZ,BNB,ZEC,ADA,XLM,NEO,DASH&&tsyms=USD,EUR`,
         keys: [
           "FROMSYMBOL",
           "PRICE",
@@ -17,8 +16,7 @@ export default function(fetchAction) {
         ]
       },
       HISTORY: {
-        url:
-          "https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30&aggregate=1"
+        url: `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30&aggregate=1`
       },
       NEWS: {
         url: "https://min-api.cryptocompare.com/data/v2/news/?lang=EN",
@@ -31,5 +29,5 @@ export default function(fetchAction) {
       fetchAction(key, data.url, BTC, USD, data.keys);
     });
     console.log("Fetch Success!");
-  }, [fetchAction]);
+  }, [fetchAction, state]);
 }

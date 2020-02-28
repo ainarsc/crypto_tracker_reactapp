@@ -53,7 +53,7 @@ export const fetchData = (
     const result = await axios(url); //return: [instance].data
     let processData;
     if (dataType === "FULL_DATA") {
-      processData = cleanupFullData(result.data, currency, keysToPick);
+      processData = cleanupFullData(result.data, keysToPick);
     } else if (dataType === "NEWS") {
       processData = cleanupNewsData(result.data, keysToPick);
     } else if (dataType === "HISTORY") {
