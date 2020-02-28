@@ -2,6 +2,9 @@ import { useEffect } from "react";
 import _ from "lodash";
 
 export default function(fetchAction, state) {
+  const crypto = state.crypto;
+  const currency = state.currency;
+
   useEffect(() => {
     const fetchParams = {
       FULL_DATA: {
@@ -23,11 +26,10 @@ export default function(fetchAction, state) {
         keys: ["title", "published_on", "url", "categories", "source_info"]
       }
     };
-    const BTC = "BTC";
-    const USD = "USD";
+
     _.forEach(fetchParams, (data, key) => {
-      fetchAction(key, data.url, BTC, USD, data.keys);
+      fetchAction(key, data.url, crypto, currency, data.keys);
     });
     console.log("Fetch Success!");
-  }, [fetchAction, state]);
+  }, [fetchAction, currency, crypto]);
 }

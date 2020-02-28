@@ -43,8 +43,8 @@ export const invalidateData = dataType => {
 export const fetchData = (
   dataType,
   url,
-  crypto = "BTC",
-  currency = "USD",
+  crypto,
+  currency,
   keysToPick = []
 ) => async dispatch => {
   dispatch(fetchInit(dataType));
