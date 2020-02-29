@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -17,8 +17,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DataTable = ({ data }) => {
+const DataTable = ({ data, preferences }) => {
   const classes = useStyles();
+  let index = 1;
 
   return (
     data.FULL_DATA !== undefined && (
@@ -36,17 +37,30 @@ const DataTable = ({ data }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {_.map(data.FULL_DATA.data, (coin, index) => (
-              <TableRow key={index} align="right">
+            {_.map(data.FULL_DATA.data, (coin, key) => (
+              <TableRow key={key} align="right">
                 <TableCell component="th" scope="row" align="right">
-                  {index + 1}
+                  {index++}
                 </TableCell>
-                <TableCell align="right">{coin.FROMSYMBOL}</TableCell>
-                <TableCell align="right">{coin.PRICE}</TableCell>
-                <TableCell align="right">{coin.CHANGEHOUR}</TableCell>
-                <TableCell align="right">{coin.CHANGE24HOUR}</TableCell>
-                <TableCell align="right">{coin.TOTALVOLUME24H}</TableCell>
-                <TableCell align="right">{coin.MKTCAP}</TableCell>
+                <TableCell align="right">
+                  {coin[preferences.currency].FROMSYMBOL}
+                </TableCell>
+                <TableCell align="right">
+                  {_.round(coin[preferences.currency].PRICE, 2)}
+                </TableCell>
+                <TableCell align="right">
+                  {_.round(coin[preferences.currency].CHANGEHOUR, 2)}
+                </TableCell>
+                <TableCell align="right">
+                  {_.round(coin[preferences.currency].CHANGE24HOUR, 2)}
+                </TableCell>
+                <TableCell align="right">
+                  {_.round(coin[preferences.currency].TOTALVOLUME24H, -7) /
+                    1000000}
+                </TableCell>
+                <TableCell align="right">
+                  {_.round(coin[preferences.currency].MKTCAP, -7) / 1000000}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -57,7 +71,8 @@ const DataTable = ({ data }) => {
 };
 
 const mapState = state => ({
-  data: state.dataByCategory
+  data: state.dataByCategory,
+  preferences: state.dashboardSettings
 });
 
 export default connect(mapState)(DataTable);
