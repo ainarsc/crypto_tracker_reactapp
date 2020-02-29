@@ -12,8 +12,10 @@ export default function(fetchAction, state) {
         keys: [
           "FROMSYMBOL",
           "PRICE",
-          "CHANGEHOUR",
           "CHANGE24HOUR",
+          "CHANGEPCT24HOUR",
+          "CHANGEHOUR",
+          "CHANGEPCTHOUR",
           "TOTALVOLUME24H",
           "MKTCAP"
         ]

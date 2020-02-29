@@ -4,8 +4,9 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
+import _ from "lodash";
 
-const CenteredGrid = ({ data, styles }) => {
+const CenteredGrid = ({ data, preferences, styles }) => {
   return (
     data.FULL_DATA !== undefined &&
     !data.FULL_DATA.isFetching && (
@@ -14,40 +15,52 @@ const CenteredGrid = ({ data, styles }) => {
           <Grid item xs={6}>
             <Paper className={styles.widgetContent}>
               <Typography variant="h5" component="h2">
-                24 Hour Change
+                {`${preferences.currency} Change 24H`}
               </Typography>
               <Typography variant="h5" component="h3">
-                {`$${data.FULL_DATA.data.BTC.PRICE}`}
+                {`${_.round(
+                  data.FULL_DATA.data.BTC[preferences.currency].CHANGE24HOUR,
+                  2
+                )}`}
               </Typography>
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className={styles.widgetContent}>
               <Typography variant="h5" component="h2">
-                24 Hour High
+                % Change 24H
               </Typography>
               <Typography variant="h5" component="h3">
-                {`$${data.FULL_DATA.data.BTC.PRICE}`}
+                {`${_.round(
+                  data.FULL_DATA.data.BTC[preferences.currency].CHANGEPCT24HOUR,
+                  2
+                )}`}
               </Typography>
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className={styles.widgetContent}>
               <Typography variant="h5" component="h2">
-                Net Change
+                {`${preferences.currency} Change Hour`}
               </Typography>
               <Typography variant="h5" component="h3">
-                {`$${data.FULL_DATA.data.BTC.PRICE}`}
+                {`${_.round(
+                  data.FULL_DATA.data.BTC[preferences.currency].CHANGEHOUR,
+                  2
+                )}`}
               </Typography>
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className={styles.widgetContent}>
               <Typography variant="h5" component="h2">
-                24 Hour Open
+                % Change 1H
               </Typography>
               <Typography variant="h5" component="h3">
-                {`$${data.FULL_DATA.data.BTC.PRICE}`}
+                {`${_.round(
+                  data.FULL_DATA.data.BTC[preferences.currency].CHANGEPCTHOUR,
+                  2
+                )}`}
               </Typography>
             </Paper>
           </Grid>
@@ -58,7 +71,8 @@ const CenteredGrid = ({ data, styles }) => {
 };
 
 const mapState = state => ({
-  data: state.dataByCategory
+  data: state.dataByCategory,
+  preferences: state.dashboardSettings
 });
 
 export default connect(mapState)(CenteredGrid);
