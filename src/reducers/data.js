@@ -32,7 +32,13 @@ const appSettings = (state = { darkMode: true }, event) => {
 };
 
 const dashboardSettings = (
-  state = { crypto: "BTC", currency: "USD", newsArticles: 8, timePeriod: 30 },
+  state = {
+    crypto: "BTC",
+    currency: "USD",
+    newsArticles: 8,
+    timePeriod: 30,
+    cryptoList: ["BTC", "ETH", "XRP", "BCH", "BSV", "LTC"]
+  },
   event
 ) => {
   switch (event.type) {
@@ -59,7 +65,7 @@ const dashboardSettings = (
     case SELECT_COINS:
       return {
         ...state,
-        cryptosList: ["BTC", "ETH", "XRP", "BTH", "BSV", "LTC"]
+        cryptosList: event.payload
       };
     default:
       return state;
