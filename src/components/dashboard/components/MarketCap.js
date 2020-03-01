@@ -5,7 +5,7 @@ import _ from "lodash";
 
 // TODO: Find another way to structure this component
 
-const MarketCap = ({ data, settings }) => {
+const MarketCap = ({ data, preferences }) => {
   const [index, setIndex] = useState({ activeIndex: 0 });
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
   const RADIAN = Math.PI / 180;
@@ -16,7 +16,9 @@ const MarketCap = ({ data, settings }) => {
     });
   };
 
-  let cryptos = data.FULL_DATA !== undefined && _.toArray(data.FULL_DATA.data);
+  let cryptos =
+    data.FULL_DATA !== undefined &&
+    _.toArray(_.pick(data.FULL_DATA.data, preferences.cryptoList));
 
   // Moved them here to have access to app state
   // Does not accept custom props
@@ -37,7 +39,7 @@ const MarketCap = ({ data, settings }) => {
       <g>
         <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
           {`Market Cap
-           $${_.round(payload[settings.currency].MKTCAP, -7) / 1000000000}B`}
+           $${_.round(payload[preferences.currency].MKTCAP, -7) / 1000000000}B`}
         </text>
         <Sector
           cx={cx}
@@ -80,7 +82,7 @@ const MarketCap = ({ data, settings }) => {
         textAnchor="middle"
         dominantBaseline="middle"
       >
-        {payload[settings.currency].FROMSYMBOL}
+        {payload[preferences.currency].FROMSYMBOL}
       </text>
     );
   };
@@ -107,8 +109,8 @@ const MarketCap = ({ data, settings }) => {
           innerRadius={80}
           outerRadius={130}
           fill="#8884d8"
-          dataKey={`${settings.currency}.MKTCAP`}
-          nameKey={`${settings.currency}.FROMSYMBOL`}
+          dataKey={`${preferences.currency}.MKTCAP`}
+          nameKey={`${preferences.currency}.FROMSYMBOL`}
         >
           {_.map(cryptos, (val, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -121,7 +123,7 @@ const MarketCap = ({ data, settings }) => {
 
 const mapState = state => ({
   data: state.dataByCategory,
-  settings: state.dashboardSettings
+  preferences: state.dashboardSettings
 });
 
 export default connect(mapState)(MarketCap);
