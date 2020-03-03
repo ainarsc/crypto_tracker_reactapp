@@ -10,7 +10,8 @@ import Badge from "@material-ui/core/Badge";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import SettingsIcon from "@material-ui/icons/Settings";
-import SwitchLabels from "./Switch";
+import DarkModeToggle from "./Switch";
+import CurrencySelect from "./Select";
 
 const drawerWidth = 240;
 
@@ -57,8 +58,8 @@ function NavBar(props) {
         <Typography className={classes.title} variant="h6" noWrap>
           Dashboard
         </Typography>
-
-        <SwitchLabels />
+        <CurrencySelect />
+        <DarkModeToggle />
         <IconButton aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={0} color="secondary">
             <MailIcon />

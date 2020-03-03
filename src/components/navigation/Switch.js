@@ -1,12 +1,9 @@
 import React from "react";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 
-export default function SwitchLabels() {
+export default function DarkModeToggle() {
   const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true
+    checkedA: true
   });
 
   const handleChange = name => event => {
@@ -14,17 +11,13 @@ export default function SwitchLabels() {
   };
 
   return (
-    <FormGroup row>
-      <FormControlLabel
-        control={
-          <Switch
-            checked={state.checkedA}
-            onChange={handleChange("checkedA")}
-            value="checkedA"
-          />
-        }
-        label="Secondary"
+    <div>
+      <Switch
+        checked={state.checkedA}
+        onChange={handleChange("checkedA")}
+        value="checkedA"
+        inputProps={{ "aria-label": "secondary checkbox" }}
       />
-    </FormGroup>
+    </div>
   );
 }
