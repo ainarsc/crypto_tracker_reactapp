@@ -21,7 +21,7 @@ export default function(fetchAction, state) {
         ]
       },
       HISTORY: {
-        url: `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30&aggregate=1`
+        url: `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${crypto}&tsym=${currency}&limit=30&aggregate=1`
       },
       NEWS: {
         url: "https://min-api.cryptocompare.com/data/v2/news/?lang=EN",
@@ -32,6 +32,6 @@ export default function(fetchAction, state) {
     _.forEach(fetchParams, (data, key) => {
       fetchAction(key, data.url, crypto, currency, data.keys);
     });
-    console.log("Fetch Success!");
+    console.log("[useApi]: State Updated");
   }, [fetchAction, currency, crypto]);
 }
