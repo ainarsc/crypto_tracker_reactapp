@@ -15,10 +15,10 @@ const CenteredGrid = ({ data, preferences, styles }) => {
           <Grid item xs={6}>
             <Paper className={styles.widgetContent}>
               <Typography variant="h5" component="h2">
-                {`${preferences.currency} Change 24H`}
+                {`Change 24H`}
               </Typography>
               <Typography variant="h5" component="h3">
-                {`${_.round(
+                {`${preferences.currency} ${_.round(
                   data.FULL_DATA.data.BTC[preferences.currency].CHANGE24HOUR,
                   2
                 )}`}
@@ -28,23 +28,10 @@ const CenteredGrid = ({ data, preferences, styles }) => {
           <Grid item xs={6}>
             <Paper className={styles.widgetContent}>
               <Typography variant="h5" component="h2">
-                % Change 24H
+                {`Change Hour`}
               </Typography>
               <Typography variant="h5" component="h3">
-                {`${_.round(
-                  data.FULL_DATA.data.BTC[preferences.currency].CHANGEPCT24HOUR,
-                  2
-                )}`}
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper className={styles.widgetContent}>
-              <Typography variant="h5" component="h2">
-                {`${preferences.currency} Change Hour`}
-              </Typography>
-              <Typography variant="h5" component="h3">
-                {`${_.round(
+                {`${preferences.currency} ${_.round(
                   data.FULL_DATA.data.BTC[preferences.currency].CHANGEHOUR,
                   2
                 )}`}
@@ -54,10 +41,23 @@ const CenteredGrid = ({ data, preferences, styles }) => {
           <Grid item xs={6}>
             <Paper className={styles.widgetContent}>
               <Typography variant="h5" component="h2">
-                % Change 1H
+                Change 24H
               </Typography>
               <Typography variant="h5" component="h3">
-                {`${_.round(
+                {`% ${_.round(
+                  data.FULL_DATA.data.BTC[preferences.currency].CHANGEPCT24HOUR,
+                  2
+                )}`}
+              </Typography>
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={styles.widgetContent}>
+              <Typography variant="h5" component="h2">
+                Change 1H
+              </Typography>
+              <Typography variant="h5" component="h3">
+                {`%  ${_.round(
                   data.FULL_DATA.data.BTC[preferences.currency].CHANGEPCTHOUR,
                   2
                 )}`}

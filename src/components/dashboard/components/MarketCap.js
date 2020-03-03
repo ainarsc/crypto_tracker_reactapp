@@ -39,7 +39,10 @@ const MarketCap = ({ data, preferences }) => {
       <g>
         <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
           {`Market Cap
-           $${_.round(payload[preferences.currency].MKTCAP, -7) / 1000000000}B`}
+           ${preferences.currency} ${_.round(
+            payload[preferences.currency].MKTCAP,
+            -7
+          ) / 1000000000}B`}
         </text>
         <Sector
           cx={cx}
