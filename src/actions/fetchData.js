@@ -43,12 +43,16 @@ export const invalidateData = dataType => {
 const shouldFetch = (state, dataType) => {
   let data = state.dataByCategory[dataType];
   // return true;
-  if (!data) {
+  if (dataType === "HISTORY") {
     return true;
-  } else if (data.isFetching) {
-    return false;
   } else {
-    return data.didInvalidate;
+    if (!data) {
+      return true;
+    } else if (data.isFetching) {
+      return false;
+    } else {
+      return data.didInvalidate;
+    }
   }
 };
 
