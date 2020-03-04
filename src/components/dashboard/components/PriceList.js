@@ -16,9 +16,10 @@ const PriceList = ({ styles, data, preferences }) => {
             <Paper className={styles}>
               <Typography variant="h6">{`${coin}`}</Typography>
               <Divider width="100%" orientation="horizontal" variant="middle" />
-              <Typography variant="h6">{`${preferences.currency} ${
-                data.FULL_DATA.data[coin][preferences.currency].PRICE
-              }`}</Typography>
+              <Typography variant="h6">{`${preferences.currency} ${_.round(
+                data.FULL_DATA.data[coin][preferences.currency].PRICE,
+                2
+              )}`}</Typography>
             </Paper>
           </Grid>
         ))}
