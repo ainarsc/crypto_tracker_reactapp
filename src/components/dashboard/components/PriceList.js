@@ -3,21 +3,21 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import { isFullDataSet, getPrice } from "../../../selectors";
 import { connect } from "react-redux";
 import _ from "lodash";
 
-const PriceList = ({ styles, data, preferences }) => {
+const PriceList = ({ styles, data, preferences: { currency, cryptoList } }) => {
   return (
-    data.FULL_DATA !== undefined &&
-    !data.FULL_DATA.isFetching && (
+    isFullDataSet(data) && (
       <Grid container>
-        {_.map(preferences.cryptoList, (coin, index) => (
+        {_.map(cryptoList, (coin, index) => (
           <Grid key={index} item xs={4} md={2}>
             <Paper className={styles}>
               <Typography variant="h6">{`${coin}`}</Typography>
               <Divider width="100%" orientation="horizontal" variant="middle" />
-              <Typography variant="h6">{`${preferences.currency} ${_.round(
-                data.FULL_DATA.data[coin][preferences.currency].PRICE,
+              <Typography variant="h6">{`${currency} ${_.round(
+                getPrice(data, coin, currency),
                 2
               )}`}</Typography>
             </Paper>
