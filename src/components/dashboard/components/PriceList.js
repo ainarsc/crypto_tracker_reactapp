@@ -3,13 +3,14 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import { isFullDataSet, getPrice } from "../../../selectors";
+import { getPrice } from "../../../selectors";
+import { isFetched } from "../../../utils/useApi";
 import { connect } from "react-redux";
 import _ from "lodash";
 
 const PriceList = ({ styles, data, preferences: { currency, cryptoList } }) => {
   return (
-    isFullDataSet(data) && (
+    isFetched(data, "FULL_DATA") && (
       <Grid container>
         {_.map(cryptoList, (coin, index) => (
           <Grid key={index} item xs={4} md={2}>

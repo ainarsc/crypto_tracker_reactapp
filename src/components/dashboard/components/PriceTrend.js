@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import moment from "moment";
+import { getTimeFrom, getTimeTo, getPriceHistory } from "../../../selectors";
+import { isFetched } from "../../../utils/useApi";
 
 import {
   AreaChart,
@@ -12,7 +14,7 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const PriceTrend = ({ data }) => {
+const PriceTrend = ({ data, preferences }) => {
   const TiltedAxisTick = props => {
     const { x, y, payload } = props;
 
@@ -34,11 +36,10 @@ const PriceTrend = ({ data }) => {
   };
 
   return (
-    data.HISTORY !== undefined &&
-    !data.HISTORY.isFetching && (
+    isFetched(data, "HISTORY") && (
       <ResponsiveContainer>
         <AreaChart
-          data={data.HISTORY.data.BTC.Data}
+          data={getPriceHistory(data, preferences)}
           margin={{
             top: 10,
             right: 20,
@@ -51,18 +52,15 @@ const PriceTrend = ({ data }) => {
             dataKey="time"
             name="Time"
             domain={[
-              data.HISTORY.data.BTC.TimeFrom,
-              data.HISTORY.data.BTC.TimeTo
+              getTimeFrom(data, preferences),
+              getTimeTo(data, preferences)
             ]}
             scale="time"
             type="number"
             interval={5}
             tick={<TiltedAxisTick />}
           />
-          <YAxis
-            dataKey="close"
-            domain={[data.HISTORY.data.BTC.Data.low, "auto"]}
-          />
+          <YAxis dataKey="close" domain={["low", "auto"]} />
           <Tooltip />
           <Area
             type="monotone"
@@ -77,7 +75,8 @@ const PriceTrend = ({ data }) => {
 };
 
 const mapState = state => ({
-  data: state.dataByCategory
+  data: state.dataByCategory,
+  preferences: state.dashboardSettings
 });
 
 export default connect(mapState)(PriceTrend);

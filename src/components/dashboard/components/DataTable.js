@@ -8,6 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
+import { getFullData } from "../../../selectors";
+import { isFetched } from "../../../utils/useApi";
 import _ from "lodash";
 
 const useStyles = makeStyles(theme => ({
@@ -17,12 +19,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DataTable = ({ data, preferences }) => {
+const DataTable = ({ data, preferences: { currency } }) => {
   const classes = useStyles();
   let index = 1;
 
   return (
-    data.FULL_DATA !== undefined && (
+    isFetched(data, "FULL_DATA") && (
       <TableContainer className={classes.root} component={Paper}>
         <Table size="small" aria-label="a dense table">
           <TableHead>
@@ -37,29 +39,26 @@ const DataTable = ({ data, preferences }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {_.map(data.FULL_DATA.data, (coin, key) => (
+            {_.map(getFullData(data), (coin, key) => (
               <TableRow key={key} align="right">
                 <TableCell component="th" scope="row" align="right">
                   {index++}
                 </TableCell>
+                <TableCell align="right">{coin[currency].FROMSYMBOL}</TableCell>
                 <TableCell align="right">
-                  {coin[preferences.currency].FROMSYMBOL}
+                  {_.round(coin[currency].PRICE, 2)}
                 </TableCell>
                 <TableCell align="right">
-                  {_.round(coin[preferences.currency].PRICE, 2)}
+                  {_.round(coin[currency].CHANGEHOUR, 2)}
                 </TableCell>
                 <TableCell align="right">
-                  {_.round(coin[preferences.currency].CHANGEHOUR, 2)}
+                  {_.round(coin[currency].CHANGE24HOUR, 2)}
                 </TableCell>
                 <TableCell align="right">
-                  {_.round(coin[preferences.currency].CHANGE24HOUR, 2)}
+                  {_.round(coin[currency].TOTALVOLUME24H, -7) / 1000000}
                 </TableCell>
                 <TableCell align="right">
-                  {_.round(coin[preferences.currency].TOTALVOLUME24H, -7) /
-                    1000000}
-                </TableCell>
-                <TableCell align="right">
-                  {_.round(coin[preferences.currency].MKTCAP, -7) / 1000000}
+                  {_.round(coin[currency].MKTCAP, -7) / 1000000}
                 </TableCell>
               </TableRow>
             ))}

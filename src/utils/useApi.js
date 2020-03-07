@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import _ from "lodash";
 
+export const isFetched = (state, dataType) =>
+  state[dataType] !== undefined && !state[dataType].isFetching;
+
 export default function(fetchAction, state) {
   const crypto = state.crypto;
   const currency = state.currency;

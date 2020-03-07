@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { PieChart, Pie, Cell, Sector, Legend } from "recharts";
 import { connect } from "react-redux";
+import { getFullData } from "../../../selectors";
+import { isFetched } from "../../../utils/useApi";
 import _ from "lodash";
 
-// TODO: Find another way to structure this component
-
-const MarketCap = ({ data, preferences }) => {
+const MarketCap = ({ data, preferences: { cryptoList, currency } }) => {
   const [index, setIndex] = useState({ activeIndex: 0 });
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
   const RADIAN = Math.PI / 180;
@@ -16,9 +16,7 @@ const MarketCap = ({ data, preferences }) => {
     });
   };
 
-  let cryptos =
-    data.FULL_DATA !== undefined &&
-    _.toArray(_.pick(data.FULL_DATA.data, preferences.cryptoList));
+  let selectCoins = () => _.toArray(_.pick(getFullData(data), cryptoList));
 
   // Moved them here to have access to app state
   // Does not accept custom props
@@ -39,10 +37,7 @@ const MarketCap = ({ data, preferences }) => {
       <g>
         <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
           {`Market Cap
-           ${preferences.currency} ${_.round(
-            payload[preferences.currency].MKTCAP,
-            -7
-          ) / 1000000000}B`}
+           ${currency} ${_.round(payload[currency].MKTCAP, -7) / 1000000000}B`}
         </text>
         <Sector
           cx={cx}
@@ -85,14 +80,13 @@ const MarketCap = ({ data, preferences }) => {
         textAnchor="middle"
         dominantBaseline="middle"
       >
-        {payload[preferences.currency].FROMSYMBOL}
+        {payload[currency].FROMSYMBOL}
       </text>
     );
   };
 
   return (
-    data.FULL_DATA !== undefined &&
-    !data.FULL_DATA.isFetching && (
+    isFetched(data, "FULL_DATA") && (
       <PieChart width={330} height={330}>
         <Legend
           wrapperStyle={{ top: 0 }}
@@ -106,16 +100,16 @@ const MarketCap = ({ data, preferences }) => {
           onMouseEnter={onPieEnter}
           cx="50%"
           cy="50%"
-          data={cryptos}
+          data={selectCoins()}
           label={renderCustomizedLabel}
           labelLine={false}
           innerRadius={80}
           outerRadius={130}
           fill="#8884d8"
-          dataKey={`${preferences.currency}.MKTCAP`}
-          nameKey={`${preferences.currency}.FROMSYMBOL`}
+          dataKey={`${currency}.MKTCAP`}
+          nameKey={`${currency}.FROMSYMBOL`}
         >
-          {_.map(cryptos, (val, index) => (
+          {_.map(cryptoList, (_, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
