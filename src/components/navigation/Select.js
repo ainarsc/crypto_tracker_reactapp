@@ -40,7 +40,7 @@ const CurrencySelect = ({ preferences, setCurrency }) => {
   );
 };
 
-const mapState = state => ({ preferences: state.dashboardSettings });
+const mapState = state => ({ preferences: state.preferences });
 
 const mapActions = {
   setCurrency

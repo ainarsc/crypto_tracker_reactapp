@@ -50,7 +50,7 @@ const NewsStand = ({ data, styles }) => {
 };
 
 const mapState = state => ({
-  data: state.dataByCategory
+  data: state.dataTypes
 });
 
 export default connect(mapState)(NewsStand);

@@ -31,7 +31,7 @@ const appSettings = (state = { darkMode: true }, event) => {
   }
 };
 
-const dashboardSettings = (
+const preferences = (
   state = {
     crypto: "BTC",
     currency: "USD",
@@ -117,7 +117,7 @@ const apiData = (
   }
 };
 
-const dataByCategory = (state = {}, event) => {
+const dataTypes = (state = {}, event) => {
   switch (event.type) {
     case INVALIDATE:
     case FETCH_SUCCESS:
@@ -133,8 +133,8 @@ const dataByCategory = (state = {}, event) => {
 
 const rootReducer = combineReducers({
   appSettings,
-  dashboardSettings,
-  dataByCategory
+  preferences,
+  dataTypes
 });
 
 export default rootReducer;

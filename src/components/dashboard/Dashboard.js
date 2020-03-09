@@ -105,14 +105,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = ({ data, fetchData }) => {
+const Dashboard = ({ preferences, fetchData }) => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const priceListStyles = clsx(classes.paperSmall, classes.fixedHeightSmall);
   const dataWidgetRoot = clsx(classes.fixedHeight, classes.dataWidgetRoot);
 
   //Call initial api actions
-  useApi(fetchData, data);
+  useApi(fetchData, preferences);
 
   return (
     <main className={classes.content}>
@@ -153,7 +153,7 @@ const Dashboard = ({ data, fetchData }) => {
 };
 
 const mapState = state => ({
-  data: state.dashboardSettings
+  preferences: state.preferences
 });
 const mapActions = {
   fetchData

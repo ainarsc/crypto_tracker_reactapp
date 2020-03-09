@@ -119,8 +119,8 @@ const MarketCap = ({ data, preferences: { cryptoList, currency } }) => {
 };
 
 const mapState = state => ({
-  data: state.dataByCategory,
-  preferences: state.dashboardSettings
+  data: state.dataTypes,
+  preferences: state.preferences
 });
 
 export default connect(mapState)(MarketCap);

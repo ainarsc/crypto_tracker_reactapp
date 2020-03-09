@@ -41,7 +41,7 @@ export const invalidateData = dataType => {
 };
 
 const shouldFetch = (state, dataType) => {
-  let data = state.dataByCategory[dataType];
+  let data = state.dataTypes[dataType];
   // return true;
   if (dataType === "HISTORY") {
     return true;
@@ -65,6 +65,7 @@ export const fetchData = (
 ) => async (dispatch, getState) => {
   if (shouldFetch(getState(), dataType)) {
     dispatch(fetchInit(dataType));
+
     try {
       const result = await axios(url); //return: [instance].data
       let processData;
@@ -73,7 +74,7 @@ export const fetchData = (
       } else if (dataType === "NEWS") {
         processData = cleanupNewsData(result.data, keysToPick);
       } else if (dataType === "HISTORY") {
-        processData = cleanupHistoryData(result.data, crypto, currency);
+        processData = cleanupHistoryData(result.data, crypto);
       }
 
       dispatch(receiveData(dataType, processData));

@@ -70,8 +70,8 @@ const DataTable = ({ data, preferences: { currency } }) => {
 };
 
 const mapState = state => ({
-  data: state.dataByCategory,
-  preferences: state.dashboardSettings
+  data: state.dataTypes,
+  preferences: state.preferences
 });
 
 export default connect(mapState)(DataTable);

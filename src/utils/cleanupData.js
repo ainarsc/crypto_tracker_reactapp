@@ -34,5 +34,5 @@ export const cleanupNewsData = (apiData, ...args) => {
 export const cleanupHistoryData = (apiData, crypto) => {
   let result = { [crypto]: apiData.Data };
 
-  return result; // result.[crypto].{aggregated, timeFrom, timeTo, data{}}
+  return result; // [crypto].{aggregated, timeFrom, timeTo, data{}}
 };

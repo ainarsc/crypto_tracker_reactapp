@@ -75,8 +75,8 @@ const PriceTrend = ({ data, preferences }) => {
 };
 
 const mapState = state => ({
-  data: state.dataByCategory,
-  preferences: state.dashboardSettings
+  data: state.dataTypes,
+  preferences: state.preferences
 });
 
 export default connect(mapState)(PriceTrend);
