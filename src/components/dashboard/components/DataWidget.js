@@ -8,8 +8,9 @@ import { getDataPoint } from "../../../store/selectors";
 import { isFetched } from "../../../utils/useApi";
 import _ from "lodash";
 
-const CenteredGrid = ({ apiData, apiPreferences, styles }) => {
-  const getStat = indicator => getDataPoint(apiData, apiPreferences, indicator);
+const CenteredGrid = ({ apiData, crypto, currency, styles }) => {
+  const getStat = indicator =>
+    getDataPoint(apiData, crypto, currency, indicator);
 
   return (
     isFetched(apiData, "FULL_DATA") && (
@@ -21,10 +22,7 @@ const CenteredGrid = ({ apiData, apiPreferences, styles }) => {
                 {`Change 24H`}
               </Typography>
               <Typography variant="h5" component="h3">
-                {`${apiPreferences.currency} ${_.round(
-                  getStat("CHANGE24HOUR"),
-                  2
-                )}`}
+                {`${currency} ${_.round(getStat("CHANGE24HOUR"), 2)}`}
               </Typography>
             </Paper>
           </Grid>
@@ -34,10 +32,7 @@ const CenteredGrid = ({ apiData, apiPreferences, styles }) => {
                 Change 1 Hour
               </Typography>
               <Typography variant="h5" component="h3">
-                {`${apiPreferences.currency} ${_.round(
-                  getStat("CHANGEHOUR"),
-                  2
-                )}`}
+                {`${currency} ${_.round(getStat("CHANGEHOUR"), 2)}`}
               </Typography>
             </Paper>
           </Grid>
@@ -69,7 +64,8 @@ const CenteredGrid = ({ apiData, apiPreferences, styles }) => {
 
 const mapState = state => ({
   apiData: state.apiData,
-  apiPreferences: state.apiPreferences
+  crypto: state.apiPreferences.crypto,
+  currency: state.apiPreferences.currency
 });
 
 export default connect(mapState)(CenteredGrid);

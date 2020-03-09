@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
-import { getFullData } from "../../../store/selectors";
+import { getFullData, getDataPoint } from "../../../store/selectors";
 import { isFetched } from "../../../utils/useApi";
 import _ from "lodash";
 
@@ -19,9 +19,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DataTable = ({ apiData, apiPreferences: { currency } }) => {
+const DataTable = ({ apiData, currency }) => {
   const classes = useStyles();
   let index = 1;
+  const FROMSYMBOL = "FROMSYMBOL";
+  const PRICE = "PRICE";
+  const CHANGEHOUR = "CHANGEHOUR";
+  const CHANGE24HOUR = "CHANGE24HOUR";
+  const TOTALVOLUME24H = "TOTALVOLUME24H";
+  const MKTCAP = "MKTCAP";
+
+  const getStat = (crypto, indicator) =>
+    getDataPoint(apiData, crypto, currency, indicator);
 
   return (
     isFetched(apiData, "FULL_DATA") && (
@@ -44,21 +53,21 @@ const DataTable = ({ apiData, apiPreferences: { currency } }) => {
                 <TableCell component="th" scope="row" align="right">
                   {index++}
                 </TableCell>
-                <TableCell align="right">{coin[currency].FROMSYMBOL}</TableCell>
+                <TableCell align="right">{getStat(key, FROMSYMBOL)}</TableCell>
                 <TableCell align="right">
-                  {_.round(coin[currency].PRICE, 2)}
+                  {_.round(getStat(key, PRICE), 2)}
                 </TableCell>
                 <TableCell align="right">
-                  {_.round(coin[currency].CHANGEHOUR, 2)}
+                  {_.round(getStat(key, CHANGEHOUR), 2)}
                 </TableCell>
                 <TableCell align="right">
-                  {_.round(coin[currency].CHANGE24HOUR, 2)}
+                  {_.round(getStat(key, CHANGE24HOUR), 2)}
                 </TableCell>
                 <TableCell align="right">
-                  {_.round(coin[currency].TOTALVOLUME24H, -7) / 1000000}
+                  {_.round(getStat(key, TOTALVOLUME24H), -7) / 1000000}
                 </TableCell>
                 <TableCell align="right">
-                  {_.round(coin[currency].MKTCAP, -7) / 1000000}
+                  {_.round(getStat(key, MKTCAP), -7) / 1000000}
                 </TableCell>
               </TableRow>
             ))}
@@ -71,7 +80,7 @@ const DataTable = ({ apiData, apiPreferences: { currency } }) => {
 
 const mapState = state => ({
   apiData: state.apiData,
-  apiPreferences: state.apiPreferences
+  currency: state.apiPreferences.currency
 });
 
 export default connect(mapState)(DataTable);
