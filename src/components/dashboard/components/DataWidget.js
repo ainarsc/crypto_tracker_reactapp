@@ -4,15 +4,15 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
-import { getDataPoint } from "../../../selectors";
+import { getDataPoint } from "../../../store/selectors";
 import { isFetched } from "../../../utils/useApi";
 import _ from "lodash";
 
-const CenteredGrid = ({ data, preferences, styles }) => {
-  const getStat = indicator => getDataPoint(data, preferences, indicator);
+const CenteredGrid = ({ apiData, apiPreferences, styles }) => {
+  const getStat = indicator => getDataPoint(apiData, apiPreferences, indicator);
 
   return (
-    isFetched(data, "FULL_DATA") && (
+    isFetched(apiData, "FULL_DATA") && (
       <Container className={styles.dataWidget}>
         <Grid container spacing={1}>
           <Grid item xs={6}>
@@ -21,7 +21,7 @@ const CenteredGrid = ({ data, preferences, styles }) => {
                 {`Change 24H`}
               </Typography>
               <Typography variant="h5" component="h3">
-                {`${preferences.currency} ${_.round(
+                {`${apiPreferences.currency} ${_.round(
                   getStat("CHANGE24HOUR"),
                   2
                 )}`}
@@ -34,7 +34,10 @@ const CenteredGrid = ({ data, preferences, styles }) => {
                 Change 1 Hour
               </Typography>
               <Typography variant="h5" component="h3">
-                {`${preferences.currency} ${_.round(getStat("CHANGEHOUR"), 2)}`}
+                {`${apiPreferences.currency} ${_.round(
+                  getStat("CHANGEHOUR"),
+                  2
+                )}`}
               </Typography>
             </Paper>
           </Grid>
@@ -65,8 +68,8 @@ const CenteredGrid = ({ data, preferences, styles }) => {
 };
 
 const mapState = state => ({
-  data: state.dataTypes,
-  preferences: state.preferences
+  apiData: state.apiData,
+  apiPreferences: state.apiPreferences
 });
 
 export default connect(mapState)(CenteredGrid);

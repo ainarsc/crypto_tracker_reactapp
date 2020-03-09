@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { PieChart, Pie, Cell, Sector, Legend } from "recharts";
 import { connect } from "react-redux";
-import { getFullData } from "../../../selectors";
+import { getFullData } from "../../../store/selectors";
 import { isFetched } from "../../../utils/useApi";
 import _ from "lodash";
 
-const MarketCap = ({ data, preferences: { cryptoList, currency } }) => {
+const MarketCap = ({ apiData, apiPreferences: { cryptoList, currency } }) => {
   const [index, setIndex] = useState({ activeIndex: 0 });
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
   const RADIAN = Math.PI / 180;
 
-  const onPieEnter = (data, index) => {
+  const onPieEnter = (empty, index) => {
     setIndex({
       activeIndex: index
     });
   };
 
-  let selectCoins = () => _.toArray(_.pick(getFullData(data), cryptoList));
+  let selectCoins = () => _.toArray(_.pick(getFullData(apiData), cryptoList));
 
   // Moved them here to have access to app state
   // Does not accept custom props
@@ -86,7 +86,7 @@ const MarketCap = ({ data, preferences: { cryptoList, currency } }) => {
   };
 
   return (
-    isFetched(data, "FULL_DATA") && (
+    isFetched(apiData, "FULL_DATA") && (
       <PieChart width={330} height={330}>
         <Legend
           wrapperStyle={{ top: 0 }}
@@ -119,8 +119,8 @@ const MarketCap = ({ data, preferences: { cryptoList, currency } }) => {
 };
 
 const mapState = state => ({
-  data: state.dataTypes,
-  preferences: state.preferences
+  apiData: state.apiData,
+  apiPreferences: state.apiPreferences
 });
 
 export default connect(mapState)(MarketCap);

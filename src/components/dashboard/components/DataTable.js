@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
-import { getFullData } from "../../../selectors";
+import { getFullData } from "../../../store/selectors";
 import { isFetched } from "../../../utils/useApi";
 import _ from "lodash";
 
@@ -19,12 +19,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DataTable = ({ data, preferences: { currency } }) => {
+const DataTable = ({ apiData, apiPreferences: { currency } }) => {
   const classes = useStyles();
   let index = 1;
 
   return (
-    isFetched(data, "FULL_DATA") && (
+    isFetched(apiData, "FULL_DATA") && (
       <TableContainer className={classes.root} component={Paper}>
         <Table size="small" aria-label="a dense table">
           <TableHead>
@@ -39,7 +39,7 @@ const DataTable = ({ data, preferences: { currency } }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {_.map(getFullData(data), (coin, key) => (
+            {_.map(getFullData(apiData), (coin, key) => (
               <TableRow key={key} align="right">
                 <TableCell component="th" scope="row" align="right">
                   {index++}
@@ -70,8 +70,8 @@ const DataTable = ({ data, preferences: { currency } }) => {
 };
 
 const mapState = state => ({
-  data: state.dataTypes,
-  preferences: state.preferences
+  apiData: state.apiData,
+  apiPreferences: state.apiPreferences
 });
 
 export default connect(mapState)(DataTable);

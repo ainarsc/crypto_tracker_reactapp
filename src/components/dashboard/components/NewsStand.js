@@ -4,21 +4,21 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import escapeRegExp from "../../../utils/escapeRegExp";
-import { getNews } from "../../../selectors";
+import { getNews } from "../../../store/selectors";
 import { isFetched } from "../../../utils/useApi";
 import moment from "moment";
 import { connect } from "react-redux";
 import _ from "lodash";
 
-const NewsStand = ({ data, styles }) => {
+const NewsStand = ({ apiData, styles }) => {
   const { newsCard, bullet, newsTitle, position, newsContent } = styles;
   const bull = <span className={bullet}>•</span>;
 
   return (
-    isFetched(data, "NEWS") && (
+    isFetched(apiData, "NEWS") && (
       <Grid item xs={12}>
         {_.map(
-          getNews(data),
+          getNews(apiData),
           ({ categories, title, source_info, published_on }, key) => (
             <Card key={key} className={newsCard}>
               <CardContent className={newsContent}>
@@ -50,7 +50,7 @@ const NewsStand = ({ data, styles }) => {
 };
 
 const mapState = state => ({
-  data: state.dataTypes
+  apiData: state.apiData
 });
 
 export default connect(mapState)(NewsStand);

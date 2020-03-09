@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import { getTimeFrom, getTimeTo, getPriceHistory } from "../../../selectors";
+import {
+  getTimeFrom,
+  getTimeTo,
+  getPriceHistory
+} from "../../../store/selectors";
 import { isFetched } from "../../../utils/useApi";
 
 import {
@@ -14,7 +18,7 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const PriceTrend = ({ data, preferences }) => {
+const PriceTrend = ({ apiData, apiPreferences }) => {
   const TiltedAxisTick = props => {
     const { x, y, payload } = props;
 
@@ -36,10 +40,10 @@ const PriceTrend = ({ data, preferences }) => {
   };
 
   return (
-    isFetched(data, "HISTORY") && (
+    isFetched(apiData, "HISTORY") && (
       <ResponsiveContainer>
         <AreaChart
-          data={getPriceHistory(data, preferences)}
+          data={getPriceHistory(apiData, apiPreferences)}
           margin={{
             top: 10,
             right: 20,
@@ -52,8 +56,8 @@ const PriceTrend = ({ data, preferences }) => {
             dataKey="time"
             name="Time"
             domain={[
-              getTimeFrom(data, preferences),
-              getTimeTo(data, preferences)
+              getTimeFrom(apiData, apiPreferences),
+              getTimeTo(apiData, apiPreferences)
             ]}
             scale="time"
             type="number"
@@ -75,8 +79,8 @@ const PriceTrend = ({ data, preferences }) => {
 };
 
 const mapState = state => ({
-  data: state.dataTypes,
-  preferences: state.preferences
+  apiData: state.apiData,
+  apiPreferences: state.apiPreferences
 });
 
 export default connect(mapState)(PriceTrend);

@@ -4,7 +4,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { connect } from "react-redux";
-import { setCurrency } from "../../actions/setPreferences";
+import { setCurrency } from "../../store/actions/setPreferences";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CurrencySelect = ({ preferences, setCurrency }) => {
+const CurrencySelect = ({ apiPreferences, setCurrency }) => {
   const classes = useStyles();
 
   const handleChange = event => {
@@ -28,7 +28,7 @@ const CurrencySelect = ({ preferences, setCurrency }) => {
     <div>
       <FormControl className={classes.formControl}>
         <Select
-          value={preferences.currency}
+          value={apiPreferences.currency}
           onChange={handleChange}
           className={classes.selectEmpty}
         >
@@ -40,7 +40,7 @@ const CurrencySelect = ({ preferences, setCurrency }) => {
   );
 };
 
-const mapState = state => ({ preferences: state.preferences });
+const mapState = state => ({ apiPreferences: state.apiPreferences });
 
 const mapActions = {
   setCurrency

@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import _ from "lodash";
 
-export const isFetched = (state, dataType) =>
-  state[dataType] !== undefined && !state[dataType].isFetching;
+export const isFetched = (apiData, dataCategory) =>
+  apiData[dataCategory] !== undefined && !apiData[dataCategory].isFetching;
 
 export default function(fetchAction, state) {
   const crypto = state.crypto;
   const currency = state.currency;
 
   useEffect(() => {
-    const fetchParams = {
+    const dataToFetch = {
       FULL_DATA: {
         url: `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC,EOS,ETC,XTZ,BNB,ZEC,ADA,XLM,NEO,DASH&&tsyms=USD,EUR`,
         keys: [
@@ -32,8 +32,8 @@ export default function(fetchAction, state) {
       }
     };
 
-    _.forEach(fetchParams, (data, key) => {
-      fetchAction(key, data.url, crypto, currency, data.keys);
+    _.forEach(dataToFetch, (dataCategory, key) => {
+      fetchAction(key, dataCategory.url, crypto, currency, dataCategory.keys);
     });
     console.log("[useApi]: State Updated");
   }, [fetchAction, currency, crypto]);

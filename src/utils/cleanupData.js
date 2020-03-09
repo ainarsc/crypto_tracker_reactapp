@@ -13,15 +13,6 @@ export const cleanupFullData = (apiData, ...args) => {
   return mapped;
 };
 
-export const cleanupFullData_BACKUP = (apiData, ...args) => {
-  const data = apiData.RAW; //axios.data.RAW.[crypto].[currency].Data
-  const result = _.mapValues(data, item => {
-    return _.pick(item["USD"], ...args);
-  });
-
-  return result;
-};
-
 export const cleanupNewsData = (apiData, ...args) => {
   const data = _.take(apiData.Data, 8); //Pick last 8 news articles of API result
   const result = _.mapValues(data, item => {

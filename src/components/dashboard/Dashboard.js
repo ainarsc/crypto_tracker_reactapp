@@ -6,7 +6,7 @@ import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import clsx from "clsx";
 import { connect } from "react-redux";
-import { fetchData } from "../../actions/fetchData";
+import { fetchData } from "../../store/actions/fetchData";
 import useApi from "../../utils/useApi";
 
 //Component imports
@@ -105,14 +105,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = ({ preferences, fetchData }) => {
+const Dashboard = ({ apiPreferences, fetchData }) => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const priceListStyles = clsx(classes.paperSmall, classes.fixedHeightSmall);
   const dataWidgetRoot = clsx(classes.fixedHeight, classes.dataWidgetRoot);
 
   //Call initial api actions
-  useApi(fetchData, preferences);
+  useApi(fetchData, apiPreferences);
 
   return (
     <main className={classes.content}>
@@ -153,7 +153,7 @@ const Dashboard = ({ preferences, fetchData }) => {
 };
 
 const mapState = state => ({
-  preferences: state.preferences
+  apiPreferences: state.apiPreferences
 });
 const mapActions = {
   fetchData
