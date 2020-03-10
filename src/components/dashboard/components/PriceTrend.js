@@ -18,7 +18,7 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const PriceTrend = ({ apiData, apiPreferences }) => {
+const PriceTrend = ({ apiData, crypto }) => {
   const TiltedAxisTick = props => {
     const { x, y, payload } = props;
 
@@ -43,7 +43,7 @@ const PriceTrend = ({ apiData, apiPreferences }) => {
     isFetched(apiData, "HISTORY") && (
       <ResponsiveContainer>
         <AreaChart
-          data={getPriceHistory(apiData, apiPreferences)}
+          data={getPriceHistory(apiData, crypto)}
           margin={{
             top: 10,
             right: 20,
@@ -55,10 +55,7 @@ const PriceTrend = ({ apiData, apiPreferences }) => {
           <XAxis
             dataKey="time"
             name="Time"
-            domain={[
-              getTimeFrom(apiData, apiPreferences),
-              getTimeTo(apiData, apiPreferences)
-            ]}
+            domain={[getTimeFrom(apiData, crypto), getTimeTo(apiData, crypto)]}
             scale="time"
             type="number"
             interval={5}
@@ -80,7 +77,7 @@ const PriceTrend = ({ apiData, apiPreferences }) => {
 
 const mapState = state => ({
   apiData: state.apiData,
-  apiPreferences: state.apiPreferences
+  crypto: state.apiPreferences.crypto
 });
 
 export default connect(mapState)(PriceTrend);

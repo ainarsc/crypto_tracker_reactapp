@@ -8,11 +8,7 @@ import { isFetched } from "../../../utils/useApi";
 import { connect } from "react-redux";
 import _ from "lodash";
 
-const PriceList = ({
-  styles,
-  apiData,
-  apiPreferences: { currency, cryptoList }
-}) => {
+const PriceList = ({ styles, apiData, currency, cryptoList }) => {
   return (
     isFetched(apiData, "FULL_DATA") && (
       <Grid container>
@@ -35,7 +31,8 @@ const PriceList = ({
 
 const mapState = state => ({
   apiData: state.apiData,
-  apiPreferences: state.apiPreferences
+  currency: state.apiPreferences.currency,
+  cryptoList: state.apiPreferences.cryptoList
 });
 
 export default connect(mapState)(PriceList);
