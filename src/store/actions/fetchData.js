@@ -10,6 +10,7 @@ import {
   cleanupNewsData,
   cleanupHistoryData
 } from "../../utils/cleanupData";
+import _ from "lodash";
 
 export const fetchInit = dataCategory => {
   return {
@@ -41,17 +42,17 @@ export const invalidateData = dataCategory => {
 };
 
 const shouldFetch = (state, dataCategory) => {
-  let data = state.apiData[dataCategory];
+  let category = state.apiData[dataCategory];
   // return true;
   if (dataCategory === "HISTORY") {
     return true;
   } else {
-    if (!data) {
+    if (_.isEmpty(category.data)) {
       return true;
-    } else if (data.isFetching) {
+    } else if (category.isFetching) {
       return false;
     } else {
-      return data.didInvalidate;
+      return category.didInvalidate;
     }
   }
 };

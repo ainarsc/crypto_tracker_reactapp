@@ -7,6 +7,7 @@ import {
   getPriceHistory
 } from "../../../store/selectors";
 import { isFetched } from "../../../utils/useApi";
+import LoadingBar from "../../ui/LoadingBar";
 
 import {
   AreaChart,

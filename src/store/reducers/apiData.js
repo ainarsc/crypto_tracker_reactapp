@@ -5,15 +5,7 @@ import {
   FETCH_FAIL
 } from "../actions/actionTypes";
 
-const dataCategory = (
-  state = {
-    isFetching: false,
-    isError: false,
-    didInvalidate: false,
-    data: {}
-  },
-  action
-) => {
+const dataCategory = (state, action) => {
   switch (action.type) {
     case FETCH_INIT:
       return {
@@ -50,7 +42,32 @@ const dataCategory = (
   }
 };
 
-const apiData = (state = {}, action) => {
+const apiData = (
+  state = {
+    FULL_DATA: {
+      isFetching: false,
+      isError: false,
+      didInvalidate: false,
+      lastUpdated: "",
+      data: []
+    },
+    HISTORY: {
+      isFetching: false,
+      isError: false,
+      didInvalidate: false,
+      lastUpdated: "",
+      data: []
+    },
+    NEWS: {
+      isFetching: false,
+      isError: false,
+      didInvalidate: false,
+      lastUpdated: "",
+      data: []
+    }
+  },
+  action
+) => {
   switch (action.type) {
     case INVALIDATE:
     case FETCH_SUCCESS:

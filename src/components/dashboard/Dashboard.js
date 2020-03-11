@@ -105,7 +105,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = ({ apiPreferences, fetchData }) => {
+const Dashboard = ({ apiPreferences, apiData, fetchData }) => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const priceListStyles = clsx(classes.paperSmall, classes.fixedHeightSmall);
@@ -116,8 +116,7 @@ const Dashboard = ({ apiPreferences, fetchData }) => {
 
   return (
     <main className={classes.content}>
-      {/* <div className={classes.appBarSpacer} /> */}
-
+      {/* <LoadingBar /> */}
       <Container maxWidth="lg">
         <Grid container>
           <PriceList styles={priceListStyles} />
@@ -153,6 +152,7 @@ const Dashboard = ({ apiPreferences, fetchData }) => {
 };
 
 const mapState = state => ({
+  apiData: state.apiData,
   apiPreferences: state.apiPreferences
 });
 const mapActions = {

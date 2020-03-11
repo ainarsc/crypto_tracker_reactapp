@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import _ from "lodash";
 
 export const isFetched = (apiData, dataCategory) =>
-  apiData[dataCategory] !== undefined && !apiData[dataCategory].isFetching;
+  !_.isEmpty(apiData[dataCategory].data) && !apiData[dataCategory].isFetching;
 
 export default function(fetchAction, state) {
   const crypto = state.crypto;
