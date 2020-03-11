@@ -8,6 +8,7 @@ import clsx from "clsx";
 import { connect } from "react-redux";
 import { fetchData } from "../../store/actions/fetchData";
 import useApi from "../../utils/useApi";
+import LoadingBar from "../ui/LoadingBar";
 
 //Component imports
 import {
@@ -116,37 +117,40 @@ const Dashboard = ({ apiPreferences, apiData, fetchData }) => {
 
   return (
     <main className={classes.content}>
-      {/* <LoadingBar /> */}
-      <Container maxWidth="lg">
-        <Grid container>
-          <PriceList styles={priceListStyles} />
-          <Grid item xs={12} sm={6}>
-            <Paper className={fixedHeightPaper}>
-              <MarketCap />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Paper className={dataWidgetRoot}>
-              <DataWidget styles={classes} />
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Paper className={fixedHeightPaper}>
-              <PriceTrend />
-            </Paper>
+      {apiData.FULL_DATA.isFetching ? (
+        <LoadingBar />
+      ) : (
+        <Container maxWidth="lg">
+          <Grid container>
+            <PriceList styles={priceListStyles} />
+            <Grid item xs={12} sm={6}>
+              <Paper className={fixedHeightPaper}>
+                <MarketCap />
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Paper className={dataWidgetRoot}>
+                <DataWidget styles={classes} />
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper className={fixedHeightPaper}>
+                <PriceTrend />
+              </Paper>
+            </Grid>
+
+            <Grid item xs={12}>
+              <DataTable styles={classes} />
+            </Grid>
+
+            <NewsStand styles={classes} />
           </Grid>
 
-          <Grid item xs={12}>
-            <DataTable styles={classes} />
-          </Grid>
-
-          <NewsStand styles={classes} />
-        </Grid>
-
-        <Box pb={4} pt={4}>
-          <Copyright />
-        </Box>
-      </Container>
+          <Box pb={4} pt={4}>
+            <Copyright />
+          </Box>
+        </Container>
+      )}
     </main>
   );
 };

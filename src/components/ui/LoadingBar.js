@@ -17,11 +17,9 @@ function LoadingBar({ apiData }) {
   const classes = useStyles();
 
   return (
-    !apiData.FULL_DATA.isFetching && (
-      <div className={classes.root}>
-        <LinearProgress />
-      </div>
-    )
+    <div className={classes.root}>
+      <LinearProgress />
+    </div>
   );
 }
 
