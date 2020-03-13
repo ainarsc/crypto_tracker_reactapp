@@ -7,8 +7,8 @@ import Paper from "@material-ui/core/Paper";
 import clsx from "clsx";
 import { connect } from "react-redux";
 import { fetchData } from "../../store/actions/fetchData";
-import useApi from "../../utils/useApi";
-import LoadingBar from "../ui/LoadingBar";
+import useApi, { isFetching } from "../../utils/useApi";
+import LoadingCircle from "../ui/LoadingCircle";
 
 //Component imports
 import {
@@ -117,8 +117,8 @@ const Dashboard = ({ apiPreferences, apiData, fetchData }) => {
 
   return (
     <main className={classes.content}>
-      {apiData.FULL_DATA.isFetching ? (
-        <LoadingBar />
+      {isFetching(apiData) ? (
+        <LoadingCircle />
       ) : (
         <Container maxWidth="lg">
           <Grid container>
