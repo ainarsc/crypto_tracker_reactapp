@@ -4,11 +4,12 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
+import Fade from "@material-ui/core/Fade";
 import clsx from "clsx";
 import { connect } from "react-redux";
 import { fetchData } from "../../store/actions/fetchData";
 import useApi, { isFetching } from "../../utils/useApi";
-import LoadingCircle from "../ui/LoadingCircle";
+import LoadingBar from "../ui/LoadingBar";
 
 //Component imports
 import {
@@ -114,42 +115,45 @@ const Dashboard = ({ apiPreferences, apiData, fetchData }) => {
 
   //Call initial api actions
   useApi(fetchData, apiPreferences);
+  const loading = isFetching(apiData);
 
   return (
     <main className={classes.content}>
-      {isFetching(apiData) ? (
-        <LoadingCircle />
+      {loading ? (
+        <LoadingBar />
       ) : (
-        <Container maxWidth="lg">
-          <Grid container>
-            <PriceList styles={priceListStyles} />
-            <Grid item xs={12} sm={6}>
-              <Paper className={fixedHeightPaper}>
-                <MarketCap />
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Paper className={dataWidgetRoot}>
-                <DataWidget styles={classes} />
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper className={fixedHeightPaper}>
-                <PriceTrend />
-              </Paper>
+        <Fade in={!loading}>
+          <Container maxWidth="lg">
+            <Grid container>
+              <PriceList styles={priceListStyles} />
+              <Grid item xs={12} sm={6}>
+                <Paper className={fixedHeightPaper}>
+                  <MarketCap />
+                </Paper>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Paper className={dataWidgetRoot}>
+                  <DataWidget styles={classes} />
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper className={fixedHeightPaper}>
+                  <PriceTrend />
+                </Paper>
+              </Grid>
+
+              <Grid item xs={12}>
+                <DataTable styles={classes} />
+              </Grid>
+
+              <NewsStand styles={classes} />
             </Grid>
 
-            <Grid item xs={12}>
-              <DataTable styles={classes} />
-            </Grid>
-
-            <NewsStand styles={classes} />
-          </Grid>
-
-          <Box pb={4} pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
+            <Box pb={4} pt={4}>
+              <Copyright />
+            </Box>
+          </Container>
+        </Fade>
       )}
     </main>
   );

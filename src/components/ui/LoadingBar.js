@@ -18,7 +18,7 @@ function LoadingBar({ apiData }) {
 
   return (
     <div className={classes.root}>
-      <LinearProgress />
+      <LinearProgress color="secondary" />
     </div>
   );
 }
