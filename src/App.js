@@ -6,11 +6,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import Dashboard from "./components/dashboard";
-import LandingPage from "./components/landing";
+import Register from "./components/landing/Register";
+import Login from "./components/landing/Login";
+import Landing from "./components/landing/Landing";
 import { Provider } from "react-redux";
 import configureStore from "./store";
 // import useDataFetch from "./components/utils/useDataFetch";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,11 +66,15 @@ function App() {
             <NavBar handleDrawerToggle={handleDrawerToggle} />
             <Switch>
               <Route exact path="/">
-                <LandingPage />
+                <Landing />
               </Route>
-              <Route path="/dashboard">
-                <Dashboard />
+              <Route exact path="/login">
+                <Login />
               </Route>
+              <Route exact path="/register">
+                <Register />
+              </Route>
+              <Route path="/dashboard">{/* <Dashboard /> */}</Route>
             </Switch>
           </div>
         </ThemeProvider>

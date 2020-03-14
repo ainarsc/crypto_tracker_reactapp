@@ -13,6 +13,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import DarkModeToggle from "./Switch";
 import CurrencySelect from "./Select";
 import { useLocation } from "react-router-dom";
+import _ from "lodash";
 
 const drawerWidth = 240;
 
@@ -43,10 +44,13 @@ function NavBar(props) {
   const classes = useStyles();
   const location = useLocation();
 
+  const show = _.find(["/", "login", "register"], element => {
+    return location.pathname === element;
+  });
   // const preventDefault = event => event.preventDefault();
 
   return (
-    location.pathname !== "/" && (
+    show === true && (
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <IconButton

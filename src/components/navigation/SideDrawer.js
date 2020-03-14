@@ -14,6 +14,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { useLocation, Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
+import _ from "lodash";
 
 const drawerWidth = 240;
 
@@ -63,6 +64,10 @@ function ResponsiveDrawer(props) {
   const theme = useTheme();
   const location = useLocation();
 
+  const show = _.find(["/", "login", "register"], element => {
+    return location.pathname === element;
+  });
+
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -89,7 +94,7 @@ function ResponsiveDrawer(props) {
   );
 
   return (
-    location.pathname !== "/" && (
+    show === true && (
       <nav className={classes.drawer} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden mdUp implementation="css">
