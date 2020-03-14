@@ -6,9 +6,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import Dashboard from "./components/dashboard";
+import LandingPage from "./components/landing";
 import { Provider } from "react-redux";
 import configureStore from "./store";
 // import useDataFetch from "./components/utils/useDataFetch";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,19 +52,28 @@ function App() {
   const classes = useStyles();
 
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <div className={classes.root}>
-          <CssBaseline />
-          <ResponsiveDrawer
-            handleDrawerToggle={handleDrawerToggle}
-            mobileOpen={mobileOpen}
-          />
-          <NavBar handleDrawerToggle={handleDrawerToggle} />
-          <Dashboard />
-        </div>
-      </ThemeProvider>
-    </Provider>
+    <Router>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <div className={classes.root}>
+            <CssBaseline />
+            <ResponsiveDrawer
+              handleDrawerToggle={handleDrawerToggle}
+              mobileOpen={mobileOpen}
+            />
+            <NavBar handleDrawerToggle={handleDrawerToggle} />
+            <Switch>
+              <Route exact path="/">
+                <LandingPage />
+              </Route>
+              <Route path="/dashboard">
+                <Dashboard />
+              </Route>
+            </Switch>
+          </div>
+        </ThemeProvider>
+      </Provider>
+    </Router>
   );
 }
 

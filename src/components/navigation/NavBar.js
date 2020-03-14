@@ -12,6 +12,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import SettingsIcon from "@material-ui/icons/Settings";
 import DarkModeToggle from "./Switch";
 import CurrencySelect from "./Select";
+import { useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -40,41 +41,44 @@ const useStyles = makeStyles(theme => ({
 
 function NavBar(props) {
   const classes = useStyles();
+  const location = useLocation();
 
   // const preventDefault = event => event.preventDefault();
 
   return (
-    <AppBar position="fixed" className={classes.appBar}>
-      <Toolbar className={classes.toolbar}>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={props.handleDrawerToggle}
-          className={classes.menuButton}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography className={classes.title} variant="h6" noWrap>
-          Dashboard
-        </Typography>
-        <CurrencySelect />
-        <DarkModeToggle />
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={0} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <IconButton aria-label="show 17 new notifications" color="inherit">
-          <Badge badgeContent={0} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <IconButton aria-label="show 17 new notifications" color="inherit">
-          <SettingsIcon />
-        </IconButton>
-      </Toolbar>
-    </AppBar>
+    location.pathname !== "/" && (
+      <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar className={classes.toolbar}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={props.handleDrawerToggle}
+            className={classes.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography className={classes.title} variant="h6" noWrap>
+            Dashboard
+          </Typography>
+          <CurrencySelect />
+          <DarkModeToggle />
+          <IconButton aria-label="show 4 new mails" color="inherit">
+            <Badge badgeContent={0} color="secondary">
+              <MailIcon />
+            </Badge>
+          </IconButton>
+          <IconButton aria-label="show 17 new notifications" color="inherit">
+            <Badge badgeContent={0} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+          <IconButton aria-label="show 17 new notifications" color="inherit">
+            <SettingsIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+    )
   );
 }
 
