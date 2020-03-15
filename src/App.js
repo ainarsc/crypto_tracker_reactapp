@@ -5,7 +5,7 @@ import NavBar from "./components/navigation/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import Dashboard from "./components/dashboard";
+// import Dashboard from "./components/dashboard";
 import Register from "./components/landing/Register";
 import Login from "./components/landing/Login";
 import Landing from "./components/landing/Landing";
@@ -68,10 +68,10 @@ function App() {
               <Route exact path="/">
                 <Landing />
               </Route>
-              <Route exact path="/login">
+              <Route path="/login">
                 <Login />
               </Route>
-              <Route exact path="/register">
+              <Route path="/register">
                 <Register />
               </Route>
               <Route path="/dashboard">{/* <Dashboard /> */}</Route>
