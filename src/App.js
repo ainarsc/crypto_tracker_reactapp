@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 import configureStore from "./store";
 // import useDataFetch from "./components/utils/useDataFetch";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import firebaseApp, { FirebaseContext } from "./firebase";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -56,28 +57,30 @@ function App() {
   return (
     <Router>
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <div className={classes.root}>
-            <CssBaseline />
-            <ResponsiveDrawer
-              handleDrawerToggle={handleDrawerToggle}
-              mobileOpen={mobileOpen}
-            />
-            <NavBar handleDrawerToggle={handleDrawerToggle} />
-            <Switch>
-              <Route exact path="/">
-                <Landing />
-              </Route>
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route path="/register">
-                <Register />
-              </Route>
-              <Route path="/dashboard">{/* <Dashboard /> */}</Route>
-            </Switch>
-          </div>
-        </ThemeProvider>
+        <FirebaseContext.Provider value={firebaseApp}>
+          <ThemeProvider theme={theme}>
+            <div className={classes.root}>
+              <CssBaseline />
+              <ResponsiveDrawer
+                handleDrawerToggle={handleDrawerToggle}
+                mobileOpen={mobileOpen}
+              />
+              <NavBar handleDrawerToggle={handleDrawerToggle} />
+              <Switch>
+                <Route exact path="/">
+                  <Landing />
+                </Route>
+                <Route path="/login">
+                  <Login />
+                </Route>
+                <Route path="/register">
+                  <Register />
+                </Route>
+                <Route path="/dashboard">{/* <Dashboard /> */}</Route>
+              </Switch>
+            </div>
+          </ThemeProvider>
+        </FirebaseContext.Provider>
       </Provider>
     </Router>
   );

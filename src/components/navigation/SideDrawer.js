@@ -75,6 +75,7 @@ function ResponsiveDrawer(props) {
       <List>
         {["dashboard", "profile", "email", "news"].map((text, index) => (
           <Link
+            key={index}
             underline="none"
             to={text}
             component={RouterLink}
