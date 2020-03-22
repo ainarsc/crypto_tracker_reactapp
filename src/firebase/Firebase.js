@@ -17,16 +17,16 @@ const config = {
 //   ? firebase.initializeApp(config)
 //   : firebase.app();
 
-const firebaseApp = firebase.initializeApp(config);
-const userAuth = firebaseApp.auth();
+const firebaseServices = firebase.initializeApp(config);
+const userAuth = firebaseServices.auth();
 
-userAuth.onAuthStateChanged(user => {
-  if (user) {
-    console.log(user);
-  } else {
-    console.log("foo");
-  }
-});
+// userAuth.onAuthStateChanged(user => {
+//   if (user) {
+//     console.log(user);
+//   } else {
+//     console.log("foo");
+//   }
+// });
 
 export const createUser = (email, password) => {
   userAuth.createUserWithEmailAndPassword(email, password);
@@ -50,4 +50,4 @@ export const updatePassword = password => {
 
 export const getCurrentUser = () => {};
 
-export default firebaseApp;
+export default firebaseServices;

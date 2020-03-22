@@ -11,9 +11,8 @@ import Login from "./components/landing/Login";
 import Landing from "./components/landing/Landing";
 import { Provider } from "react-redux";
 import configureStore from "./store";
-// import useDataFetch from "./components/utils/useDataFetch";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import firebaseApp, { FirebaseContext } from "./firebase";
+import firebaseServices, { firebaseContext } from "./firebase";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,7 +56,7 @@ function App() {
   return (
     <Router>
       <Provider store={store}>
-        <FirebaseContext.Provider value={firebaseApp}>
+        <firebaseContext.Provider value={firebaseServices}>
           <ThemeProvider theme={theme}>
             <div className={classes.root}>
               <CssBaseline />
@@ -80,7 +79,7 @@ function App() {
               </Switch>
             </div>
           </ThemeProvider>
-        </FirebaseContext.Provider>
+        </firebaseContext.Provider>
       </Provider>
     </Router>
   );
