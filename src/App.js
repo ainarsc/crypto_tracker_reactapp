@@ -3,11 +3,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import ResponsiveDrawer from "./components/navigation/SideDrawer";
 import NavBar from "./components/navigation/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
-// import Dashboard from "./components/dashboard";
-import Register from "./components/landing/Register";
-import Login from "./components/landing/Login";
-import Landing from "./components/landing/Landing";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import Routes from "./components/routes";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,18 +30,7 @@ function App() {
           mobileOpen={mobileOpen}
         />
         <NavBar handleDrawerToggle={handleDrawerToggle} />
-        <Switch>
-          <Route exact path="/">
-            <Landing />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/dashboard">{/* <Dashboard /> */}</Route>
-        </Switch>
+        <Routes />
       </div>
     </Router>
   );
