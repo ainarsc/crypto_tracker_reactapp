@@ -10,3 +10,4 @@ export const SELECT_NEWS = "SELECT_NEWS";
 export const LIGHT_MODE = "LIGHT_MODE";
 export const DARK_MODE = "DARK_MODE";
 export const SELECT_COINS = "SELECT_COINS";
+export const SET_USER = "SET_USER";
