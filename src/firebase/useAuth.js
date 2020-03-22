@@ -5,7 +5,7 @@ export const useAuth = userAction => {
   const firebase = useFirebase();
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+    const listener = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         userAction(user);
         console.log("[AUTH]: User Signed In");
@@ -13,6 +13,6 @@ export const useAuth = userAction => {
         console.log("[AUTH]: No User");
       }
     });
-    return () => unsubscribe;
+    return () => listener(); //By calling onauthstatechanged it returns unsubscribe, check docs
   }, [firebase, userAction]);
 };
