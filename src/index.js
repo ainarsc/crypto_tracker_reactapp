@@ -1,10 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { Provider } from "react-redux";
+import configureStore from "./store";
+import firebaseServices, { firebaseContext } from "./firebase";
+import { ThemeProvider } from "@material-ui/styles";
+import theme from "./theme";
+import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = configureStore();
+
+ReactDOM.render(
+  <Provider store={store}>
+    <firebaseContext.Provider value={firebaseServices}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </firebaseContext.Provider>
+  </Provider>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
