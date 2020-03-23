@@ -5,7 +5,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
-    height: "90vh",
+    backgroundColor: "#212121",
+    height: "100vh",
     flexDirection: "column",
     alignSelf: "center",
     alignItems: "center",

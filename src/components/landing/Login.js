@@ -4,9 +4,7 @@ import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { signIn, useAuth } from "../../firebase";
-import { receiveCurrentUser } from "../../store/actions/userActions";
-import { connect } from "react-redux";
+import { signIn } from "../../firebase";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,12 +34,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Login = ({ receiveCurrentUser }) => {
+const Login = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  useAuth(receiveCurrentUser);
 
   const signInUser = (event, e, p) => {
     event.preventDefault();
@@ -98,8 +94,4 @@ const Login = ({ receiveCurrentUser }) => {
   );
 };
 
-const mapDispatch = {
-  receiveCurrentUser
-};
-
-export default connect(null, mapDispatch)(Login);
+export default Login;
