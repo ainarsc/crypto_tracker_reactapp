@@ -12,3 +12,4 @@ export const DARK_MODE = "DARK_MODE";
 export const SELECT_COINS = "SELECT_COINS";
 export const SET_USER = "SET_USER";
 export const INITIALIZING = "INITIALIZING";
+export const NO_USER = "NO_USER";

@@ -11,7 +11,7 @@ const REGISTER = "/register";
 const DASHBOARD = "/dashboard";
 const UNAUTHORIZED = "/unauthorized";
 
-const Routes = ({ user }) => {
+const Routes = ({ session }) => {
   return (
     <Switch>
       <Route exact path={BASE}>
@@ -21,7 +21,7 @@ const Routes = ({ user }) => {
         exact
         path={LOGIN}
         render={props => {
-          if (user.loading === false && user.uid) {
+          if (!session.userSet) {
             return <Login />;
           } else {
             return (
@@ -39,7 +39,12 @@ const Routes = ({ user }) => {
       <Route exact path={REGISTER}>
         <Register />
       </Route>
-      <PrivateRoute exact path={DASHBOARD} user={user} component={Dashboard} />
+      <PrivateRoute
+        exact
+        path={DASHBOARD}
+        session={session}
+        component={Dashboard}
+      />
 
       <Route exact path={UNAUTHORIZED}>
         <Unauthorized />
@@ -52,6 +57,6 @@ const Routes = ({ user }) => {
 };
 
 const mapState = state => ({
-  user: state.userData
+  session: state.userData
 });
 export default connect(mapState)(Routes);
