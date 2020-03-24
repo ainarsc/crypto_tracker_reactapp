@@ -20,23 +20,27 @@ const config = {
 const firebaseServices = firebase.initializeApp(config);
 const userAuth = firebaseServices.auth();
 
-// userAuth.onAuthStateChanged(user => {
-//   if (user) {
-//     console.log(user);
-//   } else {
-//     console.log("foo");
-//   }
-// });
-
 export const createUser = (email, password) => {
   userAuth.createUserWithEmailAndPassword(email, password);
   console.log("User Created");
 };
 
 export const signIn = async (email, password) => {
-  await userAuth.signInWithEmailAndPassword(email, password);
-  console.log("Sign in completed");
+  // const user = await userAuth
+  //   .signInWithEmailAndPassword(email, password)
+  //   .catch(error => {
+  //     console.log(error);
+  //     return error.message;
+  //   });
+  // return user;
+
+  try {
+    await userAuth.signInWithEmailAndPassword(email, password);
+  } catch (error) {
+    return error;
+  }
 };
+
 export const signOut = () => {
   userAuth.signOut();
   console.log("User signed out");

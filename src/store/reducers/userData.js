@@ -1,8 +1,14 @@
-import { SET_USER, INITIALIZING, NO_USER } from "../actions/actionTypes";
+import {
+  SET_USER,
+  INIT_SESSION,
+  NO_USER,
+  SET_ERROR
+} from "../actions/actionTypes";
 
 const _initialState = {
-  loading: false,
-  userSet: false,
+  fetching: false,
+  isAuthenticated: false,
+  isError: false,
   data: {
     displayName: "",
     email: "",
@@ -12,17 +18,22 @@ const _initialState = {
 
 const userData = (state = _initialState, action) => {
   switch (action.type) {
-    case INITIALIZING:
+    case INIT_SESSION:
       return {
         ...state,
-        loading: true,
-        userSet: false
+        fetching: true,
+        isAuthenticated: false,
+        isError: false,
+        data: {
+          ...state.data
+        }
       };
     case SET_USER:
       return {
         ...state,
-        loading: false,
-        userSet: true,
+        fetching: false,
+        isAuthenticated: true,
+        isError: false,
         data: {
           ...state.data,
           displayName: action.payload.displayName,
@@ -33,8 +44,9 @@ const userData = (state = _initialState, action) => {
     case NO_USER:
       return {
         ...state,
-        loading: false,
-        userSet: false,
+        fetching: false,
+        isAuthenticated: false,
+        isError: false,
         data: {
           ...state.data,
           displayName: "",
@@ -42,7 +54,19 @@ const userData = (state = _initialState, action) => {
           uid: ""
         }
       };
-
+    case SET_ERROR:
+      return {
+        ...state,
+        fetching: false,
+        isAuthenticated: false,
+        isError: true,
+        data: {
+          ...state.data,
+          displayName: "",
+          email: "",
+          uid: ""
+        }
+      };
     default:
       return state;
   }

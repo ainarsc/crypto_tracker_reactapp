@@ -64,9 +64,7 @@ function ResponsiveDrawer(props) {
   const theme = useTheme();
   const location = useLocation();
 
-  const show = _.find(["/", "login", "register"], element => {
-    return location.pathname === element;
-  });
+  const show = location.pathname === "/dashboard";
 
   const drawer = (
     <div>
@@ -95,7 +93,7 @@ function ResponsiveDrawer(props) {
   );
 
   return (
-    show === true && (
+    show && (
       <nav className={classes.drawer} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden mdUp implementation="css">

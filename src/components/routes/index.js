@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { Landing, Login, Register, NotFound, Unauthorized } from "../landing";
 import Dashboard from "../dashboard";
 import { PrivateRoute } from "./PrivateRoute";
@@ -14,44 +14,17 @@ const UNAUTHORIZED = "/unauthorized";
 const Routes = ({ session }) => {
   return (
     <Switch>
-      <Route exact path={BASE}>
-        <Landing />
-      </Route>
-      <Route
-        exact
-        path={LOGIN}
-        render={props => {
-          if (!session.userSet) {
-            return <Login />;
-          } else {
-            return (
-              <Redirect
-                to={{
-                  pathname: "/dashboard",
-                  state: { from: props.location }
-                }}
-              />
-            );
-          }
-        }}
-      />
-
-      <Route exact path={REGISTER}>
-        <Register />
-      </Route>
+      <Route exact path={BASE} component={Landing} />
+      <Route exact path={LOGIN} component={Login} />
+      <Route exact path={REGISTER} component={Register} />
       <PrivateRoute
         exact
         path={DASHBOARD}
-        session={session}
+        user={session}
         component={Dashboard}
       />
-
-      <Route exact path={UNAUTHORIZED}>
-        <Unauthorized />
-      </Route>
-      <Route>
-        <NotFound />
-      </Route>
+      <Route exact path={UNAUTHORIZED} component={Unauthorized} />
+      <Route component={NotFound} />
     </Switch>
   );
 };

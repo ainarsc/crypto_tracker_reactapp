@@ -44,45 +44,44 @@ function NavBar(props) {
   const classes = useStyles();
   const location = useLocation();
 
-  const show = _.find(["/", "login", "register"], element => {
-    return location.pathname === element;
-  });
+  const show = location.pathname === "/dashboard";
+
   // const preventDefault = event => event.preventDefault();
 
-  return (
-    show === true && (
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={props.handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Dashboard
-          </Typography>
-          <CurrencySelect />
-          <DarkModeToggle />
-          <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={0} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <IconButton aria-label="show 17 new notifications" color="inherit">
-            <Badge badgeContent={0} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton aria-label="show 17 new notifications" color="inherit">
-            <SettingsIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    )
+  return show ? (
+    <AppBar position="fixed" className={classes.appBar}>
+      <Toolbar className={classes.toolbar}>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={props.handleDrawerToggle}
+          className={classes.menuButton}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography className={classes.title} variant="h6" noWrap>
+          Dashboard
+        </Typography>
+        <CurrencySelect />
+        <DarkModeToggle />
+        <IconButton aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={0} color="secondary">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        <IconButton aria-label="show 17 new notifications" color="inherit">
+          <Badge badgeContent={0} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <IconButton aria-label="show 17 new notifications" color="inherit">
+          <SettingsIcon />
+        </IconButton>
+      </Toolbar>
+    </AppBar>
+  ) : (
+    <div></div>
   );
 }
 

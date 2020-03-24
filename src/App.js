@@ -4,14 +4,16 @@ import ResponsiveDrawer from "./components/navigation/SideDrawer";
 import NavBar from "./components/navigation/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Routes from "./components/routes";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  receiveCurrentUser,
-  initUser,
-  noUserSignedIn
-} from "./store/actions/userActions";
 import LoadingCircle from "./components/ui/LoadingCircle";
 import { useFirebase } from "./firebase";
+import {
+  setSession,
+  initSession,
+  noSession,
+  setError
+} from "./store/actions/userActions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,35 +22,39 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function App({ session, initUser, receiveCurrentUser, noUserSignedIn }) {
+function App({ session, initSession, setSession, noSession, setError }) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const history = useHistory();
   const firebase = useFirebase();
 
   useEffect(() => {
-    initUser();
-    const listener = firebase.auth().onAuthStateChanged(user => {
+    initSession();
+    const listener = firebase.auth().onAuthStateChanged((user, error) => {
       if (user) {
-        receiveCurrentUser(user);
-        console.log("[AUTH]: User Signed In");
-
-        return listener;
+        setSession(user);
+        console.log(`[Session]: <${user.email}> has been signed in`);
+        history.push("/dashboard");
+      } else if (error) {
+        console.log(`[Session]: ${error.message}`);
+        setError();
       } else {
-        noUserSignedIn();
-        console.log("[AUTH]: No User");
+        noSession();
+        console.log(
+          `[Session]: No active session detected, login/registration required`
+        );
+        // history.push("/");
       }
     });
 
-    return () => listener(); //By calling onauthstatechanged it returns unsubscribe, check docs
-  }, [firebase, initUser, receiveCurrentUser, noUserSignedIn]);
+    return () => listener();
+  }, [firebase, initSession, setSession, noSession, history, setError]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
   const classes = useStyles();
 
-  return session.loading && !session.userSet ? (
-    <LoadingCircle />
-  ) : (
+  return !session.fetching || session.isAuthenticated ? (
     <div className={classes.root}>
       <CssBaseline />
       <ResponsiveDrawer
@@ -58,16 +64,18 @@ function App({ session, initUser, receiveCurrentUser, noUserSignedIn }) {
       <NavBar handleDrawerToggle={handleDrawerToggle} />
       <Routes />
     </div>
+  ) : (
+    <LoadingCircle />
   );
 }
 
 const mapDispatch = {
-  receiveCurrentUser,
-  initUser,
-  noUserSignedIn
+  setError,
+  initSession,
+  noSession,
+  setSession
 };
 const mapState = state => ({
   session: state.userData
 });
-
 export default connect(mapState, mapDispatch)(App);

@@ -1,13 +1,12 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-export const PrivateRoute = ({ component: Component, session, ...rest }) => {
-  console.log(session);
+export const PrivateRoute = ({ component: Component, user, ...rest }) => {
   return (
     <Route
       {...rest}
       render={props => {
-        if (session.userSet) {
+        if (user.isAuthenticated) {
           return <Component {...props} />;
         } else {
           return (

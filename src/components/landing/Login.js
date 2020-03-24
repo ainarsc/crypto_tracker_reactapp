@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { signIn } from "../../firebase";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,15 +35,21 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Login = () => {
+const Login = ({ session }) => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  const signInUser = (event, e, p) => {
+  const signInUser = async (event, email, password) => {
     event.preventDefault();
-    signIn(e, p);
-    console.log(`${e} ${p}`);
+
+    const res = await signIn(email, password);
+    if (res && res.hasOwnProperty("message")) {
+      setMessage(res.message);
+      setEmail("");
+      setPassword("");
+    }
   };
 
   return (
@@ -53,6 +60,9 @@ const Login = () => {
         autoComplete="on"
         onSubmit={event => signInUser(event, email, password)}
       >
+        <Typography align="center" variant="h6" gutterBottom>
+          {message}
+        </Typography>
         <Typography align="center" variant="h6" gutterBottom>
           Login
         </Typography>
@@ -86,6 +96,7 @@ const Login = () => {
           variant="outlined"
           color="secondary"
           type="submit"
+          // onClick={() => history.push("/dashboard")}
         >
           Sign In
         </Button>
@@ -94,4 +105,8 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapState = state => {
+  return { session: state.userData };
+};
+
+export default connect(mapState)(Login);
