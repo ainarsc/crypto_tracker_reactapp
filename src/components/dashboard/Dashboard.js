@@ -107,7 +107,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = ({ apiPreferences, apiData, fetchData }) => {
+const Dashboard = ({ apiPreferences, apiData, fetchData, ...rest }) => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const priceListStyles = clsx(classes.paperSmall, classes.fixedHeightSmall);
@@ -122,8 +122,8 @@ const Dashboard = ({ apiPreferences, apiData, fetchData }) => {
       {loading ? (
         <LoadingBar />
       ) : (
-        <Fade in={!loading}>
-          <Container maxWidth="lg">
+        <Fade in={true} timeout={1000}>
+          <Container maxWidth="lg" {...rest}>
             <Grid container>
               <PriceList styles={priceListStyles} />
               <Grid item xs={12} sm={6}>

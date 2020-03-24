@@ -1,8 +1,38 @@
-import { useContext, createContext } from "react";
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useFirebase } from "./useFirebase";
 
-const userContext = createContext({ user: null });
+import {
+  setSession,
+  initSession,
+  noSession,
+  setError
+} from "../store/actions/userActions";
 
 export const useSession = () => {
-  const { user } = useContext(userContext);
-  return user;
+  const history = useHistory();
+  const firebase = useFirebase();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initSession());
+    const listener = firebase.auth().onAuthStateChanged((user, error) => {
+      if (user) {
+        dispatch(setSession(user));
+        console.log(`[Session]: <${user.email}> has been signed in`);
+        history.push("/dashboard");
+      } else if (error) {
+        console.log(`[Session]: ${error.message}`);
+        dispatch(setError());
+      } else {
+        dispatch(noSession());
+        console.log(
+          `[Session]: No active session detected, login/registration required`
+        );
+      }
+    });
+
+    return () => listener();
+  }, [firebase, history, dispatch]);
 };

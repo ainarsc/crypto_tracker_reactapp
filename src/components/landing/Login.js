@@ -43,7 +43,6 @@ const Login = ({ session }) => {
 
   const signInUser = async (event, email, password) => {
     event.preventDefault();
-
     const res = await signIn(email, password);
     if (res && res.hasOwnProperty("message")) {
       setMessage(res.message);

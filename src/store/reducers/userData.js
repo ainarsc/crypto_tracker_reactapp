@@ -6,7 +6,7 @@ import {
 } from "../actions/actionTypes";
 
 const _initialState = {
-  fetching: false,
+  fetching: true,
   isAuthenticated: false,
   isError: false,
   data: {
@@ -23,10 +23,7 @@ const userData = (state = _initialState, action) => {
         ...state,
         fetching: true,
         isAuthenticated: false,
-        isError: false,
-        data: {
-          ...state.data
-        }
+        isError: false
       };
     case SET_USER:
       return {

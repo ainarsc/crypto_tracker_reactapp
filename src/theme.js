@@ -8,7 +8,7 @@ let theme = createMuiTheme({
       dark: "#212121"
     },
     background: {
-      paper: "#252525"
+      paper: "#181818"
     }
   },
 
