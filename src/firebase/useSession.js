@@ -8,7 +8,7 @@ import {
   initSession,
   noSession,
   setError
-} from "../store/actions/userActions";
+} from "../store/actions/sessionActions";
 
 export const useSession = () => {
   const history = useHistory();

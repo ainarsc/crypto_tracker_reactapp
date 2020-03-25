@@ -105,7 +105,7 @@ const Login = ({ session }) => {
 };
 
 const mapState = state => {
-  return { session: state.userData };
+  return { session: state.session };
 };
 
 export default connect(mapState)(Login);

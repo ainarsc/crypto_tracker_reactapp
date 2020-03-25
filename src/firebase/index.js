@@ -8,7 +8,6 @@ import firebaseServices, {
 import firebaseContext from "./FirebaseContext";
 import { useFirebase } from "./useFirebase";
 import { useSession } from "./useSession";
-import { useAuth } from "./useAuth";
 
 export { signIn };
 export { signOut };
@@ -18,5 +17,5 @@ export { updatePassword };
 export { useFirebase };
 export { useSession };
 export { firebaseContext };
-export { useAuth };
+
 export default firebaseServices;

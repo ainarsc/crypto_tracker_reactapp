@@ -16,7 +16,7 @@ const _initialState = {
   }
 };
 
-const userData = (state = _initialState, action) => {
+const session = (state = _initialState, action) => {
   switch (action.type) {
     case INIT_SESSION:
       return {
@@ -69,4 +69,4 @@ const userData = (state = _initialState, action) => {
   }
 };
 
-export default userData;
+export default session;

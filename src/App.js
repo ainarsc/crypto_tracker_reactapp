@@ -7,10 +7,10 @@ import Main from "./components/Main";
 import Navigation from "./components/navigation";
 
 const App = () => {
-  const session = useSelector(state => state.userData);
+  const { fetching } = useSelector(state => state.session);
   useSession(); //Initialize user session
 
-  return session.fetching ? (
+  return fetching ? (
     <LoadingCircle />
   ) : (
     <Main>

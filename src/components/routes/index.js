@@ -30,6 +30,6 @@ const Routes = ({ session }) => {
 };
 
 const mapState = state => ({
-  session: state.userData
+  session: state.session
 });
 export default connect(mapState)(Routes);
