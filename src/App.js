@@ -1,20 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import Routes from "./components/routes";
+import { makeStyles } from "@material-ui/core/styles";
 import ResponsiveDrawer from "./components/navigation/SideDrawer";
 import NavBar from "./components/navigation/NavBar";
-import { makeStyles } from "@material-ui/core/styles";
-import Routes from "./components/routes";
-import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
 import LoadingCircle from "./components/ui/LoadingCircle";
-import { useFirebase } from "./firebase";
-
-import {
-  setSession,
-  initSession,
-  noSession,
-  setError
-} from "./store/actions/userActions";
 import { useSession } from "./firebase";
 
 const useStyles = makeStyles(theme => ({
@@ -24,39 +15,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function App({ session, initSession, setSession, noSession, setError }) {
+const App = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const history = useHistory();
-  const firebase = useFirebase();
-
+  const session = useSelector(state => state.userData);
+  //Initialize user session
   useSession();
-  // useEffect(() => {
-  //   initSession();
-  //   const listener = firebase.auth().onAuthStateChanged((user, error) => {
-  //     if (user) {
-  //       setSession(user);
-  //       console.log(`[Session]: <${user.email}> has been signed in`);
-  //       history.push("/dashboard");
-  //     } else if (error) {
-  //       console.log(`[Session]: ${error.message}`);
-  //       setError();
-  //     } else {
-  //       noSession();
-  //       console.log(
-  //         `[Session]: No active session detected, login/registration required`
-  //       );
-  //     }
-  //   });
-
-  //   return () => listener();
-  // }, [firebase, initSession, setSession, noSession, history, setError]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
   const classes = useStyles();
 
-  return !session.fetching ? (
+  return session.fetching ? (
+    <LoadingCircle />
+  ) : (
     <div className={classes.root}>
       <CssBaseline />
       <ResponsiveDrawer
@@ -66,18 +38,7 @@ function App({ session, initSession, setSession, noSession, setError }) {
       <NavBar handleDrawerToggle={handleDrawerToggle} />
       <Routes />
     </div>
-  ) : (
-    <LoadingCircle />
   );
-}
-
-const mapDispatch = {
-  setError,
-  initSession,
-  noSession,
-  setSession
 };
-const mapState = state => ({
-  session: state.userData
-});
-export default connect(mapState, mapDispatch)(App);
+
+export default App;
