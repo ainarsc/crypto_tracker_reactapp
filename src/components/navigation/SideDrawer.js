@@ -14,7 +14,6 @@ import MailIcon from "@material-ui/icons/Mail";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { useLocation, Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
-import _ from "lodash";
 
 const drawerWidth = 240;
 

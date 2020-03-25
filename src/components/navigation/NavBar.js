@@ -13,7 +13,6 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import DarkModeToggle from "./Switch";
 import CurrencySelect from "./Select";
 import { useLocation } from "react-router-dom";
-import _ from "lodash";
 
 const drawerWidth = 240;
 
