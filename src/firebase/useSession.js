@@ -21,7 +21,7 @@ export const useSession = () => {
       if (user) {
         dispatch(setSession(user));
         console.log(`[Session]: <${user.email}> has been signed in`);
-        history.push("/dashboard");
+        // history.push("/dashboard");
       } else if (error) {
         console.log(`[Session]: ${error.message}`);
         dispatch(setError());

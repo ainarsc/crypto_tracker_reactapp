@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { signIn } from "../../firebase";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,14 +41,20 @@ const Login = ({ session }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const history = useHistory();
 
-  const signInUser = async (event, email, password) => {
+  const signInUser = async (event, email, password, s) => {
     event.preventDefault();
-    const res = await signIn(email, password);
-    if (res && res.hasOwnProperty("message")) {
-      setMessage(res.message);
+    const response = await signIn(email, password);
+    if (response && response.hasOwnProperty("message")) {
+      setMessage(response.message);
       setEmail("");
       setPassword("");
+    } else if (response.hasOwnProperty("uid")) {
+      console.log("[Login]: Sign in successful");
+      history.push("/dashboard");
+    } else {
+      setMessage("Something went wrong... the sadness");
     }
   };
 
@@ -57,7 +64,7 @@ const Login = ({ session }) => {
         className={classes.form}
         noValidate
         autoComplete="on"
-        onSubmit={event => signInUser(event, email, password)}
+        onSubmit={event => signInUser(event, email, password, session)}
       >
         <Typography align="center" variant="h6" gutterBottom>
           {message}
