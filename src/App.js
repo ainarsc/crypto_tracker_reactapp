@@ -4,7 +4,6 @@ import Routes from "./components/routes";
 import LoadingCircle from "./components/ui/LoadingCircle";
 import { useSession } from "./firebase";
 import Main from "./components/Main";
-import Navigation from "./components/navigation";
 
 const App = () => {
   const { fetching } = useSelector(state => state.session);
@@ -14,9 +13,7 @@ const App = () => {
     <LoadingCircle />
   ) : (
     <Main>
-      <Navigation>
-        <Routes />
-      </Navigation>
+      <Routes />
     </Main>
   );
 };

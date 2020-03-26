@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData } from "../store/actions/fetchData";
 import _ from "lodash";
 
 export const isFetched = (apiData, dataCategory) =>
@@ -8,9 +10,9 @@ export const isFetching = ({ FULL_DATA, HISTORY, NEWS }) => {
   return FULL_DATA.isFetching && HISTORY.isFetching && NEWS.isFetching;
 };
 
-export default function(fetchAction, state) {
-  const crypto = state.crypto;
-  const currency = state.currency;
+export default function() {
+  const dispatch = useDispatch();
+  const { crypto, currency } = useSelector(state => state.apiPreferences);
 
   useEffect(() => {
     const dataToFetch = {
@@ -37,8 +39,10 @@ export default function(fetchAction, state) {
     };
 
     _.forEach(dataToFetch, (dataCategory, key) => {
-      fetchAction(key, dataCategory.url, crypto, currency, dataCategory.keys);
+      dispatch(
+        fetchData(key, dataCategory.url, crypto, currency, dataCategory.keys)
+      );
     });
     console.log("[useApi]: State Updated");
-  }, [fetchAction, currency, crypto]);
+  }, [currency, crypto, dispatch]);
 }

@@ -6,8 +6,7 @@ import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import Fade from "@material-ui/core/Fade";
 import clsx from "clsx";
-import { connect } from "react-redux";
-import { fetchData } from "../../store/actions/fetchData";
+import { useSelector } from "react-redux";
 import useApi, { isFetching } from "../../utils/useApi";
 import LoadingBar from "../ui/LoadingBar";
 
@@ -107,19 +106,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = ({ apiPreferences, apiData, fetchData }) => {
+const Dashboard = () => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const priceListStyles = clsx(classes.paperSmall, classes.fixedHeightSmall);
   const dataWidgetRoot = clsx(classes.fixedHeight, classes.dataWidgetRoot);
 
-  //Call initial api actions
-  useApi(fetchData, apiPreferences);
-  const loading = isFetching(apiData);
+  const apiData = useSelector(state => state.apiData);
+  const fetching = isFetching(apiData);
+
+  useApi(); //Initiate API
 
   return (
     <main className={classes.content}>
-      {loading ? (
+      {fetching ? (
         <LoadingBar />
       ) : (
         <Fade in={true} timeout={1000}>
@@ -159,12 +159,4 @@ const Dashboard = ({ apiPreferences, apiData, fetchData }) => {
   );
 };
 
-const mapState = state => ({
-  apiData: state.apiData,
-  apiPreferences: state.apiPreferences
-});
-const mapActions = {
-  fetchData
-};
-
-export default connect(mapState, mapActions)(Dashboard);
+export default Dashboard;

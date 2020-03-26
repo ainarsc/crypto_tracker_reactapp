@@ -63,7 +63,7 @@ function ResponsiveDrawer(props) {
   const theme = useTheme();
   const location = useLocation();
 
-  const show = location.pathname === "/dashboard";
+  // const show = location.pathname === "/dashboard";
 
   const drawer = (
     <div>
@@ -92,39 +92,37 @@ function ResponsiveDrawer(props) {
   );
 
   return (
-    show && (
-      <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden mdUp implementation="css">
-          <Drawer
-            container={container}
-            variant="temporary"
-            anchor={theme.direction === "rtl" ? "right" : "left"}
-            open={props.mobileOpen}
-            onClose={props.handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper
-            }}
-            ModalProps={{
-              keepMounted: true // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper
-            }}
-            variant="permanent"
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </nav>
-    )
+    <nav className={classes.drawer} aria-label="mailbox folders">
+      {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+      <Hidden mdUp implementation="css">
+        <Drawer
+          container={container}
+          variant="temporary"
+          anchor={theme.direction === "rtl" ? "right" : "left"}
+          open={props.mobileOpen}
+          onClose={props.handleDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper
+          }}
+          ModalProps={{
+            keepMounted: true // Better open performance on mobile.
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </Hidden>
+      <Hidden smDown implementation="css">
+        <Drawer
+          classes={{
+            paper: classes.drawerPaper
+          }}
+          variant="permanent"
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Hidden>
+    </nav>
   );
 }
 

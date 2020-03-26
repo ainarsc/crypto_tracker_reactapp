@@ -43,11 +43,11 @@ function NavBar(props) {
   const classes = useStyles();
   const location = useLocation();
 
-  const show = location.pathname === "/dashboard";
+  // const show = location.pathname === "/dashboard";
 
   // const preventDefault = event => event.preventDefault();
 
-  return show ? (
+  return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <IconButton
@@ -79,8 +79,6 @@ function NavBar(props) {
         </IconButton>
       </Toolbar>
     </AppBar>
-  ) : (
-    <div></div>
   );
 }
 
