@@ -5,7 +5,7 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
 import { getDataPoint } from "../../../store/selectors";
-import { isFetched } from "../../../utils/useApi";
+import { isFetched } from "../../../api/useApi";
 import _ from "lodash";
 
 const CenteredGrid = ({ apiData, crypto, currency, styles }) => {

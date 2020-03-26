@@ -9,7 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
 import { getFullData, getDataPoint } from "../../../store/selectors";
-import { isFetched } from "../../../utils/useApi";
+import { isFetched } from "../../../api/useApi";
 import _ from "lodash";
 
 const useStyles = makeStyles(theme => ({

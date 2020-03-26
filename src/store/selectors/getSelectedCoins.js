@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { isFetched } from "../../utils/useApi";
+import { isFetched } from "../../api/useApi";
 import _ from "lodash";
 
 const getFullData = state => {

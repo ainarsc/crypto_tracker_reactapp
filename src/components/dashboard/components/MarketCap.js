@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PieChart, Pie, Cell, Sector, Legend } from "recharts";
 import { connect } from "react-redux";
-import { isFetched } from "../../../utils/useApi";
+import { isFetched } from "../../../api/useApi";
 import _ from "lodash";
 import { getSelectedCoins } from "../../../store/selectors";
 

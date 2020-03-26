@@ -6,7 +6,7 @@ import {
   getTimeTo,
   getPriceHistory
 } from "../../../store/selectors";
-import { isFetched } from "../../../utils/useApi";
+import { isFetched } from "../../../api/useApi";
 
 import {
   AreaChart,

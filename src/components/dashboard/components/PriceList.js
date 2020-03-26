@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import { getPrice } from "../../../store/selectors";
-import { isFetched } from "../../../utils/useApi";
+import { isFetched } from "../../../api/useApi";
 import { connect } from "react-redux";
 import _ from "lodash";
 

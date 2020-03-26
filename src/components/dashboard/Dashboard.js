@@ -7,7 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import Fade from "@material-ui/core/Fade";
 import clsx from "clsx";
 import { useSelector } from "react-redux";
-import useApi, { isFetching } from "../../utils/useApi";
+import useApi, { isFetching } from "../../api/useApi";
 import LoadingBar from "../ui/LoadingBar";
 
 //Component imports
