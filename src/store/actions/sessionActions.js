@@ -1,4 +1,9 @@
-import { SET_USER, INIT_SESSION, NO_USER, SET_ERROR } from "./actionTypes";
+import {
+  SET_USER,
+  INIT_SESSION,
+  CLEAR_SESSION,
+  SET_ERROR
+} from "./actionTypes";
 // import { signIn } from "../../firebase";
 
 export const initSession = () => {
@@ -13,9 +18,9 @@ export const setSession = user => {
   };
 };
 
-export const noSession = () => {
+export const clearSession = () => {
   return {
-    type: NO_USER
+    type: CLEAR_SESSION
   };
 };
 

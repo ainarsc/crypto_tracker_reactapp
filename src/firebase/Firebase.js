@@ -26,14 +26,6 @@ export const createUser = (email, password) => {
 };
 
 export const signIn = async (email, password) => {
-  // const user = await userAuth
-  //   .signInWithEmailAndPassword(email, password)
-  //   .catch(error => {
-  //     console.log(error);
-  //     return error.message;
-  //   });
-  // return user;
-
   try {
     const response = await userAuth.signInWithEmailAndPassword(email, password);
     return response.user;
@@ -42,8 +34,8 @@ export const signIn = async (email, password) => {
   }
 };
 
-export const signOut = () => {
-  userAuth.signOut();
+export const signOut = async () => {
+  await userAuth.signOut();
   console.log("User signed out");
 };
 export const resetPassword = email => {

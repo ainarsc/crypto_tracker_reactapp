@@ -6,7 +6,7 @@ import { useFirebase } from "./useFirebase";
 import {
   setSession,
   initSession,
-  noSession,
+  clearSession,
   setError
 } from "../store/actions/sessionActions";
 
@@ -25,9 +25,10 @@ export const useSession = () => {
         console.log(`[Session]: ${error.message}`);
         dispatch(setError());
       } else {
-        dispatch(noSession());
+        dispatch(clearSession());
+
         console.log(
-          `[Session]: No active session detected, login/registration required`
+          `[Session]: No active session detected/Sign out successful`
         );
       }
     });

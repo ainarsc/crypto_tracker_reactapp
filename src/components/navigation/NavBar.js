@@ -13,6 +13,8 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import SettingsIcon from "@material-ui/icons/Settings";
 import DarkModeToggle from "./Switch";
 import CurrencySelect from "./Select";
+import { signOut } from "../../firebase";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -41,6 +43,12 @@ const useStyles = makeStyles(theme => ({
 
 function NavBar(props) {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleSignOut = async () => {
+    await signOut();
+    history.push("/login");
+  };
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -72,7 +80,11 @@ function NavBar(props) {
         <IconButton aria-label="show 17 new notifications" color="inherit">
           <SettingsIcon />
         </IconButton>
-        <IconButton aria-label="show 17 new notifications" color="inherit">
+        <IconButton
+          aria-label="show 17 new notifications"
+          color="inherit"
+          onClick={handleSignOut}
+        >
           <AccountCircleIcon />
         </IconButton>
       </Toolbar>

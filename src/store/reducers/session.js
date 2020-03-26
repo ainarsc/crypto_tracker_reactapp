@@ -1,7 +1,7 @@
 import {
   SET_USER,
   INIT_SESSION,
-  NO_USER,
+  CLEAR_SESSION,
   SET_ERROR
 } from "../actions/actionTypes";
 
@@ -38,7 +38,7 @@ const session = (state = _initialState, action) => {
           uid: action.payload.uid
         }
       };
-    case NO_USER:
+    case CLEAR_SESSION:
       return {
         ...state,
         fetching: false,
