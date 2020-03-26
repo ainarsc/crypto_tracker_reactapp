@@ -106,7 +106,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = () => {
+export const Dashboard = () => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const priceListStyles = clsx(classes.paperSmall, classes.fixedHeightSmall);
@@ -158,5 +158,3 @@ const Dashboard = () => {
     </main>
   );
 };
-
-export default Dashboard;

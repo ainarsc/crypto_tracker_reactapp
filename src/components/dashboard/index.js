@@ -1,13 +1,9 @@
 import React from "react";
 import Navigation from "../navigation";
-import Dashboard from "./Dashboard";
+import { Dashboard as Dash } from "./Dashboard";
 
-const Dash = () => {
-  return (
-    <Navigation>
-      <Dashboard />
-    </Navigation>
-  );
+const Dashboard = () => {
+  return <Navigation>{/* <Dash /> */}</Navigation>;
 };
 
-export default Dash;
+export default Dashboard;

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -12,7 +13,6 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import SettingsIcon from "@material-ui/icons/Settings";
 import DarkModeToggle from "./Switch";
 import CurrencySelect from "./Select";
-import { useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -41,11 +41,6 @@ const useStyles = makeStyles(theme => ({
 
 function NavBar(props) {
   const classes = useStyles();
-  const location = useLocation();
-
-  // const show = location.pathname === "/dashboard";
-
-  // const preventDefault = event => event.preventDefault();
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -77,16 +72,15 @@ function NavBar(props) {
         <IconButton aria-label="show 17 new notifications" color="inherit">
           <SettingsIcon />
         </IconButton>
+        <IconButton aria-label="show 17 new notifications" color="inherit">
+          <AccountCircleIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );
 }
 
 NavBar.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   container: PropTypes.instanceOf(
     typeof Element === "undefined" ? Object : Element
   )
