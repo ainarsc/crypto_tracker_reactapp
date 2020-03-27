@@ -85,15 +85,15 @@ const Login = ({ session }) => {
 
   return (
     <Container className={classes.root} maxWidth="sm">
+      <Typography align="center" color="error" gutterBottom>
+        {message}
+      </Typography>
       <form
         className={classes.form}
         noValidate
         autoComplete="on"
         onSubmit={event => signInUser(event, email, password, session)}
       >
-        <Typography align="center" variant="h6" gutterBottom>
-          {message}
-        </Typography>
         <Typography align="center" variant="h6" gutterBottom>
           Sing In
         </Typography>
@@ -163,17 +163,17 @@ const Login = ({ session }) => {
             className={classes.button}
             variant="outlined"
             color="secondary"
-            type="submit"
+            onClick={() => history.push("/")}
           >
-            Sign In
+            Go Back
           </Button>
           <Button
             className={classes.button}
             variant="outlined"
             color="secondary"
-            onClick={() => history.push("/")}
+            type="submit"
           >
-            Go Back
+            Sign In
           </Button>
         </ButtonGroup>
       </form>

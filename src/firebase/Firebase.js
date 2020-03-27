@@ -20,14 +20,23 @@ const config = {
 const firebaseServices = firebase.initializeApp(config);
 const userAuth = firebaseServices.auth();
 
-export const createUser = (email, password) => {
-  userAuth.createUserWithEmailAndPassword(email, password);
-  console.log("User Created");
+export const createUser = async (email, password) => {
+  try {
+    const response = await userAuth.createUserWithEmailAndPassword(
+      email,
+      password
+    );
+    console.log("[Firebase]: User Created");
+    return response.user;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const signIn = async (email, password) => {
   try {
     const response = await userAuth.signInWithEmailAndPassword(email, password);
+    console.log("[Firebase]: User Signed In");
     return response.user;
   } catch (error) {
     return error;
@@ -36,7 +45,7 @@ export const signIn = async (email, password) => {
 
 export const signOut = async () => {
   await userAuth.signOut();
-  console.log("User signed out");
+  console.log("[Firebase]: User Signed Out");
 };
 export const resetPassword = email => {
   userAuth.sendPasswordResetEmail(email);

@@ -13,6 +13,8 @@ import Button from "@material-ui/core/Button";
 import clsx from "clsx";
 import { useHistory } from "react-router-dom";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import { createUser } from "../../firebase";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,6 +59,9 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const session = useSelector(state => state.session);
 
   const history = useHistory();
 
@@ -67,9 +72,32 @@ const Register = () => {
     event.preventDefault();
   };
 
+  const signUpUser = async (event, email, password) => {
+    event.preventDefault();
+    const response = await createUser(email, password);
+    if (response && response.hasOwnProperty("message")) {
+      setMessage(response.message);
+      setEmail("");
+      setPassword("");
+      setPassword2("");
+    } else if (response.hasOwnProperty("uid")) {
+      console.log("[SignUp]: Sign Up successfully");
+      history.push("/dashboard");
+    } else {
+      setMessage("Oh no, something went wrong... the sadness");
+    }
+  };
+
   return (
     <Container className={classes.root} maxWidth="sm">
-      <form className={classes.form} autoComplete="on">
+      <Typography align="center" color="error" gutterBottom>
+        {message}
+      </Typography>
+      <form
+        className={classes.form}
+        autoComplete="on"
+        onSubmit={event => signUpUser(event, email, password, session)}
+      >
         <Typography align="center" variant="h6" gutterBottom>
           Sign Up
         </Typography>
@@ -171,17 +199,17 @@ const Register = () => {
             className={classes.button}
             variant="outlined"
             color="secondary"
-            type="submit"
+            onClick={() => history.push("/")}
           >
-            Sign Up
+            Go Back
           </Button>
           <Button
             className={classes.button}
             variant="outlined"
             color="secondary"
-            onClick={() => history.push("/")}
+            type="submit"
           >
-            Go Back
+            Sign Up
           </Button>
         </ButtonGroup>
       </form>
