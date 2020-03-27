@@ -12,7 +12,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import MailIcon from "@material-ui/icons/Mail";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { useLocation, Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 
 const drawerWidth = 240;
@@ -61,16 +61,13 @@ function ResponsiveDrawer(props) {
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const location = useLocation();
-
-  // const show = location.pathname === "/dashboard";
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {["dashboard", "profile", "email", "news"].map((text, index) => (
+        {["dashboard", "preferences", "news"].map((text, index) => (
           <Link
             key={index}
             underline="none"

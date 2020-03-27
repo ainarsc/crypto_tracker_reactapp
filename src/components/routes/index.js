@@ -1,7 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { Landing, Login, Register, NotFound, Unauthorized } from "../landing";
-import Dash from "../dashboard";
+import Dashboard from "../dashboard";
+import Preferences from "../preferences";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 
@@ -10,6 +11,7 @@ const LOGIN = "/login";
 const REGISTER = "/register";
 const DASHBOARD = "/dashboard";
 const UNAUTHORIZED = "/unauthorized";
+const PREFERENCES = "/preferences";
 
 const Routes = () => {
   return (
@@ -17,7 +19,8 @@ const Routes = () => {
       <PublicRoute exact path={BASE} component={Landing} />
       <PublicRoute exact path={LOGIN} component={Login} />
       <PublicRoute exact path={REGISTER} component={Register} />
-      <PrivateRoute exact path={DASHBOARD} component={Dash} />
+      <PrivateRoute exact path={DASHBOARD} component={Dashboard} />
+      <PrivateRoute exact path={PREFERENCES} component={Preferences} />
       <Route exact path={UNAUTHORIZED} component={Unauthorized} />
       <Route component={NotFound} />
     </Switch>
