@@ -8,11 +8,11 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
-  },
-  content: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     flexGrow: 1,
-    marginTop: 68,
+    marginTop: 70,
     height: "90vh",
     overflow: "auto"
   }
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 export const Preferences = () => {
   const classes = useStyles();
   return (
-    <main className={classes.content}>
+    <main className={classes.root}>
       <GeneralSettings />
       <DashboardSettings />
       <AccountSettings />
