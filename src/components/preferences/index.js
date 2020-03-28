@@ -1,11 +1,11 @@
 import React from "react";
 import Navigation from "../navigation";
-import GeneralSettings from "./GeneralSettings";
+import { Preferences as Main } from "./Preferences";
 
 const Preferences = () => {
   return (
     <Navigation>
-      <GeneralSettings />
+      <Main />
     </Navigation>
   );
 };

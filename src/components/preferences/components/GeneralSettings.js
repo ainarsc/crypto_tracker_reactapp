@@ -1,5 +1,5 @@
 import React from "react";
-import AntSwitch from "../ui/AntSwitch";
+import AntSwitch from "../../ui/AntSwitch";
 
 const GeneralSettings = () => {
   //Dark Theme
