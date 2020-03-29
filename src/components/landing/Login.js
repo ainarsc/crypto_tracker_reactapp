@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { signIn } from "../../firebase";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { initSession, setError } from "../../store/actions/sessionActions";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import FormControl from "@material-ui/core/FormControl";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputLabel from "@material-ui/core/InputLabel";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import IconButton from "@material-ui/core/IconButton";
+import {
+  ButtonGroup,
+  InputAdornment,
+  FormControl,
+  OutlinedInput,
+  InputLabel,
+  IconButton,
+  Container,
+  Typography,
+  Button
+} from "@material-ui/core";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
+
 import clsx from "clsx";
 
 const useStyles = makeStyles(theme => ({
@@ -54,7 +56,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Login = ({ session }) => {
+const Login = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -70,15 +72,12 @@ const Login = ({ session }) => {
     event.preventDefault();
   };
 
-  const signInUser = async (event, email, password, s) => {
+  const signInUser = async (event, email, password) => {
     event.preventDefault();
     dispatch(initSession());
     const response = await signIn(email, password);
     if (response && response.hasOwnProperty("message")) {
       dispatch(setError(response.message));
-      // setMessage(response.message);
-      // setEmail("");
-      // setPassword("");
     } else if (response.hasOwnProperty("uid")) {
       console.log("[Login]: Sign in successful");
       history.push("/dashboard");
@@ -96,7 +95,7 @@ const Login = ({ session }) => {
         className={classes.form}
         noValidate
         autoComplete="on"
-        onSubmit={event => signInUser(event, email, password, session)}
+        onSubmit={event => signInUser(event, email, password)}
       >
         <Typography align="center" variant="h6" gutterBottom>
           Sing In
@@ -185,8 +184,4 @@ const Login = ({ session }) => {
   );
 };
 
-const mapState = state => {
-  return { session: state.session };
-};
-
-export default connect(mapState)(Login);
+export default Login;

@@ -14,7 +14,8 @@ import clsx from "clsx";
 import { useHistory } from "react-router-dom";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { createUser } from "../../firebase";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setError, initSession } from "../../store/actions/sessionActions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -59,10 +60,9 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [message, setMessage] = useState("");
 
-  const session = useSelector(state => state.session);
-
+  const dispatch = useDispatch();
+  const { errorMessage: message } = useSelector(state => state.session);
   const history = useHistory();
 
   const handleClickShowPassword = () => {
@@ -74,17 +74,15 @@ const Register = () => {
 
   const signUpUser = async (event, email, password) => {
     event.preventDefault();
+    dispatch(initSession());
     const response = await createUser(email, password);
     if (response && response.hasOwnProperty("message")) {
-      setMessage(response.message);
-      setEmail("");
-      setPassword("");
-      setPassword2("");
+      dispatch(setError(response.message));
     } else if (response.hasOwnProperty("uid")) {
       console.log("[SignUp]: Sign Up successfully");
       history.push("/dashboard");
     } else {
-      setMessage("Oh no, something went wrong... the sadness");
+      dispatch(setError(response.message));
     }
   };
 
@@ -96,7 +94,7 @@ const Register = () => {
       <form
         className={classes.form}
         autoComplete="on"
-        onSubmit={event => signUpUser(event, email, password, session)}
+        onSubmit={event => signUpUser(event, email, password)}
       >
         <Typography align="center" variant="h6" gutterBottom>
           Sign Up
