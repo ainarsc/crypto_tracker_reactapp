@@ -2,13 +2,15 @@ import {
   SET_USER,
   INIT_SESSION,
   CLEAR_SESSION,
-  SET_ERROR
+  SET_ERROR,
+  SESSION_LOADED
 } from "../actions/actionTypes";
 
 const _initialState = {
   fetching: true,
   isAuthenticated: false,
   isError: false,
+  errorMessage: "",
   data: {
     displayName: "",
     email: "",
@@ -23,7 +25,8 @@ const session = (state = _initialState, action) => {
         ...state,
         fetching: true,
         isAuthenticated: false,
-        isError: false
+        isError: false,
+        data: { ...state.data }
       };
     case SET_USER:
       return {
@@ -31,6 +34,7 @@ const session = (state = _initialState, action) => {
         fetching: false,
         isAuthenticated: true,
         isError: false,
+        errorMessage: "",
         data: {
           ...state.data,
           displayName: action.payload.displayName,
@@ -44,11 +48,20 @@ const session = (state = _initialState, action) => {
         fetching: false,
         isAuthenticated: false,
         isError: false,
+        errorMessage: "",
         data: {
           ...state.data,
           displayName: "",
           email: "",
           uid: ""
+        }
+      };
+    case SESSION_LOADED:
+      return {
+        ...state,
+        fetching: false,
+        data: {
+          ...state.data
         }
       };
     case SET_ERROR:
@@ -57,11 +70,9 @@ const session = (state = _initialState, action) => {
         fetching: false,
         isAuthenticated: false,
         isError: true,
+        errorMessage: action.message,
         data: {
-          ...state.data,
-          displayName: "",
-          email: "",
-          uid: ""
+          ...state.data
         }
       };
     default:

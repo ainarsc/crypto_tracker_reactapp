@@ -5,9 +5,8 @@ import { useFirebase } from "./useFirebase";
 
 import {
   setSession,
-  initSession,
-  clearSession,
-  setError
+  setError,
+  sessionLoaded
 } from "../store/actions/sessionActions";
 
 export const useSession = () => {
@@ -16,17 +15,15 @@ export const useSession = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initSession());
     const listener = firebase.auth().onAuthStateChanged((user, error) => {
       if (user) {
         dispatch(setSession(user));
         console.log(`[Session]: <${user.email}> has been signed in`);
       } else if (error) {
-        console.log(`[Session]: ${error.message}`);
         dispatch(setError());
+        console.log(`[Session]: ${error.message}`);
       } else {
-        dispatch(clearSession());
-
+        dispatch(sessionLoaded());
         console.log(
           `[Session]: No active session detected/Sign out successful`
         );

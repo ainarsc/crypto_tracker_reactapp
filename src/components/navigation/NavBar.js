@@ -12,6 +12,8 @@ import DarkModeToggle from "./Switch";
 import CurrencySelect from "./Select";
 import { signOut } from "../../firebase";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearSession } from "../../store/actions/sessionActions";
 
 const drawerWidth = 240;
 
@@ -41,11 +43,12 @@ const useStyles = makeStyles(theme => ({
 function NavBar(props) {
   const classes = useStyles();
   const history = useHistory();
-
+  const dispatch = useDispatch();
   const currentLocation = history.location.pathname.replace("/", "");
 
   const handleSignOut = async () => {
     await signOut();
+    dispatch(clearSession());
     history.push("/login");
   };
 

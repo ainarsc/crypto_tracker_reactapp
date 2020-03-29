@@ -4,8 +4,9 @@ import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { signIn } from "../../firebase";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { initSession, setError } from "../../store/actions/sessionActions";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
@@ -57,9 +58,10 @@ const Login = ({ session }) => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { errorMessage: message } = useSelector(state => state.session);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -70,16 +72,18 @@ const Login = ({ session }) => {
 
   const signInUser = async (event, email, password, s) => {
     event.preventDefault();
+    dispatch(initSession());
     const response = await signIn(email, password);
     if (response && response.hasOwnProperty("message")) {
-      setMessage(response.message);
-      setEmail("");
-      setPassword("");
+      dispatch(setError(response.message));
+      // setMessage(response.message);
+      // setEmail("");
+      // setPassword("");
     } else if (response.hasOwnProperty("uid")) {
       console.log("[Login]: Sign in successful");
       history.push("/dashboard");
     } else {
-      setMessage("Something went wrong... the sadness");
+      dispatch(setError("Something went wrong... the sadness"));
     }
   };
 

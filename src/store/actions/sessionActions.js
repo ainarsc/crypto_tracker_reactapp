@@ -2,7 +2,8 @@ import {
   SET_USER,
   INIT_SESSION,
   CLEAR_SESSION,
-  SET_ERROR
+  SET_ERROR,
+  SESSION_LOADED
 } from "./actionTypes";
 // import { signIn } from "../../firebase";
 
@@ -24,9 +25,16 @@ export const clearSession = () => {
   };
 };
 
-export const setError = () => {
+export const sessionLoaded = () => {
   return {
-    type: SET_ERROR
+    type: SESSION_LOADED
+  };
+};
+
+export const setError = error => {
+  return {
+    type: SET_ERROR,
+    message: error
   };
 };
 
