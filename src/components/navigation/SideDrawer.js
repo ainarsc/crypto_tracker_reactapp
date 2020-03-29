@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("md")]: {
       width: drawerWidth,
       flexShrink: 0
-    }
+    },
+    border: "none"
   },
   appBar: {
     [theme.breakpoints.up("md")]: {

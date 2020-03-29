@@ -7,9 +7,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Badge from "@material-ui/core/Badge";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import SettingsIcon from "@material-ui/icons/Settings";
 import DarkModeToggle from "./Switch";
 import CurrencySelect from "./Select";
@@ -45,6 +42,8 @@ function NavBar(props) {
   const classes = useStyles();
   const history = useHistory();
 
+  const currentLocation = history.location.pathname.replace("/", "");
+
   const handleSignOut = async () => {
     await signOut();
     history.push("/login");
@@ -63,7 +62,7 @@ function NavBar(props) {
           <MenuIcon />
         </IconButton>
         <Typography className={classes.title} variant="h6" noWrap>
-          Dashboard
+          {currentLocation.toUpperCase()}
         </Typography>
         <CurrencySelect />
         <DarkModeToggle />
