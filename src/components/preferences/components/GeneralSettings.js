@@ -1,10 +1,12 @@
-import React from "react";
+import React, { Fragment } from "react";
 import DarkModeSwitch from "../../ui/DarkModeSwitch";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
+import ColorSelector from "../../ui/ColorSelector";
 
 const useStyles = makeStyles(theme => ({
   root: {
+    marginTop: theme.spacing(3),
     width: 250
   },
   row: {
@@ -19,16 +21,18 @@ const GeneralSettings = () => {
   //Dark Theme
   //Colors
   return (
-    <div className={classes.root}>
-      <div className={classes.row}>
-        <Typography>Dark Mode:</Typography>
-        <DarkModeSwitch />
+    <Fragment>
+      <div className={classes.root}>
+        <div className={classes.row}>
+          <Typography>Dark Mode:</Typography>
+          <DarkModeSwitch />
+        </div>
+        <div className={classes.row}>
+          <Typography>Color:</Typography>
+          <ColorSelector />
+        </div>
       </div>
-      <div className={classes.row}>
-        <Typography>Color:</Typography>
-        <DarkModeSwitch />
-      </div>
-    </div>
+    </Fragment>
   );
 };
 
