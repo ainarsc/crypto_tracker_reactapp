@@ -7,7 +7,7 @@ import ColorSelector from "../../ui/ColorSelector";
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(3),
-    width: 250
+    width: "40%"
   },
   row: {
     display: "flex",
