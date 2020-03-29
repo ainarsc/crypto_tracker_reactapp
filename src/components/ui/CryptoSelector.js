@@ -13,6 +13,7 @@ import Chip from "@material-ui/core/Chip";
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
+    marginTop: theme.spacing(2),
     minWidth: 200,
     maxWidth: 200,
     height: 100
@@ -22,8 +23,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: "wrap"
   },
   chip: {
-    margin: 2,
-    backgroundColor: theme.palette.secondary
+    margin: 2
   },
   noLabel: {
     marginTop: theme.spacing(3)
@@ -80,7 +80,12 @@ export default function CryptoSelector() {
         renderValue={selected => (
           <div className={classes.chips}>
             {selected.map(value => (
-              <Chip key={value} label={value} className={classes.chip} />
+              <Chip
+                color="secondary"
+                key={value}
+                label={value}
+                className={classes.chip}
+              />
             ))}
           </div>
         )}
