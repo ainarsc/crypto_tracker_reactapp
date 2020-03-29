@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import TextInput from "../../ui/TextInput";
-import EditPassword from "../../ui/EditPassword";
+import CurrencySelector from "../../ui/CurrencySelector";
+import CryptoSelector from "../../ui/CryptoSelector";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,16 +24,12 @@ const AccountSettings = () => {
     <Fragment>
       <div className={classes.root}>
         <div className={classes.row}>
-          <Typography>Change Email Address:</Typography>
-          <TextInput />
+          <Typography>Select Currency:</Typography>
+          <CurrencySelector />
         </div>
         <div className={classes.row}>
-          <Typography>Change Password:</Typography>
-          <EditPassword />
-        </div>
-        <div className={classes.row}>
-          <Typography>Delete Account:</Typography>
-          <EditPassword />
+          <Typography>Select Coins:</Typography>
+          <CryptoSelector />
         </div>
       </div>
     </Fragment>
