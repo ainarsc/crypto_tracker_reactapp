@@ -5,7 +5,6 @@ import {
   AccountSettings
 } from "./components";
 import Line from "../ui/Line";
-import TextInput from "../ui/TextInput";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({

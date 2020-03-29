@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
@@ -13,25 +12,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function TextInput() {
+export default function DeleteAccount() {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      {/* <TextField
-        id="filled-secondary"
-        variant="outlined"
-        color="secondary"
-        InputProps={{ readOnly: readOnly }}
-        defaultValue="email.address@mail.com"
-      /> */}
       <Button
         variant="outlined"
         color="secondary"
         onClick={() => setOpen(!open)}
       >
-        Edit
+        Delete
       </Button>
     </form>
   );
