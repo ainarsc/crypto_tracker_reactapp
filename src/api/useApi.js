@@ -33,11 +33,10 @@ export default function() {
         url: `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${crypto}&tsym=${currency}&limit=30&aggregate=1`
       },
       NEWS: {
-        url: "https://min-api.cryptocompare.com/data/v2/news/?lang=EN",
+        url: `https://min-api.cryptocompare.com/data/v2/news/?lang=EN`,
         keys: ["title", "published_on", "url", "categories", "source_info"]
       }
     };
-
     _.forEach(dataToFetch, (dataCategory, key) => {
       dispatch(
         fetchData(key, dataCategory.url, crypto, currency, dataCategory.keys)
