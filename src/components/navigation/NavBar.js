@@ -32,11 +32,15 @@ const useStyles = makeStyles(theme => ({
     }
   },
   toolbar: {
-    // theme: theme.mixins.toolbar
     marginLeft: theme.spacing(2)
   },
   title: {
     flexGrow: 1
+  },
+  hide: {
+    [theme.breakpoints.down("xs")]: {
+      display: "none"
+    }
   }
 }));
 
@@ -67,16 +71,17 @@ function NavBar(props) {
         <Typography className={classes.title} variant="h6" noWrap>
           {currentLocation.toUpperCase()}
         </Typography>
-        <CurrencySelect />
-        <DarkModeToggle />
-        <IconButton aria-label="show 17 new notifications" color="inherit">
+        <div className={classes.hide}>
+          <CurrencySelect />
+        </div>
+        <div className={classes.hide}>
+          <DarkModeToggle />
+        </div>
+
+        <IconButton color="inherit">
           <SettingsIcon />
         </IconButton>
-        <IconButton
-          aria-label="show 17 new notifications"
-          color="inherit"
-          onClick={handleSignOut}
-        >
+        <IconButton color="inherit" onClick={handleSignOut}>
           <AccountCircleIcon />
         </IconButton>
       </Toolbar>
