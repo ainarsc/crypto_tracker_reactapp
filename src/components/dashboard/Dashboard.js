@@ -25,12 +25,9 @@ import Copyright from "../Copyright";
 //Styles
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
-  },
-  content: {
     flexGrow: 1,
-    marginTop: 68,
-    height: "90vh",
+    marginTop: 64,
+    height: "92vh",
     overflow: "auto"
   },
   paper: {
@@ -118,7 +115,7 @@ export const Dashboard = () => {
   useApi(); //Initiate API
 
   return (
-    <main className={classes.content}>
+    <main className={classes.root}>
       {fetching ? (
         <LoadingBar />
       ) : (

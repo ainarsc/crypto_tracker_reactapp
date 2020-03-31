@@ -13,8 +13,8 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     alignItems: "center",
     flexGrow: 1,
-    marginTop: 70,
-    height: "90vh",
+    marginTop: 64,
+    height: "92vh",
     overflow: "auto"
   }
 }));
