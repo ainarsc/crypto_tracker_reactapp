@@ -42,11 +42,12 @@ const useStyles = makeStyles(theme => ({
   },
   paperSmall: {
     display: "flex",
-
     flexDirection: "column",
     alignItems: "center",
+    alignContent: "center",
+    justifyContent: "center",
     padding: theme.spacing(1),
-    fontSize: 18,
+    fontSize: 16,
     margin: theme.spacing(1),
     overflow: "auto"
   },

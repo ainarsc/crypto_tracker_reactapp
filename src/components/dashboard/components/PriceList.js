@@ -15,9 +15,9 @@ const PriceList = ({ styles, apiData, currency, cryptoList }) => {
         {_.map(cryptoList, (coin, index) => (
           <Grid key={index} item xs={4} md={2}>
             <Paper className={styles}>
-              <Typography variant="h6">{`${coin}`}</Typography>
+              <Typography variant="subtitle1">{`${coin} - ${currency}`}</Typography>
               <Divider width="100%" orientation="horizontal" variant="middle" />
-              <Typography variant="h6">{`${currency} ${_.round(
+              <Typography variant="h6">{`${_.round(
                 getPrice(apiData, coin, currency),
                 2
               )}`}</Typography>
