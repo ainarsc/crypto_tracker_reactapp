@@ -15,6 +15,7 @@
         "middlewares",
         "mktcap",
         "redux",
-        "totalvolume"
+        "totalvolume",
+        "treemap"
     ]
 }

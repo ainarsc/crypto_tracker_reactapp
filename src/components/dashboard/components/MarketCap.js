@@ -7,7 +7,14 @@ import { getSelectedCoins } from "../../../store/selectors";
 
 const MarketCap = ({ apiData, cryptoList, currency }) => {
   const [index, setIndex] = useState({ activeIndex: 0 });
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+  const COLORS = [
+    "#ca000e",
+    "#eaa600",
+    "#f72b1a",
+    "#f2d840",
+    "#f49390",
+    "#f0c036"
+  ];
   const RADIAN = Math.PI / 180;
 
   const onPieEnter = (empty, index) => {

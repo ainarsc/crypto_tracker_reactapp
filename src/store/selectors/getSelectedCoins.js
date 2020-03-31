@@ -6,11 +6,20 @@ const getFullData = state => {
   return isFetched(state.apiData, "FULL_DATA") && state.apiData.FULL_DATA.data;
 };
 
-const getCryptos = state => state.apiPreferences.cryptoList;
+const getCurrency = state => state.apiPreferences.currency;
 
 export const getSelectedCoins = createSelector(
-  [getFullData, getCryptos],
-  (data, cryptos) => {
-    return _.toArray(_.pick(data, cryptos));
+  [getFullData, getCurrency],
+
+  (data, currency) => {
+    let arr = [];
+    _.forIn(data, coin => {
+      arr.push({
+        name: coin[currency].FROMSYMBOL,
+        value: coin[currency].MKTCAP
+      });
+    });
+
+    return arr;
   }
 );

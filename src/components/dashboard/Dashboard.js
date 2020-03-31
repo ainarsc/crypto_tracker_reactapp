@@ -9,7 +9,7 @@ import clsx from "clsx";
 import { useSelector } from "react-redux";
 import useApi, { isFetching } from "../../api/useApi";
 import LoadingBar from "../ui/LoadingBar";
-
+import TreeMap from "./components/TreeMap";
 //Component imports
 import {
   PriceList,
@@ -31,8 +31,7 @@ const useStyles = makeStyles(theme => ({
     overflow: "auto"
   },
   paper: {
-    padding: theme.spacing(4),
-
+    padding: theme.spacing(1),
     display: "flex",
     overflow: "auto",
     flexDirection: "row",
@@ -126,7 +125,7 @@ export const Dashboard = () => {
               <PriceList styles={priceListStyles} />
               <Grid item xs={12} sm={6}>
                 <Paper className={fixedHeightPaper}>
-                  <MarketCap />
+                  <TreeMap />
                 </Paper>
               </Grid>
               <Grid item xs={12} sm={6}>
