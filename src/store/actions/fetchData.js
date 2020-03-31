@@ -68,15 +68,26 @@ export const fetchData = (
     dispatch(fetchInit(dataCategory));
 
     try {
-      const result = await axios(url); //return: [instance].data
+      // const result = await axios(url); //return: [instance].data
+      const result = url; //Local Data for testing
+
       let processedData;
       if (dataCategory === "FULL_DATA") {
-        processedData = cleanupFullData(result.data, keysToPick);
+        processedData = cleanupFullData(result, keysToPick);
       } else if (dataCategory === "NEWS") {
-        processedData = cleanupNewsData(result.data, keysToPick);
+        processedData = cleanupNewsData(result, keysToPick);
       } else if (dataCategory === "HISTORY") {
-        processedData = cleanupHistoryData(result.data, crypto);
+        processedData = cleanupHistoryData(result, crypto);
       }
+
+      // let processedData;
+      // if (dataCategory === "FULL_DATA") {
+      //   processedData = cleanupFullData(result.data, keysToPick);
+      // } else if (dataCategory === "NEWS") {
+      //   processedData = cleanupNewsData(result.data, keysToPick);
+      // } else if (dataCategory === "HISTORY") {
+      //   processedData = cleanupHistoryData(result.data, crypto);
+      // }
 
       dispatch(receiveData(dataCategory, processedData));
     } catch (error) {
