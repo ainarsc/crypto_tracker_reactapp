@@ -22,8 +22,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("md")]: {
       width: drawerWidth,
       flexShrink: 0
-    },
-    border: "none"
+    }
   },
   appBar: {
     [theme.breakpoints.up("md")]: {
@@ -42,7 +41,8 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(2)
   },
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
+    backgroundColor: theme.palette.primary.main
   },
   title: {
     flexGrow: 1
@@ -74,7 +74,7 @@ function ResponsiveDrawer(props) {
             underline="none"
             to={text}
             component={RouterLink}
-            color="secondary"
+            color="textPrimary"
           >
             <ListItem button key={text}>
               <ListItemIcon>

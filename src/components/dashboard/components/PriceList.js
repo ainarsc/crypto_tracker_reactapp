@@ -17,14 +17,10 @@ const useStyles = makeStyles(theme => ({
     alignContent: "center",
     justifyContent: "center",
     padding: theme.spacing(1),
-    fontSize: 16,
     margin: theme.spacing(1),
     overflow: "auto",
     height: 72,
-    minWidth: 100,
-    borderWidth: 1,
-    borderColor: theme.palette.primary.light,
-    borderStyle: "solid"
+    minWidth: 100
   }
 }));
 

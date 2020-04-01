@@ -15,10 +15,11 @@ import _ from "lodash";
 const useStyles = makeStyles(theme => ({
   root: {
     margin: theme.spacing(1),
-    width: "auto",
-    borderWidth: 1,
-    borderColor: theme.palette.primary.light,
-    borderStyle: "solid"
+    width: "auto"
+
+    // borderWidth: 1,
+    // borderColor: theme.palette.primary.light,
+    // borderStyle: "solid"
   }
 }));
 

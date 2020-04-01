@@ -13,18 +13,20 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
+    justifyContent: "space-between",
+    alignContent: "space-between",
     height: 360,
     width: "auto",
     margin: theme.spacing(1),
     padding: 0,
     "& > *": {
-      flexGrow: 1,
-      width: "50%",
+      height: "49%",
+      width: "49%",
       display: "flex",
       flexDirection: "column",
       textAlign: "center",
-      color: theme.palette.text.secondary,
       justifyContent: "center",
+
       borderWidth: 1,
       borderColor: theme.palette.primary.light,
       borderStyle: "solid"

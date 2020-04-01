@@ -7,7 +7,6 @@ import Fade from "@material-ui/core/Fade";
 import { useSelector } from "react-redux";
 import useApi, { isFetching } from "../../api/useApi";
 import LoadingBar from "../ui/LoadingBar";
-import TreeMap from "./components/TreeMap";
 import Copyright from "../Copyright";
 //Component imports
 import {
@@ -15,7 +14,8 @@ import {
   DataTable,
   NewsStand,
   PriceTrend,
-  DataWidget
+  DataWidget,
+  MarketCap
 } from "./components";
 
 const useStyles = makeStyles(theme => ({
@@ -44,7 +44,7 @@ export const Dashboard = () => {
             <Grid container>
               <PriceList />
               <Grid item xs={12} sm={6}>
-                <TreeMap />
+                <MarketCap />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <DataWidget />

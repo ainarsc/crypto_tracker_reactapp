@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import configureStore from "./store";
 import firebaseServices, { firebaseContext } from "./firebase";
 import { ThemeProvider } from "@material-ui/styles";
-import theme from "./theme";
+import darkTheme from "./theme";
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 
@@ -15,7 +15,7 @@ const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
     <firebaseContext.Provider value={firebaseServices}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={darkTheme}>
         <BrowserRouter>
           <App />
         </BrowserRouter>

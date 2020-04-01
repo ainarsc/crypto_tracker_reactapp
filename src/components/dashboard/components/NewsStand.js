@@ -15,9 +15,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     minWidth: 275,
     margin: theme.spacing(1),
-    borderWidth: 1,
-    borderColor: theme.palette.primary.light,
-    borderStyle: "solid",
+
+    // borderWidth: 1,
+    // borderColor: theme.palette.primary.light,
+    // borderStyle: "solid",
     "& > *": {
       padding: theme.spacing(2),
       "&:last-child": {
@@ -43,7 +44,7 @@ const NewsStand = ({ apiData }) => {
             <Typography variant="h5" component="h2">
               {title}
             </Typography>
-            <Typography variant="caption" color="textSecondary">
+            <Typography variant="caption" color="textPrimary">
               {source_info.name} <Bullet />{" "}
               {moment.unix(published_on).format("MM.DD.YYYY")}
             </Typography>

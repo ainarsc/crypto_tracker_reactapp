@@ -4,8 +4,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex",
-    backgroundColor: theme.palette.primary.main
+    display: "flex"
   }
 }));
 
