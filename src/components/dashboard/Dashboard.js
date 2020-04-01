@@ -141,7 +141,7 @@ export const Dashboard = () => {
                 <DataTable />
               </Grid>
               <Grid item xs={12}>
-                <NewsStand styles={classes} />
+                <NewsStand />
               </Grid>
             </Grid>
 
