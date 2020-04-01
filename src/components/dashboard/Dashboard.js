@@ -48,7 +48,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     fontSize: 16,
     margin: theme.spacing(1),
-    overflow: "auto"
+    overflow: "auto",
+    border: "1px solid #d32f2f"
   },
   fullWidth: {
     width: "100%"
@@ -94,12 +95,12 @@ const useStyles = makeStyles(theme => ({
   },
   widgetContent: {
     display: "flex",
-
     flexDirection: "column",
     height: 178,
     textAlign: "center",
     color: theme.palette.text.secondary,
-    justifyContent: "center"
+    justifyContent: "center",
+    border: "1px solid #d32f2f"
   }
 }));
 

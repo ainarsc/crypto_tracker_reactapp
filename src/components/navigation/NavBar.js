@@ -21,10 +21,9 @@ const useStyles = makeStyles(theme => ({
   appBar: {
     [theme.breakpoints.up("md")]: {
       width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-      background: "#212121",
-      height: "8vh"
-    }
+      marginLeft: drawerWidth
+    },
+    background: "#311b92"
   },
   menuButton: {
     marginRight: theme.spacing(2),
