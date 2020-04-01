@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth
     },
-    background: "#311b92"
+    background: "linear-gradient(to right, #151515, #212121, #151515)"
   },
   menuButton: {
     marginRight: theme.spacing(2),

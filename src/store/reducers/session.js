@@ -7,7 +7,7 @@ import {
 } from "../actions/actionTypes";
 
 const _initialState = {
-  fetching: true,
+  fetching: false, //for testing
   isAuthenticated: false,
   isError: false,
   errorMessage: "",

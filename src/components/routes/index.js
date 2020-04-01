@@ -19,7 +19,7 @@ const Routes = () => {
       <PublicRoute exact path={BASE} component={Landing} />
       <PublicRoute exact path={LOGIN} component={Login} />
       <PublicRoute exact path={REGISTER} component={Register} />
-      <PrivateRoute exact path={DASHBOARD} component={Dashboard} />
+      <Route exact path={DASHBOARD} component={Dashboard} />
       <PrivateRoute exact path={PREFERENCES} component={Preferences} />
       <Route exact path={UNAUTHORIZED} component={Unauthorized} />
       <Route component={NotFound} />

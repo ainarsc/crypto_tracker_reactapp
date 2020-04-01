@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 import {
   getTimeFrom,
@@ -18,7 +20,18 @@ import {
   ResponsiveContainer
 } from "recharts";
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    height: 360,
+    margin: theme.spacing(1),
+    borderWidth: 1,
+    borderColor: theme.palette.primary.light,
+    borderStyle: "solid"
+  }
+}));
+
 const PriceTrend = ({ apiData, crypto }) => {
+  const classes = useStyles();
   const TiltedAxisTick = props => {
     const { x, y, payload } = props;
 
@@ -41,36 +54,41 @@ const PriceTrend = ({ apiData, crypto }) => {
 
   return (
     isFetched(apiData, "HISTORY") && (
-      <ResponsiveContainer>
-        <AreaChart
-          data={getPriceHistory(apiData, crypto)}
-          margin={{
-            top: 10,
-            right: 20,
-            left: 0,
-            bottom: 0
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="time"
-            name="Time"
-            domain={[getTimeFrom(apiData, crypto), getTimeTo(apiData, crypto)]}
-            scale="time"
-            type="number"
-            interval={5}
-            tick={<TiltedAxisTick />}
-          />
-          <YAxis dataKey="close" domain={["low", "auto"]} />
-          <Tooltip />
-          <Area
-            type="monotone"
-            dataKey="close"
-            stroke="#8884d8"
-            fill="#8884d8"
-          />
-        </AreaChart>
-      </ResponsiveContainer>
+      <Paper className={classes.root}>
+        <ResponsiveContainer>
+          <AreaChart
+            data={getPriceHistory(apiData, crypto)}
+            margin={{
+              top: 10,
+              right: 20,
+              left: 0,
+              bottom: 0
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="time"
+              name="Time"
+              domain={[
+                getTimeFrom(apiData, crypto),
+                getTimeTo(apiData, crypto)
+              ]}
+              scale="time"
+              type="number"
+              interval={5}
+              tick={<TiltedAxisTick />}
+            />
+            <YAxis dataKey="close" domain={["low", "auto"]} />
+            <Tooltip />
+            <Area
+              type="monotone"
+              dataKey="close"
+              stroke="#8884d8"
+              fill="#8884d8"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </Paper>
     )
   );
 };

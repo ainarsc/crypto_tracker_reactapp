@@ -4,9 +4,12 @@ let theme = createMuiTheme({
   palette: {
     type: "dark",
     primary: {
-      main: "#333333",
-      dark: "#333333"
+      main: "#121212"
     },
+    secondary: {
+      main: "#ff3814"
+    },
+
     background: {
       paper: "#121212"
     }

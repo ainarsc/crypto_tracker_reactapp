@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
-import Paper from "@material-ui/core/Paper";
 import Fade from "@material-ui/core/Fade";
 import clsx from "clsx";
 import { useSelector } from "react-redux";
@@ -14,7 +13,6 @@ import TreeMap from "./components/TreeMap";
 import {
   PriceList,
   DataTable,
-  MarketCap,
   NewsStand,
   PriceTrend,
   DataWidget
@@ -31,7 +29,6 @@ const useStyles = makeStyles(theme => ({
     overflow: "auto"
   },
   paper: {
-    padding: theme.spacing(1),
     display: "flex",
     overflow: "auto",
     flexDirection: "row",
@@ -48,8 +45,12 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     fontSize: 16,
     margin: theme.spacing(1),
-    overflow: "auto",
-    border: "1px solid #d32f2f"
+    overflow: "auto"
+  },
+  border: {
+    borderWidth: 1,
+    borderColor: theme.palette.primary.light,
+    borderStyle: "solid"
   },
   fullWidth: {
     width: "100%"
@@ -87,7 +88,6 @@ const useStyles = makeStyles(theme => ({
   dataWidgetRoot: {
     flexGrow: 1,
     alignContent: "center",
-
     margin: theme.spacing(1)
   },
   dataWidget: {
@@ -96,19 +96,22 @@ const useStyles = makeStyles(theme => ({
   widgetContent: {
     display: "flex",
     flexDirection: "column",
-    height: 178,
+    height: 180,
+    width: "50%",
     textAlign: "center",
     color: theme.palette.text.secondary,
-    justifyContent: "center",
-    border: "1px solid #d32f2f"
+    justifyContent: "center"
   }
 }));
 
 export const Dashboard = () => {
   const classes = useStyles();
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const priceListStyles = clsx(classes.paperSmall, classes.fixedHeightSmall);
-  const dataWidgetRoot = clsx(classes.fixedHeight, classes.dataWidgetRoot);
+
+  const priceListStyles = clsx(
+    classes.paperSmall,
+    classes.fixedHeightSmall,
+    classes.border
+  );
 
   const apiData = useSelector(state => state.apiData);
   const fetching = isFetching(apiData);
@@ -125,26 +128,21 @@ export const Dashboard = () => {
             <Grid container>
               <PriceList styles={priceListStyles} />
               <Grid item xs={12} sm={6}>
-                <Paper className={fixedHeightPaper}>
-                  <TreeMap />
-                </Paper>
+                <TreeMap />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Paper className={dataWidgetRoot}>
-                  <DataWidget styles={classes} />
-                </Paper>
+                <DataWidget />
               </Grid>
               <Grid item xs={12}>
-                <Paper className={fixedHeightPaper}>
-                  <PriceTrend />
-                </Paper>
+                <PriceTrend />
               </Grid>
 
               <Grid item xs={12}>
-                <DataTable styles={classes} />
+                <DataTable />
               </Grid>
-
-              <NewsStand styles={classes} />
+              <Grid item xs={12}>
+                <NewsStand styles={classes} />
+              </Grid>
             </Grid>
 
             <Box pb={4} pt={4}>

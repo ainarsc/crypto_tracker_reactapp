@@ -10,22 +10,19 @@ import _ from "lodash";
 
 const PriceList = ({ styles, apiData, currency, cryptoList }) => {
   return (
-    isFetched(apiData, "FULL_DATA") && (
-      <Grid container>
-        {_.map(cryptoList, (coin, index) => (
-          <Grid key={index} item xs={4} md={2}>
-            <Paper className={styles}>
-              <Typography variant="subtitle1">{`${coin} - ${currency}`}</Typography>
-              <Divider width="100%" orientation="horizontal" variant="middle" />
-              <Typography variant="h6">{`${_.round(
-                getPrice(apiData, coin, currency),
-                2
-              )}`}</Typography>
-            </Paper>
-          </Grid>
-        ))}
+    isFetched(apiData, "FULL_DATA") &&
+    _.map(cryptoList, (coin, index) => (
+      <Grid key={index} item xs={4} md={2}>
+        <Paper className={styles}>
+          <Typography variant="subtitle1">{`${coin} - ${currency}`}</Typography>
+          <Divider width="100%" orientation="horizontal" variant="middle" />
+          <Typography variant="h6">{`${_.round(
+            getPrice(apiData, coin, currency),
+            2
+          )}`}</Typography>
+        </Paper>
       </Grid>
-    )
+    ))
   );
 };
 
