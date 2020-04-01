@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
       justifyContent: "center",
 
       borderWidth: 1,
-      borderColor: theme.palette.primary.light,
+      borderColor: theme.palette.divider,
       borderStyle: "solid"
     }
   }
@@ -46,7 +46,7 @@ const CenteredGrid = ({ apiData, crypto, currency, styles }) => {
           <Typography variant="h6" component="h2">
             {`Change 24H`}
           </Typography>
-          <Typography variant="h6" component="h3">
+          <Typography color="textSecondary" variant="h6" component="h3">
             {`${currency} ${_.round(getStat("CHANGE24HOUR"), 2)}`}
           </Typography>
         </Paper>
@@ -55,7 +55,7 @@ const CenteredGrid = ({ apiData, crypto, currency, styles }) => {
           <Typography variant="h6" component="h2">
             Change 1 Hour
           </Typography>
-          <Typography variant="h6" component="h3">
+          <Typography color="textSecondary" variant="h6" component="h3">
             {`${currency} ${_.round(getStat("CHANGEHOUR"), 2)}`}
           </Typography>
         </Paper>
@@ -64,7 +64,7 @@ const CenteredGrid = ({ apiData, crypto, currency, styles }) => {
           <Typography variant="h6" component="h2">
             Change 24H
           </Typography>
-          <Typography variant="h6" component="h3">
+          <Typography color="textSecondary" variant="h6" component="h3">
             {`% ${_.round(getStat("CHANGEPCT24HOUR"), 2)}`}
           </Typography>
         </Paper>
@@ -73,7 +73,7 @@ const CenteredGrid = ({ apiData, crypto, currency, styles }) => {
           <Typography variant="h6" component="h2">
             Change 1 Hour
           </Typography>
-          <Typography variant="h6" component="h3">
+          <Typography color="textSecondary" variant="h6" component="h3">
             {`%  ${_.round(getStat("CHANGEPCTHOUR"), 2)}`}
           </Typography>
         </Paper>

@@ -26,28 +26,46 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
 
     borderWidth: 1,
-    borderColor: theme.palette.primary.light,
+    borderColor: theme.palette.divider,
     borderStyle: "solid"
   }
 }));
 
 const PriceTrend = ({ apiData, crypto }) => {
   const classes = useStyles();
+
   const TiltedAxisTick = props => {
     const { x, y, payload } = props;
-
     return (
       <g transform={`translate(${x},${y})`}>
         <text
           x={0}
           y={0}
           dy={16}
-          textAnchor="middle"
-          fill="#666"
+          textAnchor="end"
+          fill="#fff"
+          transform="rotate(-40)"
+        >
+          {moment.unix(payload.value).format("DD.MMM")}
+        </text>
+      </g>
+    );
+  };
+
+  const CustomizedYTick = props => {
+    const { x, y, payload } = props;
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text
+          x={0}
+          y={0}
+          dy={3}
+          textAnchor="end"
+          fill="#fff"
 
           // transform="rotate(-45)"
         >
-          {moment.unix(payload.value).format("DD.MMM")}
+          {payload.value}
         </text>
       </g>
     );
@@ -63,9 +81,15 @@ const PriceTrend = ({ apiData, crypto }) => {
               top: 10,
               right: 20,
               left: 0,
-              bottom: 0
+              bottom: 23
             }}
           >
+            <defs>
+              <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#ff1744" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#ff1744" stopOpacity={0} />
+              </linearGradient>
+            </defs>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="time"
@@ -79,14 +103,14 @@ const PriceTrend = ({ apiData, crypto }) => {
               interval={5}
               tick={<TiltedAxisTick />}
             />
-            <YAxis dataKey="close" domain={["low", "auto"]} />
-            <Tooltip />
-            <Area
-              type="monotone"
+            <YAxis
               dataKey="close"
-              stroke="#8884d8"
-              fill="#8884d8"
+              domain={["low", "auto"]}
+              tick={<CustomizedYTick />}
+              width={50}
             />
+            <Tooltip />
+            <Area dataKey="close" stroke="#ff1744" fill="url(#colorPv)" />
           </AreaChart>
         </ResponsiveContainer>
       </Paper>

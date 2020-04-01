@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.background.paper
   },
   title: {
     flexGrow: 1

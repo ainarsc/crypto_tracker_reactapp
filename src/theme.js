@@ -4,7 +4,7 @@ let darkTheme = createMuiTheme({
   palette: {
     type: "dark",
     primary: {
-      main: "#181818"
+      main: "#311b92"
     },
     secondary: {
       main: "#ff1744"
@@ -13,10 +13,10 @@ let darkTheme = createMuiTheme({
       default: "#131313",
       paper: "#191919"
     },
-    divider: "#131313",
+    divider: "#252525",
     text: {
       primary: "#fff",
-      secondary: "#f9fbe7"
+      secondary: "#ff1744"
     }
   },
 

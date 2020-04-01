@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     height: 72,
     minWidth: 100,
     borderWidth: 1,
-    borderColor: theme.palette.primary.light,
+    borderColor: theme.palette.divider,
     borderStyle: "solid"
   }
 }));
@@ -37,7 +37,7 @@ const PriceList = ({ apiData, currency, cryptoList }) => {
         <Paper className={classes.root}>
           <Typography variant="subtitle1">{`${coin} - ${currency}`}</Typography>
           <Divider width="100%" orientation="horizontal" variant="middle" />
-          <Typography variant="h6">{`${_.round(
+          <Typography color="textSecondary" variant="h6">{`${_.round(
             getPrice(apiData, coin, currency),
             2
           )}`}</Typography>

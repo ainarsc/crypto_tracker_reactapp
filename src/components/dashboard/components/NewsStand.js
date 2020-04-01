@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
 
     borderWidth: 1,
-    borderColor: theme.palette.primary.light,
+    borderColor: theme.palette.divider,
     borderStyle: "solid",
     "& > *": {
       padding: theme.spacing(2),
