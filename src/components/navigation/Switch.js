@@ -17,6 +17,7 @@ export default function DarkModeToggle() {
         onChange={handleChange("checkedA")}
         value="checkedA"
         inputProps={{ "aria-label": "secondary checkbox" }}
+        color="secondary"
       />
     </div>
   );

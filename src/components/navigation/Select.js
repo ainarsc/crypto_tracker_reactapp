@@ -31,6 +31,7 @@ const CurrencySelect = ({ apiPreferences, setCurrency }) => {
           value={apiPreferences.currency}
           onChange={handleChange}
           className={classes.selectEmpty}
+          color="secondary"
         >
           <MenuItem value={"USD"}>USD</MenuItem>
           <MenuItem value={"EUR"}>EUR</MenuItem>

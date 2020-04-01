@@ -60,6 +60,7 @@ export default function ColorSelector() {
           value={color}
           onChange={handleChange}
           variant="outlined"
+          color="secondary"
         >
           <MenuItem className={red} value={"red"}></MenuItem>
           <MenuItem className={blue} value={"blue"}></MenuItem>

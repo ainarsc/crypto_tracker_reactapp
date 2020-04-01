@@ -16,9 +16,9 @@ const useStyles = makeStyles(theme => ({
     minWidth: 275,
     margin: theme.spacing(1),
 
-    // borderWidth: 1,
-    // borderColor: theme.palette.primary.light,
-    // borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: theme.palette.primary.light,
+    borderStyle: "solid",
     "& > *": {
       padding: theme.spacing(2),
       "&:last-child": {

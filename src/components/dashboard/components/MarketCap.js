@@ -25,8 +25,8 @@ const MarketCap = () => {
           data={data}
           dataKey="value"
           ratio={1}
-          stroke="#464646"
-          fill="#121212"
+          stroke="#535353"
+          fill="#191919"
         />
       </ResponsiveContainer>
     </Paper>

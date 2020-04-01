@@ -23,11 +23,11 @@ import {
 const useStyles = makeStyles(theme => ({
   root: {
     height: 360,
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
 
-    // borderWidth: 1,
-    // borderColor: theme.palette.primary.light,
-    // borderStyle: "solid"
+    borderWidth: 1,
+    borderColor: theme.palette.primary.light,
+    borderStyle: "solid"
   }
 }));
 

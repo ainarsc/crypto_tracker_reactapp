@@ -78,7 +78,11 @@ function ResponsiveDrawer(props) {
           >
             <ListItem button key={text}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index % 2 === 0 ? (
+                  <InboxIcon color="secondary" />
+                ) : (
+                  <MailIcon color="secondary" />
+                )}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>

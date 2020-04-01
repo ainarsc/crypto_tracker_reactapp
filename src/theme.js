@@ -13,7 +13,7 @@ let darkTheme = createMuiTheme({
       default: "#131313",
       paper: "#191919"
     },
-    divider: "#ff1744",
+    divider: "#131313",
     text: {
       primary: "#fff",
       secondary: "#f9fbe7"

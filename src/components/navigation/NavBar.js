@@ -79,10 +79,10 @@ function NavBar(props) {
         </div>
 
         <IconButton color="inherit">
-          <SettingsIcon />
+          <SettingsIcon color="secondary" />
         </IconButton>
         <IconButton color="inherit" onClick={handleSignOut}>
-          <AccountCircleIcon />
+          <AccountCircleIcon color="secondary" />
         </IconButton>
       </Toolbar>
     </AppBar>

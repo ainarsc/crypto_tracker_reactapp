@@ -14,7 +14,12 @@ export default function DarkModeSwitch() {
     <FormControl component="fieldset">
       <FormControlLabel
         control={
-          <Switch checked={on} onChange={handleChange} name="darkMode" />
+          <Switch
+            checked={on}
+            color="secondary"
+            onChange={handleChange}
+            name="darkMode"
+          />
         }
         label={on ? "On" : "Off"}
       />

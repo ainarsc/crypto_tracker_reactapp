@@ -20,7 +20,10 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     overflow: "auto",
     height: 72,
-    minWidth: 100
+    minWidth: 100,
+    borderWidth: 1,
+    borderColor: theme.palette.primary.light,
+    borderStyle: "solid"
   }
 }));
 

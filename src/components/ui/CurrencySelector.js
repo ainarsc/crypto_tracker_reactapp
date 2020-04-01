@@ -43,6 +43,7 @@ export default function CurrencySelector() {
           value={currency}
           onChange={handleChange}
           variant="outlined"
+          color="secondary"
         >
           <MenuItem value={"USD"}>USD</MenuItem>
           <MenuItem value={"EUR"}>EUR</MenuItem>
