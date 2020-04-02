@@ -46,14 +46,14 @@ export const Dashboard = () => {
             <div className={classes.offset} />
             <Grid container>
               <PriceList />
+              <Grid item xs={12}>
+                <PriceTrend />
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <MarketCap />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <DataWidget />
-              </Grid>
-              <Grid item xs={12}>
-                <PriceTrend />
               </Grid>
 
               <Grid item xs={12}>
