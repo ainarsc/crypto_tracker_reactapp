@@ -31,10 +31,14 @@ const useStyles = makeStyles(theme => ({
       borderColor: theme.palette.divider,
       borderStyle: "solid"
     }
+  },
+  span: {
+    verticalAlign: "top",
+    fontSize: 14
   }
 }));
 
-const CenteredGrid = ({ apiData, crypto, currency, styles }) => {
+const CenteredGrid = ({ apiData, crypto, currency }) => {
   const classes = useStyles();
   const getStat = indicator =>
     getDataPoint(apiData, crypto, currency, indicator);
@@ -47,7 +51,8 @@ const CenteredGrid = ({ apiData, crypto, currency, styles }) => {
             {`Change 24H`}
           </Typography>
           <Typography color="textSecondary" variant="h4" component="h3">
-            {`${currency} ${_.round(getStat("CHANGE24HOUR"), 2)}`}
+            <span className={classes.span}>{currency}</span>
+            {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
           </Typography>
         </Paper>
 
@@ -56,7 +61,8 @@ const CenteredGrid = ({ apiData, crypto, currency, styles }) => {
             Change 1 Hour
           </Typography>
           <Typography color="textSecondary" variant="h4" component="h3">
-            {`${currency} ${_.round(getStat("CHANGEHOUR"), 2)}`}
+            <span className={classes.span}>{currency}</span>
+            {`${_.round(getStat("CHANGEHOUR"), 2)}`}
           </Typography>
         </Paper>
 
@@ -65,7 +71,7 @@ const CenteredGrid = ({ apiData, crypto, currency, styles }) => {
             Change 24H
           </Typography>
           <Typography color="textSecondary" variant="h4" component="h3">
-            {`% ${_.round(getStat("CHANGEPCT24HOUR"), 2)}`}
+            {`%${_.round(getStat("CHANGEPCT24HOUR"), 2)}`}
           </Typography>
         </Paper>
 
@@ -74,7 +80,7 @@ const CenteredGrid = ({ apiData, crypto, currency, styles }) => {
             Change 1 Hour
           </Typography>
           <Typography color="textSecondary" variant="h4" component="h3">
-            {`%  ${_.round(getStat("CHANGEPCTHOUR"), 2)}`}
+            {`%${_.round(getStat("CHANGEPCTHOUR"), 2)}`}
           </Typography>
         </Paper>
       </Container>
