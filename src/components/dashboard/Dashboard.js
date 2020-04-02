@@ -21,9 +21,11 @@ import {
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    marginTop: 70,
-    height: "92vh",
+    height: "100vh",
     overflow: "auto"
+  },
+  offset: {
+    height: 70
   }
 }));
 
@@ -41,6 +43,7 @@ export const Dashboard = () => {
       ) : (
         <Fade in={true} timeout={1000}>
           <Container maxWidth="lg">
+            <div className={classes.offset} />
             <Grid container>
               <PriceList />
               <Grid item xs={12} sm={6}>

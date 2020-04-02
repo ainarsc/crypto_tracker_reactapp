@@ -10,7 +10,7 @@ let darkTheme = createMuiTheme({
       main: "#ff1744"
     },
     background: {
-      default: "#222222",
+      default: "#202020",
       paper: "#151515"
     },
     divider: "#373737",

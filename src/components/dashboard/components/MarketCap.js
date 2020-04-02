@@ -9,9 +9,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     height: 360,
     margin: theme.spacing(1),
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: theme.palette.divider,
-    borderStyle: "solid"
+    borderStyle: "solid",
+    padding: theme.spacing(5)
   }
 }));
 
@@ -43,8 +44,8 @@ const MarketCap = () => {
     <Paper className={classes.root}>
       <ResponsiveContainer>
         <Treemap
-          width="100%"
-          height="100%"
+          width="80%"
+          height="80%"
           data={data}
           dataKey="value"
           ratio={1}

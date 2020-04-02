@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
@@ -57,35 +57,37 @@ function NavBar(props) {
   };
 
   return (
-    <AppBar position="fixed" className={classes.appBar}>
-      <Toolbar className={classes.toolbar}>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={props.handleDrawerToggle}
-          className={classes.menuButton}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography className={classes.title} variant="h6" noWrap>
-          {currentLocation.toUpperCase()}
-        </Typography>
-        <div className={classes.hide}>
-          <CurrencySelect />
-        </div>
-        <div className={classes.hide}>
-          <DarkModeToggle />
-        </div>
+    <Fragment>
+      <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar className={classes.toolbar}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={props.handleDrawerToggle}
+            className={classes.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography className={classes.title} variant="h6" noWrap>
+            {currentLocation.toUpperCase()}
+          </Typography>
+          <div className={classes.hide}>
+            <CurrencySelect />
+          </div>
+          <div className={classes.hide}>
+            <DarkModeToggle />
+          </div>
 
-        <IconButton color="inherit">
-          <SettingsIcon color="secondary" />
-        </IconButton>
-        <IconButton color="inherit" onClick={handleSignOut}>
-          <AccountCircleIcon color="secondary" />
-        </IconButton>
-      </Toolbar>
-    </AppBar>
+          <IconButton color="inherit">
+            <SettingsIcon color="secondary" />
+          </IconButton>
+          <IconButton color="inherit" onClick={handleSignOut}>
+            <AccountCircleIcon color="secondary" />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+    </Fragment>
   );
 }
 
