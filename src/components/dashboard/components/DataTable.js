@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     margin: theme.spacing(1),
     width: "auto",
-
     borderWidth: 1,
     borderColor: theme.palette.divider,
     borderStyle: "solid"

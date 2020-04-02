@@ -43,37 +43,37 @@ const CenteredGrid = ({ apiData, crypto, currency, styles }) => {
     isFetched(apiData, "FULL_DATA") && (
       <Container className={classes.root}>
         <Paper>
-          <Typography variant="h6" component="h2">
+          <Typography variant="h5" component="h2">
             {`Change 24H`}
           </Typography>
-          <Typography color="textSecondary" variant="h6" component="h3">
+          <Typography color="textSecondary" variant="h4" component="h3">
             {`${currency} ${_.round(getStat("CHANGE24HOUR"), 2)}`}
           </Typography>
         </Paper>
 
         <Paper>
-          <Typography variant="h6" component="h2">
+          <Typography variant="h5" component="h2">
             Change 1 Hour
           </Typography>
-          <Typography color="textSecondary" variant="h6" component="h3">
+          <Typography color="textSecondary" variant="h4" component="h3">
             {`${currency} ${_.round(getStat("CHANGEHOUR"), 2)}`}
           </Typography>
         </Paper>
 
         <Paper>
-          <Typography variant="h6" component="h2">
+          <Typography variant="h5" component="h2">
             Change 24H
           </Typography>
-          <Typography color="textSecondary" variant="h6" component="h3">
+          <Typography color="textSecondary" variant="h4" component="h3">
             {`% ${_.round(getStat("CHANGEPCT24HOUR"), 2)}`}
           </Typography>
         </Paper>
 
         <Paper>
-          <Typography variant="h6" component="h2">
+          <Typography variant="h5" component="h2">
             Change 1 Hour
           </Typography>
-          <Typography color="textSecondary" variant="h6" component="h3">
+          <Typography color="textSecondary" variant="h4" component="h3">
             {`%  ${_.round(getStat("CHANGEPCTHOUR"), 2)}`}
           </Typography>
         </Paper>

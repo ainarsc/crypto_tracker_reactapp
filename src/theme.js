@@ -4,16 +4,16 @@ let darkTheme = createMuiTheme({
   palette: {
     type: "dark",
     primary: {
-      main: "#311b92"
+      main: "#101010"
     },
     secondary: {
       main: "#ff1744"
     },
     background: {
-      default: "#131313",
-      paper: "#191919"
+      default: "#222222",
+      paper: "#151515"
     },
-    divider: "#252525",
+    divider: "#373737",
     text: {
       primary: "#fff",
       secondary: "#ff1744"
@@ -26,7 +26,7 @@ let darkTheme = createMuiTheme({
   typography: {
     fontFamily: "monospace"
   },
-  spacing: 4
+  spacing: 2
 });
 
 darkTheme = responsiveFontSizes(darkTheme);

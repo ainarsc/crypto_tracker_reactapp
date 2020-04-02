@@ -8,9 +8,32 @@ import { getSelectedCoins } from "../../../store/selectors";
 const useStyles = makeStyles(theme => ({
   root: {
     height: 360,
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
+    borderWidth: 2,
+    borderColor: theme.palette.divider,
+    borderStyle: "solid"
   }
 }));
+
+const CustomizedContent = props => {
+  const { x, y, width, height, name } = props;
+
+  return (
+    <g>
+      <rect x={x} y={y} width={width} height={height} stroke="#ff1744" />
+
+      <text
+        x={x + width / 2}
+        y={y + height / 2 + 7}
+        textAnchor="middle"
+        fill="#fff"
+        fontSize={12}
+      >
+        {name}
+      </text>
+    </g>
+  );
+};
 
 const MarketCap = () => {
   const data = useSelector(state => getSelectedCoins(state));
@@ -25,8 +48,8 @@ const MarketCap = () => {
           data={data}
           dataKey="value"
           ratio={1}
-          stroke="#ff1744"
-          fill="#191919"
+          fill="#151515"
+          content={<CustomizedContent />}
         />
       </ResponsiveContainer>
     </Paper>

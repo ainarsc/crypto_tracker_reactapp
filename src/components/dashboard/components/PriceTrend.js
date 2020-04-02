@@ -78,7 +78,7 @@ const PriceTrend = ({ apiData, crypto }) => {
           <AreaChart
             data={getPriceHistory(apiData, crypto)}
             margin={{
-              top: 10,
+              top: 15,
               right: 20,
               left: 0,
               bottom: 23
@@ -90,7 +90,7 @@ const PriceTrend = ({ apiData, crypto }) => {
                 <stop offset="95%" stopColor="#ff1744" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" />
+            <CartesianGrid fill="#131313" stroke="#252525" />
             <XAxis
               dataKey="time"
               name="Time"

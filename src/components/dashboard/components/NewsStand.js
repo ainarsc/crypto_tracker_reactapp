@@ -20,9 +20,9 @@ const useStyles = makeStyles(theme => ({
     borderColor: theme.palette.divider,
     borderStyle: "solid",
     "& > *": {
-      padding: theme.spacing(2),
+      padding: theme.spacing(3),
       "&:last-child": {
-        paddingBottom: theme.spacing(1)
+        paddingBottom: theme.spacing(2)
       }
     }
   }
