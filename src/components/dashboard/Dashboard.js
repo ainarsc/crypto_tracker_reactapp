@@ -1,23 +1,23 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
-import Fade from "@material-ui/core/Fade";
 import { useSelector } from "react-redux";
 import useApi, { isFetching } from "../../api/useApi";
 import LoadingBar from "../ui/LoadingBar";
 import Copyright from "../Copyright";
-//Component imports
+
+//MUI IMPORTS
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Container, Box, Fade } from "@material-ui/core";
+//DASHBOARD COMPONENTS
 import {
   PriceList,
   DataTable,
   NewsStand,
-  PriceTrend,
   DataWidget,
-  MarketCap
+  MarketCap,
+  PriceHistory
 } from "./components";
 
+//STYLES
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -47,7 +47,7 @@ export const Dashboard = () => {
             <Grid container>
               <PriceList />
               <Grid item xs={12}>
-                <PriceTrend />
+                <PriceHistory />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <MarketCap />
@@ -63,7 +63,6 @@ export const Dashboard = () => {
                 <NewsStand />
               </Grid>
             </Grid>
-
             <Box pb={4} pt={4}>
               <Copyright />
             </Box>

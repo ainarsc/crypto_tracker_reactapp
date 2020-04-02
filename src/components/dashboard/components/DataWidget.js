@@ -1,13 +1,12 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
-import { connect } from "react-redux";
+import { Paper, Container, Typography } from "@material-ui/core";
+import { useSelector } from "react-redux";
 import { getDataPoint } from "../../../store/selectors";
 import { isFetched } from "../../../api/useApi";
 import _ from "lodash";
 
+//STYLES
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -38,19 +37,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CenteredGrid = ({ apiData, crypto, currency }) => {
+const CenteredGrid = () => {
   const classes = useStyles();
-  const getStat = indicator =>
-    getDataPoint(apiData, crypto, currency, indicator);
+  const data = useSelector(state => state.apiData);
+  const { crypto, currency } = useSelector(state => state.apiPreferences);
+
+  //DATA POINT SELECTOR
+  const getStat = indicator => getDataPoint(data, crypto, currency, indicator);
 
   return (
-    isFetched(apiData, "FULL_DATA") && (
+    isFetched(data, "FULL_DATA") && (
       <Container className={classes.root}>
         <Paper>
           <Typography variant="h5" component="h2">
             {`Change 24H`}
           </Typography>
-          <Typography color="textSecondary" variant="h4" component="h3">
+          <Typography color="textSecondary" variant="h3" component="h3">
             <span className={classes.span}>{currency}</span>
             {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
           </Typography>
@@ -60,7 +62,7 @@ const CenteredGrid = ({ apiData, crypto, currency }) => {
           <Typography variant="h5" component="h2">
             Change 1 Hour
           </Typography>
-          <Typography color="textSecondary" variant="h4" component="h3">
+          <Typography color="textSecondary" variant="h3" component="h3">
             <span className={classes.span}>{currency}</span>
             {`${_.round(getStat("CHANGEHOUR"), 2)}`}
           </Typography>
@@ -70,7 +72,7 @@ const CenteredGrid = ({ apiData, crypto, currency }) => {
           <Typography variant="h5" component="h2">
             Change 24H
           </Typography>
-          <Typography color="textSecondary" variant="h4" component="h3">
+          <Typography color="textSecondary" variant="h3" component="h3">
             {`%${_.round(getStat("CHANGEPCT24HOUR"), 2)}`}
           </Typography>
         </Paper>
@@ -79,7 +81,7 @@ const CenteredGrid = ({ apiData, crypto, currency }) => {
           <Typography variant="h5" component="h2">
             Change 1 Hour
           </Typography>
-          <Typography color="textSecondary" variant="h4" component="h3">
+          <Typography color="textSecondary" variant="h3" component="h3">
             {`%${_.round(getStat("CHANGEPCTHOUR"), 2)}`}
           </Typography>
         </Paper>
@@ -88,10 +90,4 @@ const CenteredGrid = ({ apiData, crypto, currency }) => {
   );
 };
 
-const mapState = state => ({
-  apiData: state.apiData,
-  crypto: state.apiPreferences.crypto,
-  currency: state.apiPreferences.currency
-});
-
-export default connect(mapState)(CenteredGrid);
+export default CenteredGrid;

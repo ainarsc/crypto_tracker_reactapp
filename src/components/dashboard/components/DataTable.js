@@ -1,20 +1,24 @@
 import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import { connect } from "react-redux";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper
+} from "@material-ui/core";
+import { useSelector } from "react-redux";
 import { getFullData, getDataPoint } from "../../../store/selectors";
 import { isFetched } from "../../../api/useApi";
 import _ from "lodash";
 
+//STYLES
+
 const StyledTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#131313",
     borderColor: theme.palette.secondary.main,
     fontSize: 16
   },
@@ -22,7 +26,6 @@ const StyledTableCell = withStyles(theme => ({
     fontSize: 16
   }
 }))(TableCell);
-
 const useStyles = makeStyles(theme => ({
   root: {
     margin: theme.spacing(1),
@@ -33,9 +36,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DataTable = ({ apiData, currency }) => {
+const DataTable = () => {
   const classes = useStyles();
+  const data = useSelector(state => state.apiData);
+  const currency = useSelector(state => state.apiPreferences.currency);
   let index = 1;
+
+  //DATA POINT CONSTANTS
   const FROMSYMBOL = "FROMSYMBOL";
   const PRICE = "PRICE";
   const CHANGEHOUR = "CHANGEHOUR";
@@ -43,11 +50,12 @@ const DataTable = ({ apiData, currency }) => {
   const TOTALVOLUME24H = "TOTALVOLUME24H";
   const MKTCAP = "MKTCAP";
 
+  //DATA POINT SELECTOR
   const getStat = (crypto, indicator) =>
-    getDataPoint(apiData, crypto, currency, indicator);
+    getDataPoint(data, crypto, currency, indicator);
 
   return (
-    isFetched(apiData, "FULL_DATA") && (
+    isFetched(data, "FULL_DATA") && (
       <TableContainer className={classes.root} component={Paper}>
         <Table size="small" aria-label="a dense table">
           <TableHead>
@@ -62,7 +70,7 @@ const DataTable = ({ apiData, currency }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {_.map(getFullData(apiData), (coin, key) => (
+            {_.map(getFullData(data), (coin, key) => (
               <TableRow key={key} align="right">
                 <StyledTableCell component="th" scope="row" align="right">
                   {index++}
@@ -94,9 +102,4 @@ const DataTable = ({ apiData, currency }) => {
   );
 };
 
-const mapState = state => ({
-  apiData: state.apiData,
-  currency: state.apiPreferences.currency
-});
-
-export default connect(mapState)(DataTable);
+export default DataTable;

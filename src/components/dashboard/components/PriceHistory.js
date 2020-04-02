@@ -1,17 +1,19 @@
 import React from "react";
-import { connect } from "react-redux";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 import moment from "moment";
-import Typography from "@material-ui/core/Typography";
+import TimeSelector from "../../ui/TimeSelector";
+
+//HELPERS
 import {
   getTimeFrom,
   getTimeTo,
   getPriceHistory
 } from "../../../store/selectors";
 import { isFetched } from "../../../api/useApi";
-import TimeSelector from "../../ui/TimeSelector";
-
+//MUI IMPORTS
+import { Paper, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+//RECHARTS COMPONENTS
 import {
   AreaChart,
   Area,
@@ -22,6 +24,7 @@ import {
   ResponsiveContainer
 } from "recharts";
 
+//STYLES
 const useStyles = makeStyles(theme => ({
   root: {
     height: 410,
@@ -38,9 +41,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PriceTrend = ({ apiData, crypto }) => {
+const PriceHistory = () => {
+  //STATE
+  const data = useSelector(state => state.apiData);
+  const crypto = useSelector(state => state.apiPreferences.crypto);
+
+  //STYLES
   const classes = useStyles();
 
+  //CUSTOM CHART COMPONENTS
   const TiltedAxisTick = props => {
     const { x, y, payload } = props;
     return (
@@ -92,12 +101,12 @@ const PriceTrend = ({ apiData, crypto }) => {
   };
 
   return (
-    isFetched(apiData, "HISTORY") && (
+    isFetched(data, "HISTORY") && (
       <Paper className={classes.root}>
         <TimeSelector />
         <ResponsiveContainer height={360}>
           <AreaChart
-            data={getPriceHistory(apiData, crypto)}
+            data={getPriceHistory(data, crypto)}
             margin={{
               top: 15,
               right: 20,
@@ -116,10 +125,7 @@ const PriceTrend = ({ apiData, crypto }) => {
             <XAxis
               dataKey="time"
               name="Time"
-              domain={[
-                getTimeFrom(apiData, crypto),
-                getTimeTo(apiData, crypto)
-              ]}
+              domain={[getTimeFrom(data, crypto), getTimeTo(data, crypto)]}
               scale="time"
               type="number"
               interval={5}
@@ -140,9 +146,4 @@ const PriceTrend = ({ apiData, crypto }) => {
   );
 };
 
-const mapState = state => ({
-  apiData: state.apiData,
-  crypto: state.apiPreferences.crypto
-});
-
-export default connect(mapState)(PriceTrend);
+export default PriceHistory;

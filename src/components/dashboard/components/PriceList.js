@@ -1,13 +1,12 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
+import { useSelector } from "react-redux";
+import _ from "lodash";
+//HELPERS
 import { getPrice } from "../../../store/selectors";
 import { isFetched } from "../../../api/useApi";
-import { connect } from "react-redux";
-import _ from "lodash";
+//MUI IMPORTS
+import { Grid, Paper, Typography, Divider } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,18 +26,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PriceList = ({ apiData, currency, cryptoList }) => {
+const PriceList = () => {
+  const { currency, cryptoList } = useSelector(state => state.apiPreferences);
+  const data = useSelector(state => state.apiData);
   const classes = useStyles();
 
   return (
-    isFetched(apiData, "FULL_DATA") &&
+    isFetched(data, "FULL_DATA") &&
     _.map(cryptoList, (coin, index) => (
       <Grid key={index} item xs={4} md={2}>
         <Paper className={classes.root}>
           <Typography variant="subtitle1">{`${coin} - ${currency}`}</Typography>
           <Divider width="100%" orientation="horizontal" variant="middle" />
           <Typography color="textSecondary" variant="h6">{`${_.round(
-            getPrice(apiData, coin, currency),
+            getPrice(data, coin, currency),
             2
           )}`}</Typography>
         </Paper>
@@ -47,10 +48,4 @@ const PriceList = ({ apiData, currency, cryptoList }) => {
   );
 };
 
-const mapState = state => ({
-  apiData: state.apiData,
-  currency: state.apiPreferences.currency,
-  cryptoList: state.apiPreferences.cryptoList
-});
-
-export default connect(mapState)(PriceList);
+export default PriceList;

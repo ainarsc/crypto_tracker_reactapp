@@ -1,21 +1,20 @@
 import React from "react";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+import moment from "moment";
+import { useSelector } from "react-redux";
+import _ from "lodash";
 import escapeRegExp from "../../../utils/escapeRegExp";
 import { getNews } from "../../../store/selectors";
 import { isFetched } from "../../../api/useApi";
-import Bullet from "../../ui/Bullet";
+//MUI IMPORTS
+import { Card, CardContent, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import moment from "moment";
-import { connect } from "react-redux";
-import _ from "lodash";
+import Bullet from "../../ui/Bullet";
 
+//STYLES
 const useStyles = makeStyles(theme => ({
   root: {
     minWidth: 275,
     margin: theme.spacing(1),
-
     borderWidth: 1,
     borderColor: theme.palette.divider,
     borderStyle: "solid",
@@ -28,13 +27,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NewsStand = ({ apiData }) => {
+const NewsStand = () => {
+  const data = useSelector(state => state.apiData);
   const classes = useStyles();
 
   return (
-    isFetched(apiData, "NEWS") &&
+    isFetched(data, "NEWS") &&
     _.map(
-      getNews(apiData),
+      getNews(data),
       ({ categories, title, source_info, published_on }, key) => (
         <Card key={key} className={classes.root}>
           <CardContent>
@@ -55,8 +55,4 @@ const NewsStand = ({ apiData }) => {
   );
 };
 
-const mapState = state => ({
-  apiData: state.apiData
-});
-
-export default connect(mapState)(NewsStand);
+export default NewsStand;
