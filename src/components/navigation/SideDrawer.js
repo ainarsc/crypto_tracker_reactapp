@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
-
-import InboxIcon from "@material-ui/icons/MoveToInbox";
+import SettingsIcon from "@material-ui/icons/Settings";
+import PublicIcon from "@material-ui/icons/Public";
+import DashboardIcon from "@material-ui/icons/Dashboard";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import MailIcon from "@material-ui/icons/Mail";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
@@ -70,26 +70,45 @@ function ResponsiveDrawer(props) {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {["dashboard", "preferences", "news"].map((text, index) => (
-          <Link
-            key={index}
-            underline="none"
-            to={text}
-            component={RouterLink}
-            color="textPrimary"
-          >
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? (
-                  <InboxIcon color="secondary" />
-                ) : (
-                  <MailIcon color="secondary" />
-                )}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          </Link>
-        ))}
+        <Link
+          underline="none"
+          to={"dashboard"}
+          component={RouterLink}
+          color="textPrimary"
+        >
+          <ListItem button>
+            <ListItemIcon>
+              <DashboardIcon color="secondary" />
+            </ListItemIcon>
+            <ListItemText primary={"dashboard"} />
+          </ListItem>
+        </Link>
+        <Link
+          underline="none"
+          to={"preferences"}
+          component={RouterLink}
+          color="textPrimary"
+        >
+          <ListItem button>
+            <ListItemIcon>
+              <SettingsIcon color="secondary" />
+            </ListItemIcon>
+            <ListItemText primary={"preferences"} />
+          </ListItem>
+        </Link>
+        <Link
+          underline="none"
+          to={"news"}
+          component={RouterLink}
+          color="textPrimary"
+        >
+          <ListItem button>
+            <ListItemIcon>
+              <PublicIcon color="secondary" />
+            </ListItemIcon>
+            <ListItemText primary={"news"} />
+          </ListItem>
+        </Link>
       </List>
       <Divider />
     </div>
