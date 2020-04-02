@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
+import { Paper, Typography } from "@material-ui/core";
 import { Treemap, ResponsiveContainer } from "recharts";
 import { useSelector } from "react-redux";
 import { getSelectedCoins } from "../../../store/selectors";
@@ -42,10 +42,13 @@ const MarketCap = () => {
 
   return (
     <Paper className={classes.root}>
-      <ResponsiveContainer>
+      <div>
+        <Typography variant="subtitle1">Market Cap</Typography>
+      </div>
+      <ResponsiveContainer height={310}>
         <Treemap
           width="80%"
-          height="80%"
+          height="70%"
           data={data}
           dataKey="value"
           ratio={1}
