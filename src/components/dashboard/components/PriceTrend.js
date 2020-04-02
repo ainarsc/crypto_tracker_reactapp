@@ -10,6 +10,7 @@ import {
   getPriceHistory
 } from "../../../store/selectors";
 import { isFetched } from "../../../api/useApi";
+import TimeSelector from "../../ui/TimeSelector";
 
 import {
   AreaChart,
@@ -23,7 +24,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: 360,
+    height: 410,
     margin: theme.spacing(1),
     borderWidth: 1,
     borderColor: theme.palette.divider,
@@ -50,7 +51,7 @@ const PriceTrend = ({ apiData, crypto }) => {
           dy={16}
           textAnchor="end"
           fill="#fff"
-          transform="rotate(-40)"
+          transform="rotate(-35)"
         >
           {moment.unix(payload.value).format("DD.MMM")}
         </text>
@@ -93,7 +94,8 @@ const PriceTrend = ({ apiData, crypto }) => {
   return (
     isFetched(apiData, "HISTORY") && (
       <Paper className={classes.root}>
-        <ResponsiveContainer>
+        <TimeSelector />
+        <ResponsiveContainer height={360}>
           <AreaChart
             data={getPriceHistory(apiData, crypto)}
             margin={{
