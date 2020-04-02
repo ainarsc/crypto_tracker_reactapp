@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -11,6 +11,17 @@ import { connect } from "react-redux";
 import { getFullData, getDataPoint } from "../../../store/selectors";
 import { isFetched } from "../../../api/useApi";
 import _ from "lodash";
+
+const StyledTableCell = withStyles(theme => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    borderColor: theme.palette.secondary.main,
+    fontSize: 16
+  },
+  body: {
+    fontSize: 16
+  }
+}))(TableCell);
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,37 +52,39 @@ const DataTable = ({ apiData, currency }) => {
         <Table size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell align="right">#</TableCell>
-              <TableCell align="right">Coin</TableCell>
-              <TableCell align="right">Price</TableCell>
-              <TableCell align="right">Change 1H</TableCell>
-              <TableCell align="right">Change 24H</TableCell>
-              <TableCell align="right">Total Vol 24H</TableCell>
-              <TableCell align="right">Market Cap</TableCell>
+              <StyledTableCell align="right">#</StyledTableCell>
+              <StyledTableCell align="right">Coin</StyledTableCell>
+              <StyledTableCell align="right">Price</StyledTableCell>
+              <StyledTableCell align="right">Change 1H</StyledTableCell>
+              <StyledTableCell align="right">Change 24H</StyledTableCell>
+              <StyledTableCell align="right">Total Vol 24H</StyledTableCell>
+              <StyledTableCell align="right">Market Cap</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {_.map(getFullData(apiData), (coin, key) => (
               <TableRow key={key} align="right">
-                <TableCell component="th" scope="row" align="right">
+                <StyledTableCell component="th" scope="row" align="right">
                   {index++}
-                </TableCell>
-                <TableCell align="right">{getStat(key, FROMSYMBOL)}</TableCell>
-                <TableCell align="right">
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {getStat(key, FROMSYMBOL)}
+                </StyledTableCell>
+                <StyledTableCell align="right">
                   {_.round(getStat(key, PRICE), 2)}
-                </TableCell>
-                <TableCell align="right">
+                </StyledTableCell>
+                <StyledTableCell align="right">
                   {_.round(getStat(key, CHANGEHOUR), 2)}
-                </TableCell>
-                <TableCell align="right">
+                </StyledTableCell>
+                <StyledTableCell align="right">
                   {_.round(getStat(key, CHANGE24HOUR), 2)}
-                </TableCell>
-                <TableCell align="right">
+                </StyledTableCell>
+                <StyledTableCell align="right">
                   {_.round(getStat(key, TOTALVOLUME24H), -7) / 1000000}
-                </TableCell>
-                <TableCell align="right">
+                </StyledTableCell>
+                <StyledTableCell align="right">
                   {_.round(getStat(key, MKTCAP), -7) / 1000000}
-                </TableCell>
+                </StyledTableCell>
               </TableRow>
             ))}
           </TableBody>
