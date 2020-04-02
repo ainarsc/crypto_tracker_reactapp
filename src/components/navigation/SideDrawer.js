@@ -14,6 +14,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
+import bgSvg from "../../bgSvg.svg";
 
 const drawerWidth = 240;
 
@@ -42,7 +43,8 @@ const useStyles = makeStyles(theme => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: theme.palette.primary.main
+    // backgroundColor: theme.palette.primary.main
+    backgroundImage: `url(${bgSvg})`
   },
   title: {
     flexGrow: 1
