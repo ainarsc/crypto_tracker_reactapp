@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
+import Typography from "@material-ui/core/Typography";
 import {
   getTimeFrom,
   getTimeTo,
@@ -24,10 +25,15 @@ const useStyles = makeStyles(theme => ({
   root: {
     height: 360,
     margin: theme.spacing(1),
-
     borderWidth: 1,
     borderColor: theme.palette.divider,
     borderStyle: "solid"
+  },
+  tooltip: {
+    width: 100,
+    padding: theme.spacing(1),
+    fontSize: 14,
+    backgroundColor: "rgba(22, 22, 22, 0.9)"
   }
 }));
 
@@ -51,7 +57,6 @@ const PriceTrend = ({ apiData, crypto }) => {
       </g>
     );
   };
-
   const CustomizedYTick = props => {
     const { x, y, payload } = props;
     return (
@@ -69,6 +74,20 @@ const PriceTrend = ({ apiData, crypto }) => {
         </text>
       </g>
     );
+  };
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active) {
+      return (
+        <div className={classes.tooltip}>
+          <Typography variant="caption">
+            {moment.unix(label).format("DD.MMM")}
+          </Typography>
+          <Typography color="textSecondary">{payload[0].value}</Typography>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   return (
@@ -109,7 +128,7 @@ const PriceTrend = ({ apiData, crypto }) => {
               tick={<CustomizedYTick />}
               width={50}
             />
-            <Tooltip />
+            <Tooltip content={<CustomTooltip />} />
             <Area dataKey="close" stroke="#ff1744" fill="url(#colorPv)" />
           </AreaChart>
         </ResponsiveContainer>
