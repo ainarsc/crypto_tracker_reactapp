@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     borderStyle: "solid"
   },
   tooltip: {
-    width: 100,
+    width: 120,
     padding: theme.spacing(1),
     fontSize: 14,
     backgroundColor: "rgba(22, 22, 22, 0.9)"
@@ -83,7 +83,7 @@ const PriceTrend = ({ apiData, crypto }) => {
           <Typography variant="caption">
             {moment.unix(label).format("DD.MMM")}
           </Typography>
-          <Typography color="textSecondary">{payload[0].value}</Typography>
+          <Typography color="textSecondary">{`Price: ${payload[0].value}`}</Typography>
         </div>
       );
     }
@@ -112,6 +112,7 @@ const PriceTrend = ({ apiData, crypto }) => {
               </linearGradient>
             </defs>
             <CartesianGrid fill="#131313" stroke="#252525" />
+
             <XAxis
               dataKey="time"
               name="Time"
