@@ -27,11 +27,9 @@ export default function TimeSelector() {
         textColor="textPrimary"
         centered
       >
-        <Tab label="7 days" />
-        <Tab label="30 days" />
-        <Tab label="6 months" />
-        <Tab label="1 year" />
-        <Tab label="All" />
+        <Tab label="Market Cap" />
+        <Tab label="Total Supply" />
+        <Tab label="Volume(24h)" />
       </Tabs>
     </Paper>
   );
