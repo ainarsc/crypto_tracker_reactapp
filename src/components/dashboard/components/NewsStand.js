@@ -44,7 +44,7 @@ const NewsStand = () => {
             <Typography variant="h5" component="h2">
               {title}
             </Typography>
-            <Typography variant="caption" color="textPrimary">
+            <Typography variant="caption" color="textSecondary">
               {source_info.name} <Bullet />{" "}
               {moment.unix(published_on).format("MM.DD.YYYY")}
             </Typography>

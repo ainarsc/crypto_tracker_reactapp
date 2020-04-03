@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { Paper, Tab, Tabs as MuiTabs } from "@material-ui/core";
 import _ from "lodash";
 
@@ -9,7 +9,26 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Tabs({ tabNames }) {
+const StyledTab = withStyles(theme => ({
+  root: {
+    fontSize: 10,
+    minWidth: 12,
+    flexGrow: 1,
+    [theme.breakpoints.up("xs")]: {
+      fontSize: 12,
+      minWidth: 15
+    },
+    [theme.breakpoints.up("sm")]: {
+      fontSize: 14,
+      minWidth: 20
+    },
+    [theme.breakpoints.up("md")]: {
+      minWidth: 30
+    }
+  }
+}))(props => <Tab {...props} />);
+
+export default function Tabs({ tabNames, mini }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -27,7 +46,7 @@ export default function Tabs({ tabNames }) {
         centered
       >
         {_.map(tabNames, tabName => {
-          return <Tab label={tabName} />;
+          return <StyledTab label={tabName} />;
         })}
       </MuiTabs>
     </Paper>

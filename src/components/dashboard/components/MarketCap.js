@@ -45,7 +45,7 @@ const MarketCap = () => {
       </g>
     );
   };
-  const dataCategories = ["Market Cap", "Volume (24h)", "Supply"];
+  const dataCategories = ["Market Cap", "Volume", "Supply"];
   return (
     <Paper className={classes.root}>
       <Tabs tabNames={dataCategories} />

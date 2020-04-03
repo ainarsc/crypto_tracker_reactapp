@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Container, Typography } from "@material-ui/core";
+import { Paper, Container, Typography, Divider } from "@material-ui/core";
+import Tabs from "../../ui/Tabs";
 import { useSelector } from "react-redux";
 import { getDataPoint } from "../../../store/selectors";
 import { isFetched } from "../../../api/useApi";
@@ -21,11 +22,6 @@ const useStyles = makeStyles(theme => ({
     "& > *": {
       height: "49%",
       width: "49%",
-      display: "flex",
-      flexDirection: "column",
-      textAlign: "center",
-      justifyContent: "center",
-
       borderWidth: 1,
       borderColor: theme.palette.divider,
       borderStyle: "solid"
@@ -33,7 +29,22 @@ const useStyles = makeStyles(theme => ({
   },
   span: {
     verticalAlign: "top",
-    fontSize: 14
+    fontSize: 13
+  },
+  content: {
+    height: "70%",
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  price: {
+    height: "100%",
+    padding: theme.spacing(3),
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around"
   }
 }));
 
@@ -49,41 +60,68 @@ const CenteredGrid = () => {
     isFetched(data, "FULL_DATA") && (
       <Container className={classes.root}>
         <Paper>
-          <Typography variant="h5" component="h2">
-            {`Change 24H`}
-          </Typography>
-          <Typography color="textSecondary" variant="h3" component="h3">
-            <span className={classes.span}>{currency}</span>
-            {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
-          </Typography>
+          <Tabs tabNames={["Δ(24h)", "Δ(1h)"]} />
+          <div className={classes.content}>
+            <Typography variant="h4" component="h3">
+              <span className={classes.span}>{currency}</span>
+              {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
+            </Typography>
+            <Typography variant="h4" component="h3">
+              {`% ${_.round(getStat("CHANGEPCT24HOUR"), 2)}`}
+            </Typography>
+          </div>
         </Paper>
 
         <Paper>
-          <Typography variant="h5" component="h2">
-            Change 1 Hour
-          </Typography>
-          <Typography color="textSecondary" variant="h3" component="h3">
-            <span className={classes.span}>{currency}</span>
-            {`${_.round(getStat("CHANGEHOUR"), 2)}`}
-          </Typography>
+          <Tabs tabNames={["Vol(24h)", "Vol(1h)"]} />
+          <div className={classes.content}>
+            <Typography variant="h4" component="h3">
+              <span className={classes.span}>{currency}</span>
+              {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
+            </Typography>
+            <Typography variant="h4" component="h3">
+              <span className={classes.span}>{currency}</span>
+              {`${_.round(getStat("CHANGEPCT24HOUR"), 2)}`}
+            </Typography>
+          </div>
         </Paper>
 
         <Paper>
-          <Typography variant="h5" component="h2">
-            Change 24H
-          </Typography>
-          <Typography color="textSecondary" variant="h3" component="h3">
-            {`%${_.round(getStat("CHANGEPCT24HOUR"), 2)}`}
-          </Typography>
+          <Tabs tabNames={["MKT CAP", "SUPPLY"]} />
+          <div className={classes.content}>
+            <Typography variant="h3" component="h3">
+              <span className={classes.span}>{currency}</span>
+              {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
+            </Typography>
+          </div>
         </Paper>
 
         <Paper>
-          <Typography variant="h5" component="h2">
-            Change 1 Hour
-          </Typography>
-          <Typography color="textSecondary" variant="h3" component="h3">
-            {`%${_.round(getStat("CHANGEPCTHOUR"), 2)}`}
-          </Typography>
+          <div className={classes.price}>
+            <Typography color="textSecondary" variant="caption">
+              Open
+            </Typography>
+            <Typography variant="h5" component="h3">
+              <span className={classes.span}>{currency}</span>
+              {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
+            </Typography>
+            <Divider />
+            <Typography color="textSecondary" variant="caption">
+              High
+            </Typography>
+            <Typography variant="h5" component="h3">
+              <span className={classes.span}>{currency}</span>
+              {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
+            </Typography>
+            <Divider />
+            <Typography color="textSecondary" variant="caption">
+              Low
+            </Typography>
+            <Typography variant="h5" component="h3">
+              <span className={classes.span}>{currency}</span>
+              {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
+            </Typography>
+          </div>
         </Paper>
       </Container>
     )
