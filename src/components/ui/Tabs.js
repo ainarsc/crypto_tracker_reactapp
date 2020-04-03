@@ -1,8 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import { Paper, Tab, Tabs as MuiTabs } from "@material-ui/core";
+import _ from "lodash";
 
 const useStyles = makeStyles({
   root: {
@@ -10,7 +9,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function TimeSelector() {
+export default function Tabs({ tabNames }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -20,17 +19,17 @@ export default function TimeSelector() {
 
   return (
     <Paper className={classes.root}>
-      <Tabs
+      <MuiTabs
         value={value}
         onChange={handleChange}
         indicatorColor="secondary"
         textColor="textPrimary"
         centered
       >
-        <Tab label="Market Cap" />
-        <Tab label="Total Supply" />
-        <Tab label="Volume(24h)" />
-      </Tabs>
+        {_.map(tabNames, tabName => {
+          return <Tab label={tabName} />;
+        })}
+      </MuiTabs>
     </Paper>
   );
 }

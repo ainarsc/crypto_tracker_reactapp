@@ -1,9 +1,12 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Typography } from "@material-ui/core";
-import { Treemap, ResponsiveContainer } from "recharts";
 import { useSelector } from "react-redux";
 import { getSelectedCoins } from "../../../store/selectors";
+//MUI IMPORTS
+import { makeStyles } from "@material-ui/core/styles";
+import { Paper } from "@material-ui/core";
+import { Treemap, ResponsiveContainer } from "recharts";
+//UI IMPORTS
+import Tabs from "../../ui/Tabs";
 
 //STYLES
 const useStyles = makeStyles(theme => ({
@@ -12,8 +15,10 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     borderWidth: 1,
     borderColor: theme.palette.divider,
-    borderStyle: "solid",
-    padding: theme.spacing(5)
+    borderStyle: "solid"
+  },
+  treeMap: {
+    margin: 8
   }
 }));
 
@@ -40,23 +45,21 @@ const MarketCap = () => {
       </g>
     );
   };
-
+  const dataCategories = ["Market Cap", "Volume (24h)", "Supply"];
   return (
     <Paper className={classes.root}>
-      <div>
-        <Typography variant="subtitle1">Market Cap</Typography>
+      <Tabs tabNames={dataCategories} />
+      <div className={classes.treeMap}>
+        <ResponsiveContainer height={295}>
+          <Treemap
+            data={data}
+            dataKey="value"
+            ratio={1}
+            fill="#151515"
+            content={<CustomizedContent />}
+          />
+        </ResponsiveContainer>
       </div>
-      <ResponsiveContainer height={310}>
-        <Treemap
-          width="80%"
-          height="70%"
-          data={data}
-          dataKey="value"
-          ratio={1}
-          fill="#151515"
-          content={<CustomizedContent />}
-        />
-      </ResponsiveContainer>
     </Paper>
   );
 };

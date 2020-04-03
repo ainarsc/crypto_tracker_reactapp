@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import TimeSelector from "../../ui/TimeSelector";
+import Tabs from "../../ui/Tabs";
 
 //HELPERS
 import {
@@ -99,11 +99,11 @@ const PriceHistory = () => {
 
     return null;
   };
-
+  const dataCategories = ["All", "1 Year", "6 Months", "1 Month", "7 days"];
   return (
     isFetched(data, "HISTORY") && (
       <Paper className={classes.root}>
-        <TimeSelector />
+        <Tabs tabNames={dataCategories} />
         <ResponsiveContainer height={360}>
           <AreaChart
             data={getPriceHistory(data, crypto)}
