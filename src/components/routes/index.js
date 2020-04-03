@@ -12,6 +12,10 @@ const REGISTER = "/register";
 const DASHBOARD = "/dashboard";
 const UNAUTHORIZED = "/unauthorized";
 const PREFERENCES = "/preferences";
+const CRYPTO = "/crypto";
+const STOCKS = "/stocks";
+const COMMODITIES = "/commodities";
+const FOREX = "/forex";
 
 const Routes = () => {
   return (

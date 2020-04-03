@@ -7,6 +7,9 @@ import Hidden from "@material-ui/core/Hidden";
 import SettingsIcon from "@material-ui/icons/Settings";
 import PublicIcon from "@material-ui/icons/Public";
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import ShowChartIcon from "@material-ui/icons/ShowChart";
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -83,19 +86,48 @@ function ResponsiveDrawer(props) {
             <ListItemText primary={"dashboard"} />
           </ListItem>
         </Link>
+
         <Link
           underline="none"
-          to={"preferences"}
+          to={"crypto"}
           component={RouterLink}
           color="textPrimary"
         >
           <ListItem button>
             <ListItemIcon>
-              <SettingsIcon color="secondary" />
+              <MonetizationOnIcon color="secondary" />
             </ListItemIcon>
-            <ListItemText primary={"preferences"} />
+            <ListItemText primary={"crypto"} />
           </ListItem>
         </Link>
+        <Link
+          underline="none"
+          to={"stocks"}
+          component={RouterLink}
+          color="textPrimary"
+        >
+          <ListItem button>
+            <ListItemIcon>
+              <ShowChartIcon color="secondary" />
+            </ListItemIcon>
+            <ListItemText primary={"stocks"} />
+          </ListItem>
+        </Link>
+
+        <Link
+          underline="none"
+          to={"forex"}
+          component={RouterLink}
+          color="textPrimary"
+        >
+          <ListItem button>
+            <ListItemIcon>
+              <AttachMoneyIcon color="secondary" />
+            </ListItemIcon>
+            <ListItemText primary={"forex"} />
+          </ListItem>
+        </Link>
+
         <Link
           underline="none"
           to={"news"}
@@ -107,6 +139,20 @@ function ResponsiveDrawer(props) {
               <PublicIcon color="secondary" />
             </ListItemIcon>
             <ListItemText primary={"news"} />
+          </ListItem>
+        </Link>
+
+        <Link
+          underline="none"
+          to={"preferences"}
+          component={RouterLink}
+          color="textPrimary"
+        >
+          <ListItem button>
+            <ListItemIcon>
+              <SettingsIcon color="secondary" />
+            </ListItemIcon>
+            <ListItemText primary={"preferences"} />
           </ListItem>
         </Link>
       </List>
