@@ -100,7 +100,7 @@ const PriceHistory = () => {
     return null;
   };
   const dataCategories = ["All", "1 Year", "6 Months", "1 Month", "7 days"];
-  // isFetched(data, "HISTORY")
+
   return (
     history.hasOwnProperty(crypto) && (
       <Paper className={classes.root}>
