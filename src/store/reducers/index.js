@@ -3,16 +3,14 @@ import apiData from "./apiData";
 import appPreferences from "./appPreferences";
 import apiPreferences from "./apiPreferences";
 import session from "./session";
-import treeMap from "./treeMap";
-import marketSummary from "./marketSummary";
+import cryptoReducer from "./cryptoReducer";
 
 const rootReducer = combineReducers({
   apiData,
   appPreferences,
   apiPreferences,
   session,
-  treeMap,
-  marketSummary,
+  cryptoReducer,
 });
 
 export default rootReducer;
