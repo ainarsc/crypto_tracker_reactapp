@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { selectTreeMap } from "../../../store/actions/cryptoActions";
 import { getSelectedCoins } from "../../../store/selectors";
 //MUI IMPORTS
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,25 +10,26 @@ import { Treemap, ResponsiveContainer } from "recharts";
 import Tabs from "../../ui/Tabs";
 
 //STYLES
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: 360,
     margin: theme.spacing(1),
     borderWidth: 1,
     borderColor: theme.palette.divider,
-    borderStyle: "solid"
+    borderStyle: "solid",
   },
   treeMap: {
-    margin: 8
-  }
+    margin: 8,
+  },
 }));
 
 const MarketCap = () => {
-  const data = useSelector(state => getSelectedCoins(state));
+  const data = useSelector((state) => getSelectedCoins(state));
+  const selected = useSelector((state) => state.cryptoReducer.treeMap);
   const classes = useStyles();
 
   //CUSTOM TOOLTIP
-  const CustomizedContent = props => {
+  const CustomizedContent = (props) => {
     const { x, y, width, height, name } = props;
     return (
       <g>
@@ -46,9 +48,10 @@ const MarketCap = () => {
     );
   };
   const dataCategories = ["Market Cap", "Volume", "Supply"];
+
   return (
     <Paper className={classes.root}>
-      <Tabs tabNames={dataCategories} />
+      <Tabs selectedTab={selected} tabNames={dataCategories} />
       <div className={classes.treeMap}>
         <ResponsiveContainer height={295}>
           <Treemap

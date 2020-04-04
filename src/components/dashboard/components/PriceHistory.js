@@ -7,7 +7,7 @@ import Tabs from "../../ui/Tabs";
 import {
   getTimeFrom,
   getTimeTo,
-  getPriceHistory
+  getPriceHistory,
 } from "../../../store/selectors";
 //MUI IMPORTS
 import { Paper, Typography } from "@material-ui/core";
@@ -20,37 +20,37 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from "recharts";
 
 //STYLES
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: 410,
     margin: theme.spacing(1),
     borderWidth: 1,
     borderColor: theme.palette.divider,
-    borderStyle: "solid"
+    borderStyle: "solid",
   },
   tooltip: {
     width: 120,
     padding: theme.spacing(1),
     fontSize: 14,
-    backgroundColor: "rgba(22, 22, 22, 0.9)"
-  }
+    backgroundColor: "rgba(22, 22, 22, 0.9)",
+  },
 }));
 
 const PriceHistory = () => {
   //STATE
-  const data = useSelector(state => state.apiData);
-  const crypto = useSelector(state => state.apiPreferences.crypto);
-  const history = useSelector(state => state.apiData.HISTORY.data);
-
+  const data = useSelector((state) => state.apiData);
+  const crypto = useSelector((state) => state.apiPreferences.crypto);
+  const history = useSelector((state) => state.apiData.HISTORY.data);
+  const selected = useSelector((state) => state.cryptoReducer.priceHistory);
   //STYLES
   const classes = useStyles();
 
   //CUSTOM CHART COMPONENTS
-  const TiltedAxisTick = props => {
+  const TiltedAxisTick = (props) => {
     const { x, y, payload } = props;
     return (
       <g transform={`translate(${x},${y})`}>
@@ -67,7 +67,7 @@ const PriceHistory = () => {
       </g>
     );
   };
-  const CustomizedYTick = props => {
+  const CustomizedYTick = (props) => {
     const { x, y, payload } = props;
     return (
       <g transform={`translate(${x},${y})`}>
@@ -99,12 +99,12 @@ const PriceHistory = () => {
 
     return null;
   };
-  const dataCategories = ["All", "1 Year", "6 Months", "1 Month", "7 days"];
+  const time = ["All", "1 Year", "1 Month", "7 days", "1 day"];
 
   return (
     history.hasOwnProperty(crypto) && (
       <Paper className={classes.root}>
-        <Tabs tabNames={dataCategories} />
+        <Tabs selectedTab={selected} tabNames={time} />
         <ResponsiveContainer height={360}>
           <AreaChart
             data={getPriceHistory(data, crypto)}
@@ -112,7 +112,7 @@ const PriceHistory = () => {
               top: 15,
               right: 20,
               left: 0,
-              bottom: 23
+              bottom: 23,
             }}
           >
             <defs>

@@ -1,52 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
 import { Paper, Tab, Tabs as MuiTabs } from "@material-ui/core";
 import _ from "lodash";
 
 const useStyles = makeStyles({
   root: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 });
 
-const StyledTab = withStyles(theme => ({
+const StyledTab = withStyles((theme) => ({
   root: {
     fontSize: 10,
     minWidth: 12,
     flexGrow: 1,
     [theme.breakpoints.up("xs")]: {
       fontSize: 12,
-      minWidth: 15
+      minWidth: 15,
     },
     [theme.breakpoints.up("sm")]: {
       fontSize: 14,
-      minWidth: 20
+      minWidth: 20,
     },
     [theme.breakpoints.up("md")]: {
-      minWidth: 30
-    }
-  }
-}))(props => <Tab {...props} />);
+      minWidth: 30,
+    },
+  },
+}))((props) => <Tab {...props} />);
 
-export default function Tabs({ tabNames, mini }) {
+export default function Tabs({ selectedTab, tabNames }) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [tab, setTab] = useState(selectedTab);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleChange = (event, tab) => {
+    console.log(tab);
+    setTab(tab);
   };
 
   return (
     <Paper className={classes.root}>
       <MuiTabs
-        value={value}
-        onChange={handleChange}
+        value={tab}
+        onChange={(e, t) => handleChange(e, t)}
         indicatorColor="secondary"
-        textColor="textPrimary"
+        color="textPrimary"
         centered
       >
-        {_.map(tabNames, tabName => {
-          return <StyledTab label={tabName} />;
+        {_.map(tabNames, (tabName) => {
+          return <StyledTab key={tabName} value={tabName} label={tabName} />;
         })}
       </MuiTabs>
     </Paper>

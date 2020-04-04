@@ -6,8 +6,8 @@ import {
   SELECT_MKTSUPPLY,
 } from "./actionTypes";
 
-export const selectHistory = (timePeriod) => {
-  return { type: SELECT_HISTORY, payload: timePeriod };
+export const selectHistory = (time) => {
+  return { type: SELECT_HISTORY, payload: time };
 };
 
 export const selectTreeMap = (category) => {
