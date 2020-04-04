@@ -3,6 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Container, Typography, Divider } from "@material-ui/core";
 import Tabs from "../../ui/Tabs";
 import { useSelector } from "react-redux";
+import {
+  selectChange,
+  selectVolume,
+  selectMktsupply,
+} from "../../../store/actions/cryptoActions";
 import { getDataPoint } from "../../../store/selectors";
 import { isFetched } from "../../../api/useApi";
 import _ from "lodash";
@@ -64,7 +69,11 @@ const CenteredGrid = () => {
     isFetched(data, "FULL_DATA") && (
       <Container className={classes.root}>
         <Paper>
-          <Tabs selectedTab={priceChange} tabNames={["Δ(24h)", "Δ(1h)"]} />
+          <Tabs
+            action={selectChange}
+            selectedTab={priceChange}
+            tabNames={["Δ(24h)", "Δ(1h)"]}
+          />
           <div className={classes.content}>
             <Typography variant="h4" component="h3">
               <span className={classes.span}>{currency}</span>
@@ -77,7 +86,11 @@ const CenteredGrid = () => {
         </Paper>
 
         <Paper>
-          <Tabs selectedTab={volume} tabNames={["Vol(24h)", "Vol(1h)"]} />
+          <Tabs
+            action={selectVolume}
+            selectedTab={volume}
+            tabNames={["Vol(24h)", "Vol(1h)"]}
+          />
           <div className={classes.content}>
             <Typography variant="h4" component="h3">
               <span className={classes.span}>{currency}</span>
@@ -91,7 +104,11 @@ const CenteredGrid = () => {
         </Paper>
 
         <Paper>
-          <Tabs selectedTab={mktSupply} tabNames={["MKT CAP", "SUPPLY"]} />
+          <Tabs
+            action={selectMktsupply}
+            selectedTab={mktSupply}
+            tabNames={["MKT CAP", "SUPPLY"]}
+          />
           <div className={classes.content}>
             <Typography variant="h3" component="h3">
               <span className={classes.span}>{currency}</span>

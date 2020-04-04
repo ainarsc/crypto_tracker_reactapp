@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectTreeMap } from "../../../store/actions/cryptoActions";
 import { getSelectedCoins } from "../../../store/selectors";
 //MUI IMPORTS
@@ -51,7 +51,11 @@ const MarketCap = () => {
 
   return (
     <Paper className={classes.root}>
-      <Tabs selectedTab={selected} tabNames={dataCategories} />
+      <Tabs
+        action={selectTreeMap}
+        selectedTab={selected}
+        tabNames={dataCategories}
+      />
       <div className={classes.treeMap}>
         <ResponsiveContainer height={295}>
           <Treemap

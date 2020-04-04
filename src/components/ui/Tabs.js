@@ -29,13 +29,14 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab {...props} />);
 
-export default function Tabs({ selectedTab, tabNames }) {
+export default function Tabs({ action, selectedTab, tabNames }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [tab, setTab] = useState(selectedTab);
 
   const handleChange = (event, tab) => {
-    console.log(tab);
     setTab(tab);
+    dispatch(action(tab));
   };
 
   return (
