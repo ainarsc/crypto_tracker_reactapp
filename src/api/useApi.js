@@ -21,7 +21,7 @@ export default function() {
   useEffect(() => {
     const dataToFetch = {
       FULL_DATA: {
-        localData: FULL_DATA,
+        localData: FULL_DATA, //FOR TESTING
         url: `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC,EOS,ETC,XTZ,BNB,ZEC,ADA,XLM,NEO,DASH&&tsyms=USD,EUR&api_key=${process.env.REACT_APP_API_KEY}`,
         keys: [
           "FROMSYMBOL",
@@ -35,24 +35,18 @@ export default function() {
         ]
       },
       HISTORY: {
-        localData: HISTORY,
+        localData: HISTORY, //FOR TESTING
         url: `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${crypto}&tsym=${currency}&limit=30&aggregate=1&api_key=${process.env.REACT_APP_API_KEY}`
       },
       NEWS: {
-        localData: NEWS,
+        localData: NEWS, //FOR TESTING
         url: `https://min-api.cryptocompare.com/data/v2/news/?lang=EN&api_key=${process.env.REACT_APP_API_KEY}`,
         keys: ["title", "published_on", "url", "categories", "source_info"]
       }
     };
     _.forEach(dataToFetch, (dataCategory, key) => {
       dispatch(
-        fetchData(
-          key,
-          dataCategory.localData,
-          crypto,
-          currency,
-          dataCategory.keys
-        )
+        fetchData(key, dataCategory.url, crypto, currency, dataCategory.keys)
       );
     });
     console.log("[useApi]: State Updated");
