@@ -9,7 +9,6 @@ import {
   getTimeTo,
   getPriceHistory
 } from "../../../store/selectors";
-import { isFetched } from "../../../api/useApi";
 //MUI IMPORTS
 import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -45,6 +44,7 @@ const PriceHistory = () => {
   //STATE
   const data = useSelector(state => state.apiData);
   const crypto = useSelector(state => state.apiPreferences.crypto);
+  const history = useSelector(state => state.apiData.HISTORY.data);
 
   //STYLES
   const classes = useStyles();
@@ -100,8 +100,9 @@ const PriceHistory = () => {
     return null;
   };
   const dataCategories = ["All", "1 Year", "6 Months", "1 Month", "7 days"];
+  // isFetched(data, "HISTORY")
   return (
-    isFetched(data, "HISTORY") && (
+    history.hasOwnProperty(crypto) && (
       <Paper className={classes.root}>
         <Tabs tabNames={dataCategories} />
         <ResponsiveContainer height={360}>
