@@ -14,15 +14,18 @@ export const isFetching = ({ FULL_DATA, HISTORY, NEWS }) => {
   return FULL_DATA.isFetching && HISTORY.isFetching && NEWS.isFetching;
 };
 
-export default function() {
+export default function () {
   const dispatch = useDispatch();
-  const { crypto, currency } = useSelector(state => state.apiPreferences);
+  const { crypto, currency } = useSelector((state) => state.apiPreferences);
 
+  //&api_key=${process.env.REACT_APP_API_KEY}
+  // &api_key=${process.env.REACT_APP_API_KEY}
+  // &api_key=${process.env.REACT_APP_API_KEY}
   useEffect(() => {
     const dataToFetch = {
       FULL_DATA: {
         localData: FULL_DATA, //FOR TESTING
-        url: `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC,EOS,ETC,XTZ,BNB,ZEC,ADA,XLM,NEO,DASH&&tsyms=USD,EUR&api_key=${process.env.REACT_APP_API_KEY}`,
+        url: `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC,EOS,ETC,XTZ,BNB,ZEC,ADA,XLM,NEO,DASH&&tsyms=USD,EUR`,
         keys: [
           "FROMSYMBOL",
           "PRICE",
@@ -30,19 +33,26 @@ export default function() {
           "CHANGEPCT24HOUR",
           "CHANGEHOUR",
           "CHANGEPCTHOUR",
+          "VOLUME24HOUR",
+          "VOLUMEHOUR",
+          "VOLUME24HOUR",
+          "OPENDAY",
+          "HIGHDAY",
+          "LOWDAY",
+          "SUPPLY",
+          "MKTCAP",
           "TOTALVOLUME24H",
-          "MKTCAP"
-        ]
+        ],
       },
       HISTORY: {
         localData: HISTORY, //FOR TESTING
-        url: `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${crypto}&tsym=${currency}&limit=30&aggregate=1&api_key=${process.env.REACT_APP_API_KEY}`
+        url: `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${crypto}&tsym=${currency}&limit=30&aggregate=1`,
       },
       NEWS: {
         localData: NEWS, //FOR TESTING
-        url: `https://min-api.cryptocompare.com/data/v2/news/?lang=EN&api_key=${process.env.REACT_APP_API_KEY}`,
-        keys: ["title", "published_on", "url", "categories", "source_info"]
-      }
+        url: `https://min-api.cryptocompare.com/data/v2/news/?lang=EN`,
+        keys: ["title", "published_on", "url", "categories", "source_info"],
+      },
     };
     _.forEach(dataToFetch, (dataCategory, key) => {
       dispatch(

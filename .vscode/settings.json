@@ -12,11 +12,17 @@
         "forex",
         "fromsymbol",
         "h",
+        "highday",
         "hour",
+        "lowday",
         "middlewares",
         "mktcap",
+        "openday",
         "redux",
+        "ssupply",
         "totalvolume",
-        "treemap"
+        "treemap",
+        "v",
+        "volumehour"
     ]
 }
