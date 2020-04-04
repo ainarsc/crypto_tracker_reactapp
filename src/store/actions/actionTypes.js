@@ -15,3 +15,4 @@ export const INIT_SESSION = "INIT_SESSION";
 export const CLEAR_SESSION = "CLEAR_SESSION";
 export const SET_ERROR = "SET_ERROR";
 export const SESSION_LOADED = "SESSION_LOADED";
+export const SET_CRYPTO = "SET_CRYPTO";
