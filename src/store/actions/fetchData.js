@@ -43,7 +43,7 @@ export const invalidateData = dataCategory => {
 
 const shouldFetch = (state, dataCategory) => {
   let category = state.apiData[dataCategory];
-  // return true;
+  // return true; //COMMENT FOR PRODUCTION
   if (dataCategory === "HISTORY") {
     return true;
   } else {
@@ -68,25 +68,26 @@ export const fetchData = (
     dispatch(fetchInit(dataCategory));
 
     try {
-      // const result = await axios(url); //return: [instance].data
-      const result = url; //Local Data for testing
-
+      //COMMENT OUT WHEN TESTING TO USE LOCAL DATA
+      const result = await axios(url); //return: [instance].data
       let processedData;
       if (dataCategory === "FULL_DATA") {
-        processedData = cleanupFullData(result, keysToPick);
+        processedData = cleanupFullData(result.data, keysToPick);
       } else if (dataCategory === "NEWS") {
-        processedData = cleanupNewsData(result, keysToPick);
+        processedData = cleanupNewsData(result.data, keysToPick);
       } else if (dataCategory === "HISTORY") {
-        processedData = cleanupHistoryData(result, crypto);
+        processedData = cleanupHistoryData(result.data, crypto);
       }
 
+      //UNCOMMENT FOR LOCAL DATA AND TESTING
+      // const result = url; //Local Data for testing
       // let processedData;
       // if (dataCategory === "FULL_DATA") {
-      //   processedData = cleanupFullData(result.data, keysToPick);
+      //   processedData = cleanupFullData(result, keysToPick);
       // } else if (dataCategory === "NEWS") {
-      //   processedData = cleanupNewsData(result.data, keysToPick);
+      //   processedData = cleanupNewsData(result, keysToPick);
       // } else if (dataCategory === "HISTORY") {
-      //   processedData = cleanupHistoryData(result.data, crypto);
+      //   processedData = cleanupHistoryData(result, crypto);
       // }
 
       dispatch(receiveData(dataCategory, processedData));
