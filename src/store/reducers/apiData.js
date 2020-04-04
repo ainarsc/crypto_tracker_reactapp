@@ -49,21 +49,21 @@ const apiData = (
       isError: false,
       didInvalidate: false,
       lastUpdated: "",
-      data: []
+      data: {}
     },
     HISTORY: {
       isFetching: false,
       isError: false,
       didInvalidate: false,
       lastUpdated: "",
-      data: []
+      data: {}
     },
     NEWS: {
       isFetching: false,
       isError: false,
       didInvalidate: false,
       lastUpdated: "",
-      data: []
+      data: {}
     }
   },
   action
