@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import Tabs from "../../ui/Tabs";
-
+import { selectHistory } from "../../../store/actions/cryptoActions";
 //HELPERS
 import {
   getTimeFrom,
@@ -104,7 +104,7 @@ const PriceHistory = () => {
   return (
     history.hasOwnProperty(crypto) && (
       <Paper className={classes.root}>
-        <Tabs selectedTab={selected} tabNames={time} />
+        <Tabs action={selectHistory} selectedTab={selected} tabNames={time} />
         <ResponsiveContainer height={360}>
           <AreaChart
             data={getPriceHistory(data, crypto)}
