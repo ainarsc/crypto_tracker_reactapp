@@ -1,9 +1,9 @@
 import {
-  SELECT_COIN,
   SELECT_CURRENCY,
   SELECT_TIME,
   SELECT_NEWS,
-  SELECT_COINS
+  SELECT_COINS,
+  SET_CRYPTO
 } from "../actions/actionTypes";
 
 const apiPreferences = (
@@ -17,7 +17,7 @@ const apiPreferences = (
   event
 ) => {
   switch (event.type) {
-    case SELECT_COIN:
+    case SET_CRYPTO:
       return {
         ...state,
         crypto: event.payload
