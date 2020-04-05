@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../store/actions/fetchData";
+import { newsUrl, historyUrl, fullDataUrl } from "./urls";
+import config from "./config.json";
 import _ from "lodash";
 //Local data for testing
 import FULL_DATA from "./FULL_DATA.json";
@@ -18,47 +20,24 @@ export default function () {
   const dispatch = useDispatch();
   const { crypto, currency } = useSelector((state) => state.apiPreferences);
 
-  //&api_key=${process.env.REACT_APP_API_KEY}
-  // &api_key=${process.env.REACT_APP_API_KEY}
-  // &api_key=${process.env.REACT_APP_API_KEY}
   useEffect(() => {
-    const dataToFetch = {
+    //&api_key=
+    // const apiKey = process.env.REACT_APP_API_KEY;
+    const data = {
       FULL_DATA: {
-        localData: FULL_DATA, //FOR TESTING
-        url: `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC,EOS,ETC,XTZ,BNB,ZEC,ADA,XLM,NEO,DASH&&tsyms=USD,EUR`,
-        keys: [
-          "FROMSYMBOL",
-          "PRICE",
-          "CHANGE24HOUR",
-          "CHANGEPCT24HOUR",
-          "CHANGEHOUR",
-          "CHANGEPCTHOUR",
-          "VOLUME24HOUR",
-          "VOLUMEHOUR",
-          "VOLUME24HOUR",
-          "OPENDAY",
-          "HIGHDAY",
-          "LOWDAY",
-          "SUPPLY",
-          "MKTCAP",
-          "TOTALVOLUME24H",
-        ],
+        url: fullDataUrl(),
+        indicators: config.fullData.indicators,
       },
       HISTORY: {
-        localData: HISTORY, //FOR TESTING
-        url: `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${crypto}&tsym=${currency}&limit=30&aggregate=1`,
+        url: historyUrl(crypto, currency),
       },
       NEWS: {
-        localData: NEWS, //FOR TESTING
-        url: `https://min-api.cryptocompare.com/data/v2/news/?lang=EN`,
-        keys: ["title", "published_on", "url", "categories", "source_info"],
+        url: newsUrl(),
+        indicators: config.fullData.indicators,
       },
     };
-    _.forEach(dataToFetch, (dataCategory, key) => {
-      dispatch(
-        fetchData(key, dataCategory.url, crypto, currency, dataCategory.keys)
-      );
+    _.forEach(data, (type, key) => {
+      dispatch(fetchData(key, type.url, crypto, currency, type.indicators));
     });
-    console.log("[useApi]: State Updated");
   }, [currency, crypto, dispatch]);
 }

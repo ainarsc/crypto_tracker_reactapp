@@ -1,0 +1,24 @@
+{
+    "fullData": {
+        "indicators": [
+            "FROMSYMBOL",
+            "PRICE",
+            "CHANGE24HOUR",
+            "CHANGEPCT24HOUR",
+            "CHANGEHOUR",
+            "CHANGEPCTHOUR",
+            "VOLUME24HOUR",
+            "VOLUMEHOUR",
+            "VOLUME24HOUR",
+            "OPENDAY",
+            "HIGHDAY",
+            "LOWDAY",
+            "SUPPLY",
+            "MKTCAP",
+            "TOTALVOLUME24H"
+        ]
+    },
+    "news": {
+        "indicators": ["title", "published_on", "url", "categories", "source_info"]
+    }
+}
