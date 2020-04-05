@@ -29,7 +29,7 @@ export default function () {
       },
       NEWS: {
         url: newsUrl(),
-        indicators: config.fullData.indicators,
+        indicators: config.news.indicators,
       },
     };
     _.forEach(data, (type, key) => {
