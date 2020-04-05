@@ -99,12 +99,22 @@ const PriceHistory = () => {
 
     return null;
   };
-  const time = ["All", "1 Year", "1 Month", "7 days", "1 day"];
+  const timeTabs = [
+    { indicator: "ALL", displayName: "All" },
+    { indicator: "YEAR", displayName: "1 Year" },
+    { indicator: "MONTH", displayName: "1 Month" },
+    { indicator: "WEEK", displayName: "7 Days" },
+    { indicator: "DAY", displayName: "1 Day" },
+  ];
 
   return (
     history.hasOwnProperty(crypto) && (
       <Paper className={classes.root}>
-        <Tabs action={selectHistory} selectedTab={selected} tabNames={time} />
+        <Tabs
+          action={selectHistory}
+          selectedTab={selected}
+          tabsArray={timeTabs}
+        />
         <ResponsiveContainer height={360}>
           <AreaChart
             data={getPriceHistory(data, crypto)}

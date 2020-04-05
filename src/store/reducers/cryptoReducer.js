@@ -8,11 +8,11 @@ import {
 
 const cryptoReducer = (
   state = {
-    priceHistory: "1 Month",
-    treeMap: "Market Cap",
-    priceChange: "Δ(24h)",
-    volume: "Vol(24h)",
-    mktSupply: "MKT CAP",
+    priceHistory: "MONTH",
+    treeMap: "MKTCAP",
+    priceChange: "CHANGE24HOUR",
+    volume: "VOLUME24HOUR",
+    mktSupply: "MKTCAP",
   },
   event
 ) => {

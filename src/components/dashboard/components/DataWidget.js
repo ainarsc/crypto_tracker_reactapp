@@ -64,9 +64,22 @@ const CenteredGrid = () => {
     (state) => state.cryptoReducer
   );
 
-  //DATA POINT SELECTOR
-  const getStat = (indicator) =>
+  //GET API DATA VALUES FROM STATE
+  const getValues = (indicator) =>
     getDataPoint(data, crypto, currency, indicator);
+
+  const priceChangeTabs = [
+    { indicator: "CHANGE24HOUR", displayName: "Δ(24h)" },
+    { indicator: "CHANGEHOUR", displayName: "Δ(1h)" },
+  ];
+  const volumeTabs = [
+    { indicator: "VOLUME24HOUR", displayName: "Vol(24h)" },
+    { indicator: "VOLUMEHOUR", displayName: "Vol(1h)" },
+  ];
+  const marketTabs = [
+    { indicator: "MKTCAP", displayName: "MKT CAP" },
+    { indicator: "SUPPLY", displayName: "Supply" },
+  ];
 
   return (
     isFetched(data, "FULL_DATA") && (
@@ -75,12 +88,12 @@ const CenteredGrid = () => {
           <Tabs
             action={selectChange}
             selectedTab={priceChange}
-            tabNames={["Δ(24h)", "Δ(1h)"]}
+            tabsArray={priceChangeTabs}
           />
           <div className={classes.content}>
             <Typography variant="h4" component="h3">
               <span className={classes.span}>{currency}</span>
-              {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
+              {`${_.round(getValues(priceChange), 2)}`}
             </Typography>
           </div>
         </Paper>
@@ -89,12 +102,12 @@ const CenteredGrid = () => {
           <Tabs
             action={selectVolume}
             selectedTab={volume}
-            tabNames={["Vol(24h)", "Vol(1h)"]}
+            tabsArray={volumeTabs}
           />
           <div className={classes.content}>
             <Typography variant="h4" component="h3">
               <span className={classes.span}>{currency}</span>
-              {`${_.round(getStat("VOLUME24HOUR"), 1) / 1000}M`}
+              {`${_.round(getValues(volume), 1) / 1000}M`}
             </Typography>
           </div>
         </Paper>
@@ -103,12 +116,12 @@ const CenteredGrid = () => {
           <Tabs
             action={selectMktsupply}
             selectedTab={mktSupply}
-            tabNames={["MKT CAP", "SUPPLY"]}
+            tabsArray={marketTabs}
           />
           <div className={classes.content}>
             <Typography variant="h4" component="h3">
               <span className={classes.span}>{currency}</span>
-              {`${_.round(getStat("MKTCAP"), -7) / 1000000000}B`}
+              {`${_.round(getValues(mktSupply), -7) / 1000000000}B`}
             </Typography>
           </div>
         </Paper>
@@ -120,7 +133,7 @@ const CenteredGrid = () => {
             </Typography>
             <Typography variant="h5" component="h3">
               <span className={classes.span}>{currency}</span>
-              {`${_.round(getStat("OPENDAY"), 2)}`}
+              {`${_.round(getValues("OPENDAY"), 2)}`}
             </Typography>
             <Divider />
             <Typography color="textSecondary" variant="caption">
@@ -128,7 +141,7 @@ const CenteredGrid = () => {
             </Typography>
             <Typography variant="h5" component="h3">
               <span className={classes.span}>{currency}</span>
-              {`${_.round(getStat("HIGHDAY"), 2)}`}
+              {`${_.round(getValues("HIGHDAY"), 2)}`}
             </Typography>
             <Divider />
             <Typography color="textSecondary" variant="caption">
@@ -136,7 +149,7 @@ const CenteredGrid = () => {
             </Typography>
             <Typography variant="h5" component="h3">
               <span className={classes.span}>{currency}</span>
-              {`${_.round(getStat("LOWDAY"), 2)}`}
+              {`${_.round(getValues("LOWDAY"), 2)}`}
             </Typography>
           </div>
         </Paper>

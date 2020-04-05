@@ -29,14 +29,15 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab {...props} />);
 
-export default function Tabs({ action, selectedTab, tabNames }) {
+export default function Tabs({ action, selectedTab, tabsArray }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [tab, setTab] = useState(selectedTab);
 
-  const handleChange = (event, tab) => {
-    setTab(tab);
-    dispatch(action(tab));
+  const handleChange = (event, tabValue) => {
+    console.log(tabValue);
+    setTab(tabValue);
+    dispatch(action(tabValue));
   };
 
   return (
@@ -48,8 +49,14 @@ export default function Tabs({ action, selectedTab, tabNames }) {
         color="textPrimary"
         centered
       >
-        {_.map(tabNames, (tabName) => {
-          return <StyledTab key={tabName} value={tabName} label={tabName} />;
+        {_.map(tabsArray, (tab, index) => {
+          return (
+            <StyledTab
+              value={tab.indicator}
+              label={tab.displayName}
+              key={index}
+            />
+          );
         })}
       </MuiTabs>
     </Paper>

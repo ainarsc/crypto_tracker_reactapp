@@ -47,20 +47,24 @@ const MarketCap = () => {
       </g>
     );
   };
-  const dataCategories = ["Market Cap", "Volume", "Supply"];
+  const displayNames = [
+    { indicator: "MKTCAP", displayName: "Market Cap" },
+    { indicator: "SUPPLY", displayName: "Supply" },
+    { indicator: "VOLUME24HOUR", displayName: "Volume" },
+  ];
 
   return (
     <Paper className={classes.root}>
       <Tabs
         action={selectTreeMap}
         selectedTab={selected}
-        tabNames={dataCategories}
+        tabsArray={displayNames}
       />
       <div className={classes.treeMap}>
         <ResponsiveContainer height={295}>
           <Treemap
             data={data}
-            dataKey="value"
+            dataKey={selected}
             ratio={1}
             fill="#151515"
             content={<CustomizedContent />}
