@@ -36,8 +36,8 @@ const NewsStand = () => {
     _.map(
       getNews(data),
       ({ categories, title, source_info, url, published_on }, key) => (
-        <Link href={url} target="_blank" rel="noopener">
-          <Card key={key} className={classes.root}>
+        <Link key={key} href={url} target="_blank" rel="noopener">
+          <Card className={classes.root}>
             <CardContent>
               <Typography variant="caption" color="textSecondary" gutterBottom>
                 {_.replace(
