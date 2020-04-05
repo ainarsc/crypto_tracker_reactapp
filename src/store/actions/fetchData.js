@@ -2,20 +2,20 @@ import {
   FETCH_INIT,
   FETCH_SUCCESS,
   INVALIDATE,
-  FETCH_FAIL
+  FETCH_FAIL,
 } from "./actionTypes";
 import axios from "axios";
 import {
   cleanupFullData,
   cleanupNewsData,
-  cleanupHistoryData
+  cleanupHistoryData,
 } from "../../utils/cleanupData";
 import _ from "lodash";
 
-export const fetchInit = dataCategory => {
+export const fetchInit = (dataCategory) => {
   return {
     type: FETCH_INIT,
-    dataCategory
+    dataCategory,
   };
 };
 
@@ -24,20 +24,20 @@ export const receiveData = (dataCategory, data) => {
     type: FETCH_SUCCESS,
     dataCategory,
     payload: data,
-    receivedAt: Date.now
+    receivedAt: Date.now,
   };
 };
 export const fetchFailure = (dataCategory, error) => {
   return {
     type: FETCH_FAIL,
     dataCategory,
-    payload: error
+    payload: error,
   };
 };
-export const invalidateData = dataCategory => {
+export const invalidateData = (dataCategory) => {
   return {
     type: INVALIDATE,
-    dataCategory
+    dataCategory,
   };
 };
 
@@ -68,8 +68,8 @@ export const fetchData = (
     dispatch(fetchInit(dataCategory));
 
     try {
-      //COMMENT OUT WHEN TESTING TO USE LOCAL DATA
-      const result = await axios(url); //return: [instance].data
+      const result = await axios(url);
+
       let processedData;
       if (dataCategory === "FULL_DATA") {
         processedData = cleanupFullData(result.data, keysToPick);
@@ -78,17 +78,6 @@ export const fetchData = (
       } else if (dataCategory === "HISTORY") {
         processedData = cleanupHistoryData(result.data, crypto);
       }
-
-      //UNCOMMENT FOR LOCAL DATA AND TESTING
-      // const result = url; //Local Data for testing
-      // let processedData;
-      // if (dataCategory === "FULL_DATA") {
-      //   processedData = cleanupFullData(result, keysToPick);
-      // } else if (dataCategory === "NEWS") {
-      //   processedData = cleanupNewsData(result, keysToPick);
-      // } else if (dataCategory === "HISTORY") {
-      //   processedData = cleanupHistoryData(result, crypto);
-      // }
 
       dispatch(receiveData(dataCategory, processedData));
     } catch (error) {

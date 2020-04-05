@@ -4,10 +4,6 @@ import { fetchData } from "../store/actions/fetchData";
 import { newsUrl, historyUrl, fullDataUrl } from "./urls";
 import config from "./config.json";
 import _ from "lodash";
-//Local data for testing
-import FULL_DATA from "./FULL_DATA.json";
-import HISTORY from "./HISTORY.json";
-import NEWS from "./NEWS.json";
 
 export const isFetched = (apiData, dataCategory) =>
   !_.isEmpty(apiData[dataCategory].data) && !apiData[dataCategory].isFetching;
