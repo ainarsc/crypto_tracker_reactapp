@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
     verticalAlign: "top",
     fontSize: 13,
   },
+  prct: {
+    fontSize: 13,
+  },
   content: {
     height: "70%",
     display: "flex",
@@ -49,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-around",
+    alignItems: "center",
   },
 }));
 
@@ -79,9 +82,6 @@ const CenteredGrid = () => {
               <span className={classes.span}>{currency}</span>
               {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
             </Typography>
-            <Typography variant="h4" component="h3">
-              {`% ${_.round(getStat("CHANGEPCT24HOUR"), 2)}`}
-            </Typography>
           </div>
         </Paper>
 
@@ -94,11 +94,7 @@ const CenteredGrid = () => {
           <div className={classes.content}>
             <Typography variant="h4" component="h3">
               <span className={classes.span}>{currency}</span>
-              {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
-            </Typography>
-            <Typography variant="h4" component="h3">
-              <span className={classes.span}>{currency}</span>
-              {`${_.round(getStat("CHANGEPCT24HOUR"), 2)}`}
+              {`${_.round(getStat("VOLUME24HOUR"), 1) / 1000}M`}
             </Typography>
           </div>
         </Paper>
@@ -110,9 +106,9 @@ const CenteredGrid = () => {
             tabNames={["MKT CAP", "SUPPLY"]}
           />
           <div className={classes.content}>
-            <Typography variant="h3" component="h3">
+            <Typography variant="h4" component="h3">
               <span className={classes.span}>{currency}</span>
-              {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
+              {`${_.round(getStat("MKTCAP"), -7) / 1000000000}B`}
             </Typography>
           </div>
         </Paper>
@@ -124,7 +120,7 @@ const CenteredGrid = () => {
             </Typography>
             <Typography variant="h5" component="h3">
               <span className={classes.span}>{currency}</span>
-              {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
+              {`${_.round(getStat("OPENDAY"), 2)}`}
             </Typography>
             <Divider />
             <Typography color="textSecondary" variant="caption">
@@ -132,7 +128,7 @@ const CenteredGrid = () => {
             </Typography>
             <Typography variant="h5" component="h3">
               <span className={classes.span}>{currency}</span>
-              {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
+              {`${_.round(getStat("HIGHDAY"), 2)}`}
             </Typography>
             <Divider />
             <Typography color="textSecondary" variant="caption">
@@ -140,7 +136,7 @@ const CenteredGrid = () => {
             </Typography>
             <Typography variant="h5" component="h3">
               <span className={classes.span}>{currency}</span>
-              {`${_.round(getStat("CHANGE24HOUR"), 2)}`}
+              {`${_.round(getStat("LOWDAY"), 2)}`}
             </Typography>
           </div>
         </Paper>
