@@ -1,18 +1,20 @@
+import { combineReducers } from "redux";
+
 import {
   FETCH_INIT,
   INVALIDATE,
   FETCH_SUCCESS,
-  FETCH_FAIL
+  FETCH_FAIL,
 } from "../actions/actionTypes";
 
-const dataCategory = (state, action) => {
+const cryptoReducer = (state, action) => {
   switch (action.type) {
     case FETCH_INIT:
       return {
         ...state,
         isFetching: true,
         isError: false,
-        didInvalidate: false
+        didInvalidate: false,
       };
 
     case FETCH_SUCCESS:
@@ -21,8 +23,11 @@ const dataCategory = (state, action) => {
         isFetching: false,
         isError: false,
         didInvalidate: false,
-        data: action.payload,
-        lastUpdated: action.receivedAt
+        data: {
+          ...state.data,
+          ...action.payload,
+        },
+        lastUpdated: action.receivedAt,
       };
     case FETCH_FAIL:
       return {
@@ -30,12 +35,12 @@ const dataCategory = (state, action) => {
         isFetching: false,
         isError: true,
         didInvalidate: false,
-        data: action.payload
+        data: action.payload,
       };
     case INVALIDATE:
       return {
         ...state,
-        didInvalidate: true
+        didInvalidate: true,
       };
     default:
       return state;
@@ -49,22 +54,22 @@ const apiData = (
       isError: false,
       didInvalidate: false,
       lastUpdated: "",
-      data: {}
+      data: {},
     },
     HISTORY: {
       isFetching: false,
       isError: false,
       didInvalidate: false,
       lastUpdated: "",
-      data: {}
+      data: {},
     },
     NEWS: {
       isFetching: false,
       isError: false,
       didInvalidate: false,
       lastUpdated: "",
-      data: {}
-    }
+      data: {},
+    },
   },
   action
 ) => {
@@ -74,7 +79,10 @@ const apiData = (
     case FETCH_INIT:
       return {
         ...state,
-        [action.dataCategory]: dataCategory(state[action.dataCategory], action)
+        [action.dataCategory]: cryptoReducer(
+          state[action.dataCategory],
+          action
+        ),
       };
     default:
       return state;
