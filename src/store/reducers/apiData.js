@@ -1,5 +1,3 @@
-import { combineReducers } from "redux";
-
 import {
   FETCH_INIT,
   INVALIDATE,
@@ -61,7 +59,14 @@ const apiData = (
       isError: false,
       didInvalidate: false,
       lastUpdated: "",
-      data: {},
+      data: {
+        BTC: {},
+        ETH: {},
+        XRP: {},
+        BCH: {},
+        BSV: {},
+        LTC: {},
+      },
     },
     NEWS: {
       isFetching: false,

@@ -18,13 +18,12 @@ export const fetchInit = (dataCategory) => {
     dataCategory,
   };
 };
-
 export const receiveData = (dataCategory, data) => {
   return {
     type: FETCH_SUCCESS,
     dataCategory,
     payload: data,
-    receivedAt: Date.now,
+    receivedAt: Date.now(),
   };
 };
 export const fetchFailure = (dataCategory, error) => {
@@ -41,20 +40,50 @@ export const invalidateData = (dataCategory) => {
   };
 };
 
-const shouldFetch = (state, dataCategory) => {
-  let category = state.apiData[dataCategory];
-  // return true; //COMMENT FOR PRODUCTION
-  if (dataCategory === "HISTORY") {
+const needToFetch = (data, receivedAt) => {
+  const isEmpty = _.isEmpty(data);
+  if (isEmpty) {
     return true;
   } else {
-    if (_.isEmpty(category.data)) {
-      return true;
-    } else if (category.isFetching) {
-      return false;
-    } else {
-      return category.didInvalidate;
-    }
+    const minute = 1000 * 60;
+    const currentTime = Date.now();
+    const elapsedTime = currentTime - receivedAt;
+
+    return elapsedTime > 15 * minute;
   }
+};
+
+const shouldFetch = (state, dataCategory) => {
+  const category = state.apiData[dataCategory];
+  const preferences = state.apiPreferences;
+
+  const HISTORY = "HISTORY";
+  const FULL_DATA = "FULL_DATA";
+  const NEWS = "NEWS";
+
+  switch (dataCategory) {
+    case HISTORY:
+      const { crypto } = preferences;
+      const { data, lastUpdated } = category;
+      return needToFetch(data[crypto], lastUpdated);
+    case FULL_DATA:
+    case NEWS:
+      return needToFetch(category.data, category.lastUpdated);
+    default:
+      break;
+  }
+
+  // if (dataCategory === "HISTORY") {
+  //   return true;
+  // } else {
+  //   if (_.isEmpty(category.data)) {
+  //     return true;
+  //   } else if (category.isFetching) {
+  //     return false;
+  //   } else {
+  //     return category.didInvalidate;
+  //   }
+  // }
 };
 
 export const fetchData = (
