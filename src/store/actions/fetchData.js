@@ -40,7 +40,7 @@ export const invalidateData = (dataCategory) => {
   };
 };
 
-const needToFetch = (data, receivedAt) => {
+const needToFetch = (data, receivedAt, time) => {
   const isEmpty = _.isEmpty(data);
   if (isEmpty) {
     return true;
@@ -49,7 +49,7 @@ const needToFetch = (data, receivedAt) => {
     const currentTime = Date.now();
     const elapsedTime = currentTime - receivedAt;
 
-    return elapsedTime > 15 * minute;
+    return elapsedTime > time * minute;
   }
 };
 
@@ -65,25 +65,14 @@ const shouldFetch = (state, dataCategory) => {
     case HISTORY:
       const { crypto } = preferences;
       const { data, lastUpdated } = category;
-      return needToFetch(data[crypto], lastUpdated);
+      return needToFetch(data[crypto], lastUpdated, 60);
     case FULL_DATA:
+      return needToFetch(category.data, category.lastUpdated, 15);
     case NEWS:
-      return needToFetch(category.data, category.lastUpdated);
+      return needToFetch(category.data, category.lastUpdated, 60);
     default:
       break;
   }
-
-  // if (dataCategory === "HISTORY") {
-  //   return true;
-  // } else {
-  //   if (_.isEmpty(category.data)) {
-  //     return true;
-  //   } else if (category.isFetching) {
-  //     return false;
-  //   } else {
-  //     return category.didInvalidate;
-  //   }
-  // }
 };
 
 export const fetchData = (
