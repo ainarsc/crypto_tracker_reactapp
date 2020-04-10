@@ -50,7 +50,6 @@ const PriceHistory = () => {
   //STATE
   const data = useSelector((state) => state.apiData);
   const crypto = useSelector((state) => state.apiPreferences.crypto);
-  const history = useSelector((state) => state.apiData.HISTORY.data);
   const selected = useSelector((state) => state.cryptoReducer.priceHistory);
   const isFetching = useSelector((state) => state.apiData.HISTORY.isFetching);
   //STYLES
