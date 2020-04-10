@@ -3,14 +3,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { connect } from "react-redux";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     height: 16,
     "& > * + *": {
-      marginTop: theme.spacing(2)
-    }
-  }
+      marginTop: theme.spacing(3),
+    },
+  },
 }));
 
 function LoadingBar({ apiData }) {
@@ -23,8 +23,8 @@ function LoadingBar({ apiData }) {
   );
 }
 
-const mapState = state => ({
-  apiData: state.apiData
+const mapState = (state) => ({
+  apiData: state.apiData,
 });
 
 export default connect(mapState)(LoadingBar);

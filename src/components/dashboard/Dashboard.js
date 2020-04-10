@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import useApi, { isFetching } from "../../api/useApi";
 import LoadingBar from "../ui/LoadingBar";
@@ -14,24 +14,24 @@ import {
   NewsStand,
   DataWidget,
   MarketCap,
-  PriceHistory
+  PriceHistory,
 } from "./components";
 
 //STYLES
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     height: "100vh",
-    overflow: "auto"
+    overflow: "auto",
   },
   offset: {
-    height: 70
-  }
+    height: 70,
+  },
 }));
 
 export const Dashboard = () => {
   const classes = useStyles();
-  const apiData = useSelector(state => state.apiData);
+  const apiData = useSelector((state) => state.apiData);
   const fetching = isFetching(apiData);
 
   useApi(); //Initiate API
@@ -39,7 +39,10 @@ export const Dashboard = () => {
   return (
     <main className={classes.root}>
       {fetching ? (
-        <LoadingBar />
+        <Fragment>
+          <div className={classes.offset} />
+          <LoadingBar />
+        </Fragment>
       ) : (
         <Fade in={true} timeout={1000}>
           <Container maxWidth="lg">

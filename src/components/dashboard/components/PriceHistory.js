@@ -12,6 +12,7 @@ import {
 //MUI IMPORTS
 import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { LoadingCircleComp } from "../../ui/LoadingCircle";
 //RECHARTS COMPONENTS
 import {
   AreaChart,
@@ -38,6 +39,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
     backgroundColor: "rgba(22, 22, 22, 0.9)",
   },
+  loading: {
+    height: 410,
+    width: "100%",
+    margin: theme.spacing(1),
+  },
 }));
 
 const PriceHistory = () => {
@@ -46,6 +52,7 @@ const PriceHistory = () => {
   const crypto = useSelector((state) => state.apiPreferences.crypto);
   const history = useSelector((state) => state.apiData.HISTORY.data);
   const selected = useSelector((state) => state.cryptoReducer.priceHistory);
+  const isFetching = useSelector((state) => state.apiData.HISTORY.isFetching);
   //STYLES
   const classes = useStyles();
 
@@ -106,54 +113,59 @@ const PriceHistory = () => {
     { indicator: "WEEK", displayName: "7 Days" },
     { indicator: "DAY", displayName: "1 Day" },
   ];
+  const LoadingOverlay = (
+    <div className={classes.loading}>
+      <LoadingCircleComp />
+    </div>
+  );
 
-  return (
-    history.hasOwnProperty(crypto) && (
-      <Paper className={classes.root}>
-        <Tabs
-          action={selectHistory}
-          selectedTab={selected}
-          tabsArray={timeTabs}
-        />
-        <ResponsiveContainer height={360}>
-          <AreaChart
-            data={getPriceHistory(data, crypto)}
-            margin={{
-              top: 15,
-              right: 20,
-              left: 0,
-              bottom: 23,
-            }}
-          >
-            <defs>
-              <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#ff1744" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#ff1744" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid fill="#131313" stroke="#252525" />
+  return isFetching ? (
+    LoadingOverlay
+  ) : (
+    <Paper className={classes.root}>
+      <Tabs
+        action={selectHistory}
+        selectedTab={selected}
+        tabsArray={timeTabs}
+      />
+      <ResponsiveContainer height={360}>
+        <AreaChart
+          data={getPriceHistory(data, crypto)}
+          margin={{
+            top: 15,
+            right: 20,
+            left: 0,
+            bottom: 23,
+          }}
+        >
+          <defs>
+            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#ff1744" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#ff1744" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid fill="#131313" stroke="#252525" />
 
-            <XAxis
-              dataKey="time"
-              name="Time"
-              domain={[getTimeFrom(data, crypto), getTimeTo(data, crypto)]}
-              scale="time"
-              type="number"
-              interval={5}
-              tick={<TiltedAxisTick />}
-            />
-            <YAxis
-              dataKey="close"
-              domain={["low", "auto"]}
-              tick={<CustomizedYTick />}
-              width={50}
-            />
-            <Tooltip content={<CustomTooltip />} />
-            <Area dataKey="close" stroke="#ff1744" fill="url(#colorPv)" />
-          </AreaChart>
-        </ResponsiveContainer>
-      </Paper>
-    )
+          <XAxis
+            dataKey="time"
+            name="Time"
+            domain={[getTimeFrom(data, crypto), getTimeTo(data, crypto)]}
+            scale="time"
+            type="number"
+            interval={5}
+            tick={<TiltedAxisTick />}
+          />
+          <YAxis
+            dataKey="close"
+            domain={["low", "auto"]}
+            tick={<CustomizedYTick />}
+            width={50}
+          />
+          <Tooltip content={<CustomTooltip />} />
+          <Area dataKey="close" stroke="#ff1744" fill="url(#colorPv)" />
+        </AreaChart>
+      </ResponsiveContainer>
+    </Paper>
   );
 };
 
