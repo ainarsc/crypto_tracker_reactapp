@@ -67,8 +67,9 @@ const PriceHistory = () => {
           textAnchor="end"
           fill="#fff"
           transform="rotate(-35)"
+          interval={5}
         >
-          {moment.unix(payload.value).format("DD.MMM")}
+          {moment.unix(payload.value).format("YYYY")}
         </text>
       </g>
     );
@@ -148,10 +149,10 @@ const PriceHistory = () => {
           <XAxis
             dataKey="time"
             name="Time"
-            domain={[getTimeFrom(data, crypto), getTimeTo(data, crypto)]}
-            scale="time"
-            type="number"
-            interval={5}
+            // domain={[getTimeFrom(data, crypto), getTimeTo(data, crypto)]}
+
+            // scale="time"
+            // type="number"
             tick={<TiltedAxisTick />}
           />
           <YAxis
