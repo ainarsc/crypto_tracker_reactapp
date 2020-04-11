@@ -85,21 +85,37 @@ export const fetchData = (
   if (shouldFetch(getState(), dataCategory)) {
     dispatch(fetchInit(dataCategory));
 
-    try {
-      const result = await axios(url);
-
-      let processedData;
-      if (dataCategory === "FULL_DATA") {
-        processedData = cleanupFullData(result.data, keysToPick);
-      } else if (dataCategory === "NEWS") {
-        processedData = cleanupNewsData(result.data, keysToPick);
-      } else if (dataCategory === "HISTORY") {
-        processedData = cleanupHistoryData(result.data, crypto);
+    if (dataCategory === "HISTORY") {
+      const stored = JSON.parse(localStorage.getItem(crypto));
+      if (stored) {
+        dispatch(receiveData(dataCategory, stored));
+        console.log(
+          "[fetchData]: Retrieving price history data form loc storage"
+        );
+      } else {
+        const result = await axios(url);
+        let processedData;
+        try {
+          processedData = cleanupHistoryData(result.data, crypto);
+          localStorage.setItem(crypto, JSON.stringify(processedData));
+          dispatch(receiveData(dataCategory, processedData));
+        } catch (error) {
+          dispatch(fetchFailure(dataCategory, error));
+        }
       }
-
-      dispatch(receiveData(dataCategory, processedData));
-    } catch (error) {
-      dispatch(fetchFailure(dataCategory, error));
+    } else {
+      try {
+        const result = await axios(url);
+        let processedData;
+        if (dataCategory === "FULL_DATA") {
+          processedData = cleanupFullData(result.data, keysToPick);
+        } else if (dataCategory === "NEWS") {
+          processedData = cleanupNewsData(result.data, keysToPick);
+        }
+        dispatch(receiveData(dataCategory, processedData));
+      } catch (error) {
+        dispatch(fetchFailure(dataCategory, error));
+      }
     }
   }
 };
