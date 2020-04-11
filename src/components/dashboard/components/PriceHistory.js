@@ -4,11 +4,7 @@ import moment from "moment";
 import Tabs from "../../ui/Tabs";
 import { selectHistory } from "../../../store/actions/cryptoActions";
 //HELPERS
-import {
-  getTimeFrom,
-  getTimeTo,
-  getPriceHistory,
-} from "../../../store/selectors";
+import { getTimeFrame } from "../../../store/selectors/getTimeFrame";
 //MUI IMPORTS
 import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -48,16 +44,24 @@ const useStyles = makeStyles((theme) => ({
 
 const PriceHistory = () => {
   //STATE
-  const data = useSelector((state) => state.apiData);
-  const crypto = useSelector((state) => state.apiPreferences.crypto);
+  const data = useSelector((state) => getTimeFrame(state));
   const selected = useSelector((state) => state.cryptoReducer.priceHistory);
   const isFetching = useSelector((state) => state.apiData.HISTORY.isFetching);
   //STYLES
   const classes = useStyles();
 
+  const getXTicks = (v, t) => {
+    if (t === "WEEK" || t === "MONTH") {
+      return moment.unix(v).format("MMM DD");
+    } else if (t === "YEAR") {
+      return moment.unix(v).format("MMM");
+    } else if (t === "ALL") {
+      return moment.unix(v).format("YYYY");
+    }
+  };
   //CUSTOM CHART COMPONENTS
   const TiltedAxisTick = (props) => {
-    const { x, y, payload } = props;
+    const { x, y, payload, time } = props;
     return (
       <g transform={`translate(${x},${y})`}>
         <text
@@ -69,7 +73,7 @@ const PriceHistory = () => {
           transform="rotate(-35)"
           interval={5}
         >
-          {moment.unix(payload.value).format("YYYY")}
+          {getXTicks(payload.value, time)}
         </text>
       </g>
     );
@@ -130,7 +134,7 @@ const PriceHistory = () => {
       />
       <ResponsiveContainer height={360}>
         <AreaChart
-          data={getPriceHistory(data, crypto)}
+          data={data}
           margin={{
             top: 15,
             right: 20,
@@ -149,11 +153,7 @@ const PriceHistory = () => {
           <XAxis
             dataKey="time"
             name="Time"
-            // domain={[getTimeFrom(data, crypto), getTimeTo(data, crypto)]}
-
-            // scale="time"
-            // type="number"
-            tick={<TiltedAxisTick />}
+            tick={<TiltedAxisTick time={selected} />}
           />
           <YAxis
             dataKey="close"
