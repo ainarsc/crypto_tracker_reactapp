@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   small: {
     display: "flex",
-    backgroundColor: "#212121",
+    backgroundColor: theme.palette.background.paper,
     height: "100%",
     flexDirection: "column",
     alignSelf: "center",
