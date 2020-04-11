@@ -101,7 +101,5 @@ export const fetchData = (
     } catch (error) {
       dispatch(fetchFailure(dataCategory, error));
     }
-  } else {
-    return Promise.resolve();
   }
 };
