@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../store/actions/fetchData";
-import { getMarketDataUrl } from "./cryptoUrls";
-import config from "./config.json";
+import { getMarketDataUrl } from "./config/cryptoUrls";
+import config from "./config";
 
 export const useMarketData = () => {
   const dispatch = useDispatch();

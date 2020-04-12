@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../store/actions/fetchData";
-import { getNewsUrl } from "./cryptoUrls";
-import config from "./config.json";
+import { getNewsUrl } from "./config/cryptoUrls";
+import config from "./config";
 
 export const useNewsData = () => {
   const dispatch = useDispatch();
