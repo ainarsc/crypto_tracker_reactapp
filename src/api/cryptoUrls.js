@@ -9,6 +9,6 @@ export const getNewsUrl = () => {
 export const getHistoryUrl = (coin, curr) => {
   return `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${coin}&tsym=${curr}&allData=true`;
 };
-export const getMarketData = () => {
+export const getMarketDataUrl = () => {
   return `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,BSV,LTC,EOS,ETC,XTZ,BNB,ZEC,ADA,XLM,NEO,DASH&&tsyms=USD,EUR`;
 };
