@@ -3,8 +3,7 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import _ from "lodash";
 import escapeRegExp from "../../../utils/escapeRegExp";
-import { getNews } from "../../../store/selectors";
-import { isFetched } from "../../../api/useApi";
+import { getNews, isFetched } from "../../../store/helpers";
 //MUI IMPORTS
 import { Card, CardContent, Typography, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";

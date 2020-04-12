@@ -7,39 +7,38 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper
+  Paper,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { getFullData, getDataPoint } from "../../../store/selectors";
-import { isFetched } from "../../../api/useApi";
+import { isFetched, getFullData, getDataPoint } from "../../../store";
 import _ from "lodash";
 
 //STYLES
 
-const StyledTableCell = withStyles(theme => ({
+const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: "#131313",
     borderColor: theme.palette.secondary.main,
-    fontSize: 16
+    fontSize: 16,
   },
   body: {
-    fontSize: 16
-  }
+    fontSize: 16,
+  },
 }))(TableCell);
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1),
     width: "auto",
     borderWidth: 1,
     borderColor: theme.palette.divider,
-    borderStyle: "solid"
-  }
+    borderStyle: "solid",
+  },
 }));
 
 const DataTable = () => {
   const classes = useStyles();
-  const data = useSelector(state => state.apiData);
-  const currency = useSelector(state => state.apiPreferences.currency);
+  const data = useSelector((state) => state.apiData);
+  const currency = useSelector((state) => state.apiPreferences.currency);
   let index = 1;
 
   //DATA POINT CONSTANTS

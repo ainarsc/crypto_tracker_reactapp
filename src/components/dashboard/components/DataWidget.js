@@ -8,8 +8,7 @@ import {
   selectVolume,
   selectMktsupply,
 } from "../../../store/actions/cryptoActions";
-import { getDataPoint } from "../../../store/selectors";
-import { isFetched } from "../../../api/useApi";
+import { getDataPoint, isFetched } from "../../../store/helpers";
 import _ from "lodash";
 
 //STYLES
