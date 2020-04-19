@@ -5,7 +5,7 @@ export const cleanupFullData = (apiData, ...args) => {
 
   let mapped = {};
   _.forIn(data, (crypto, cryptoName) => {
-    mapped[cryptoName] = _.mapValues(crypto, currency => {
+    mapped[cryptoName] = _.mapValues(crypto, (currency) => {
       return _.pick(currency, ...args);
     });
   });
@@ -15,7 +15,7 @@ export const cleanupFullData = (apiData, ...args) => {
 
 export const cleanupNewsData = (apiData, ...args) => {
   const data = _.take(apiData.Data, 8); //Pick last 8 news articles of API result
-  const result = _.mapValues(data, item => {
+  const result = _.mapValues(data, (item) => {
     return _.pick(item, ...args);
   });
 
