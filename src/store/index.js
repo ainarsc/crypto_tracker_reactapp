@@ -6,13 +6,13 @@ import rootReducer from "./reducers";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-const persistConfig = {
-  key: "apiData",
-  storage: storage,
-  whitelist: ["apiData"], // which reducer want to store
-};
+// const persistConfig = {
+//   key: "apiData",
+//   storage: storage,
+//   whitelist: ["apiData"], // which reducer want to store
+// };
 // const pReducer = persistReducer(persistConfig, rootReducer);
-const preloadedState = {};
+
 const middlewares = [ReduxThunk, logger];
 const composedEnhancers = composeWithDevTools(
   applyMiddleware(...middlewares)
@@ -20,7 +20,9 @@ const composedEnhancers = composeWithDevTools(
 );
 
 //store
-const store = createStore(rootReducer, preloadedState, composedEnhancers);
+// const store = createStore(rootReducer, preloadedState, composedEnhancers);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 // const persistor = persistStore(store);
 
-export { store };
+export const store = createStore(rootReducer, composedEnhancers);
+export const persistor = persistStore(store);
