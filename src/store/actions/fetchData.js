@@ -73,16 +73,16 @@ const shouldFetch = (state, dataCategory) => {
   }
 };
 
-const fetchData = async (url, dataKey, state) => {
-  if (shouldFetch(state, dataKey)) {
-    try {
-      const result = await axios(url);
-      return result.data;
-    } catch (error) {
-      return error;
-    }
-  }
-};
+// const fetchData = async (url, dataKey, state) => {
+//   if (shouldFetch(state, dataKey)) {
+//     try {
+//       const result = await axios(url);
+//       return result.data;
+//     } catch (error) {
+//       return error;
+//     }
+//   }
+// };
 
 // export const fetchHistoryAction = (url, crypto) => async (
 //   dispatch,

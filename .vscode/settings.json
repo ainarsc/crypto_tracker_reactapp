@@ -19,6 +19,7 @@
         "mktcap",
         "mktsupply",
         "openday",
+        "persistor",
         "redux",
         "select",
         "ssupply",
