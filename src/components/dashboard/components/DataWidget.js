@@ -81,7 +81,7 @@ const CenteredGrid = () => {
   ];
 
   return (
-    isFetched(data, "FULL_DATA") && (
+    isFetched(data, "MARKET_DATA") && (
       <Container className={classes.root}>
         <Paper>
           <Tabs

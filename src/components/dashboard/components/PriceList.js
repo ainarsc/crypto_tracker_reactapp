@@ -43,7 +43,7 @@ const PriceList = () => {
   };
 
   return (
-    isFetched(data, "FULL_DATA") &&
+    isFetched(data, "MARKET_DATA") &&
     _.map(cryptoList, (coin, index) => (
       <Grid key={index} item xs={4} md={2}>
         <Paper

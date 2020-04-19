@@ -3,8 +3,10 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import Tabs from "../../ui/Tabs";
 import { selectHistory } from "../../../store/actions/cryptoActions";
+import { useHistoryData } from "../../../api/useHistoryData";
 //HELPERS
 import { getTimeFrame } from "../../../store/selectors/getTimeFrame";
+import isEmpty from "lodash/isEmpty";
 //MUI IMPORTS
 import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -46,7 +48,15 @@ const PriceHistory = () => {
   //STATE
   const data = useSelector((state) => getTimeFrame(state));
   const selected = useSelector((state) => state.cryptoReducer.priceHistory);
-  const isFetching = useSelector((state) => state.apiData.HISTORY.isFetching);
+  const isFetched = useSelector((state) => {
+    const { crypto } = state.apiPreferences;
+    return (
+      !isEmpty(state.apiData.HISTORY.data[crypto]) &&
+      !state.apiData.HISTORY.isFetching
+    );
+  });
+
+  useHistoryData();
   //STYLES
   const classes = useStyles();
 
@@ -123,7 +133,7 @@ const PriceHistory = () => {
     </div>
   );
 
-  return isFetching ? (
+  return !isFetched ? (
     LoadingOverlay
   ) : (
     <Paper className={classes.root}>

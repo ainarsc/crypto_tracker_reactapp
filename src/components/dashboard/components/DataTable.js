@@ -10,7 +10,7 @@ import {
   Paper,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { isFetched, getFullData, getDataPoint } from "../../../store";
+import { isFetched, getFullData, getDataPoint } from "../../../store/helpers";
 import _ from "lodash";
 
 //STYLES
@@ -54,7 +54,7 @@ const DataTable = () => {
     getDataPoint(data, crypto, currency, indicator);
 
   return (
-    isFetched(data, "FULL_DATA") && (
+    isFetched(data, "MARKET_DATA") && (
       <TableContainer className={classes.root} component={Paper}>
         <Table size="small" aria-label="a dense table">
           <TableHead>
