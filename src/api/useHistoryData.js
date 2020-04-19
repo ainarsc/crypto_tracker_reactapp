@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchData } from "../store/actions/fetchData";
+import { fetchHistoryAction } from "../store/actions/fetchData";
 import { getHistoryUrl } from "./config/cryptoUrls";
 
 export const useHistoryData = () => {
@@ -10,6 +10,6 @@ export const useHistoryData = () => {
   useEffect(() => {
     const url = getHistoryUrl(crypto, currency);
 
-    dispatch(fetchData("HISTORY", url, crypto, currency, null));
+    dispatch(fetchHistoryAction(url, crypto));
   }, [currency, crypto, dispatch]);
 };
