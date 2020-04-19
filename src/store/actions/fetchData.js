@@ -37,8 +37,6 @@ export const invalidateData = (dataCategory) => {
   };
 };
 
-//FETCH API DATA ABSTRACTIONS
-
 const shouldFetch = (state, dataCategory) => {
   const category = state.apiData[dataCategory];
   const preferences = state.apiPreferences;
@@ -86,51 +84,3 @@ export const fetchAction = (url, dataType, cleanupFn, params) => async (
     }
   }
 };
-
-// export const fetchHistoryAction = (url, params) => async (
-//   dispatch,
-//   getState
-// ) => {
-//   if (shouldFetch(getState(), HISTORY)) {
-//     try {
-//       dispatch(fetchInit(HISTORY)); //1 DISPATCH INIT ACTION
-//       const result = await axios(url);
-//       const processed = cleanupHistoryData(result.data, params);
-//       dispatch(receiveData(HISTORY, processed));
-//     } catch (error) {
-//       dispatch(fetchFailure(HISTORY, error));
-//     }
-//   }
-// };
-
-// export const fetchMarketDataAction = (url, params) => async (
-//   dispatch,
-//   getState
-// ) => {
-//   if (shouldFetch(getState(), MARKET_DATA)) {
-//     try {
-//       dispatch(fetchInit(MARKET_DATA)); //1 DISPATCH INIT ACTION
-//       const result = await axios(url);
-//       let processed = cleanupFullData(result.data, params);
-//       dispatch(receiveData(MARKET_DATA, processed));
-//     } catch (error) {
-//       dispatch(fetchFailure(MARKET_DATA, error));
-//     }
-//   }
-// };
-
-// export const fetchNewsAction = (url, params) => async (
-//   dispatch,
-//   getState
-// ) => {
-//   if (shouldFetch(getState(), NEWS)) {
-//     try {
-//       dispatch(fetchInit(NEWS)); //1 DISPATCH INIT ACTION
-//       const result = await axios(url);
-//       let processed = cleanupNewsData(result.data, params);
-//       dispatch(receiveData(NEWS, processed));
-//     } catch (error) {
-//       dispatch(fetchFailure(NEWS, error));
-//     }
-//   }
-// };
