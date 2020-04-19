@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 import firebaseServices, { firebaseContext } from "./firebase";
 import { ThemeProvider } from "@material-ui/styles";
 import darkTheme from "./theme";
@@ -12,13 +13,15 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <Provider store={store}>
-    <firebaseContext.Provider value={firebaseServices}>
-      <ThemeProvider theme={darkTheme}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ThemeProvider>
-    </firebaseContext.Provider>
+    <PersistGate loading={null} persistor={persistor}>
+      <firebaseContext.Provider value={firebaseServices}>
+        <ThemeProvider theme={darkTheme}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ThemeProvider>
+      </firebaseContext.Provider>
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );
