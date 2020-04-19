@@ -17,10 +17,15 @@
             "SUPPLY",
             "MKTCAP",
             "TOTALVOLUME24H"
-        ]
+        ],
+        "timeValid": 15
     },
     "news": {
         "dataCategory": "NEWS",
-        "indicators": ["title", "published_on", "url", "categories", "source_info"]
+        "indicators": ["title", "published_on", "url", "categories", "source_info"],
+        "timeValid": 240
+    },
+    "history": {
+        "timeValid": 720
     }
 }

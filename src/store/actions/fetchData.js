@@ -7,6 +7,7 @@ import {
 import { MARKET_DATA, HISTORY, NEWS } from "../constants";
 import axios from "axios";
 import isEmpty from "lodash/isEmpty";
+import config from "../../api/config";
 
 //ACTION CREATORS
 export const fetchInit = (dataCategory) => {
@@ -38,8 +39,13 @@ export const invalidateData = (dataCategory) => {
 };
 
 const shouldFetch = (state, dataCategory) => {
-  const category = state.apiData[dataCategory];
-  const preferences = state.apiPreferences;
+  const category = state.apiData[dataCategory],
+    preferences = state.apiPreferences,
+    historyExpiry = config.history.timeValid,
+    marketExpiry = config.marketData.timeValid,
+    newsExpiry = config.news.timeValid;
+
+  //Check api data conditions
   const needToFetch = (data, receivedAt, time) => {
     if (isEmpty(data)) {
       return true;
@@ -56,11 +62,11 @@ const shouldFetch = (state, dataCategory) => {
     case HISTORY:
       const { crypto } = preferences;
       const { data, lastUpdated } = category;
-      return needToFetch(data[crypto], lastUpdated, 60);
+      return needToFetch(data[crypto], lastUpdated, historyExpiry);
     case MARKET_DATA:
-      return needToFetch(category.data, category.lastUpdated, 15);
+      return needToFetch(category.data, category.lastUpdated, marketExpiry);
     case NEWS:
-      return needToFetch(category.data, category.lastUpdated, 60);
+      return needToFetch(category.data, category.lastUpdated, newsExpiry);
     default:
       break;
   }
