@@ -47,7 +47,7 @@ const cryptoReducer = (state, action) => {
 
 const apiData = (
   state = {
-    FULL_DATA: {
+    MARKET_DATA: {
       isFetching: false,
       isError: false,
       didInvalidate: false,

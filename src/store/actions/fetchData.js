@@ -13,6 +13,7 @@ import {
 } from "../../utils/cleanupData";
 import isEmpty from "lodash/isEmpty";
 
+//ACTION CREATORS
 export const fetchInit = (dataCategory) => {
   return {
     type: FETCH_INIT,
@@ -41,6 +42,7 @@ export const invalidateData = (dataCategory) => {
   };
 };
 
+//FETCH API DATA ABSTRACTIONS
 const needToFetch = (data, receivedAt, time) => {
   if (isEmpty(data)) {
     return true;
@@ -71,10 +73,9 @@ const shouldFetch = (state, dataCategory) => {
   }
 };
 
-const fetchData = (url, dataKey) => async (dispatch, getState) => {
-  if (shouldFetch(getState(), dataKey)) {
+const fetchData = async (url, dataKey, state) => {
+  if (shouldFetch(state, dataKey)) {
     try {
-      dispatch(fetchInit(dataKey));
       const result = await axios(url);
       return result.data;
     } catch (error) {
@@ -83,23 +84,64 @@ const fetchData = (url, dataKey) => async (dispatch, getState) => {
   }
 };
 
-export const fetchHistory_ = (url, crypto) => async (dispatch) => {
-  const localData = JSON.parse(localStorage.getItem(crypto));
-  if (localData) {
-    dispatch(receiveData(HISTORY, localData));
-  } else {
-    const result = fetchData(url, HISTORY);
-    if (result && result.message) {
-      dispatch(fetchFailure(HISTORY, result.message));
-    } else {
-      const processed = cleanupHistoryData(result, crypto);
-      localStorage.setItem(crypto, JSON.stringify(processed));
-      dispatch(receiveData(HISTORY, processed));
-    }
-  }
-};
+// export const fetchHistoryAction = (url, crypto) => async (
+//   dispatch,
+//   getState
+// ) => {
+//   //FETCH ACTION
+//   dispatch(fetchInit(HISTORY));
+//   const result = await fetchData(url, HISTORY, getState());
 
-export const fetchHistory = (url, crypto) => async (dispatch, getState) => {
+//   //ERROR FETCHING
+//   if (result && result.message) {
+//     dispatch(fetchFailure(HISTORY, result.message));
+//   } else {
+//     //DO DATA PROCESSING
+//     const processed = cleanupHistoryData(result, crypto);
+//     // localStorage.setItem(crypto, JSON.stringify(processed));
+//     dispatch(receiveData(HISTORY, processed));
+//   }
+// };
+
+// export const fetchMarketDataAction = (url, keysToPick) => async (
+//   dispatch,
+//   getState
+// ) => {
+//   //FETCH ACTION
+//   dispatch(fetchInit(MARKET_DATA));
+//   const result = await fetchData(url, MARKET_DATA, getState());
+
+//   //ERROR FETCHING
+//   if (result && result.message) {
+//     dispatch(fetchFailure(MARKET_DATA, result.message));
+//   } else {
+//     //DO DATA PROCESSING
+//     let processed = cleanupFullData(result, keysToPick);
+//     dispatch(receiveData(MARKET_DATA, processed));
+//   }
+// };
+// export const fetchNewsAction = (url, keysToPick) => async (
+//   dispatch,
+//   getState
+// ) => {
+//   //FETCH ACTION
+//   dispatch(fetchInit(NEWS));
+//   const result = await fetchData(url, NEWS, getState());
+
+//   //ERROR FETCHING
+//   if (result && result.message) {
+//     dispatch(fetchFailure(NEWS, result.message));
+//   } else {
+//     //DO DATA PROCESSING
+//     let processed = cleanupNewsData(result, keysToPick);
+//     dispatch(receiveData(NEWS, processed));
+//   }
+// };
+
+export const fetchHistoryAction = (url, crypto) => async (
+  dispatch,
+  getState
+) => {
   if (shouldFetch(getState(), HISTORY)) {
     dispatch(fetchInit(HISTORY)); //1 DISPATCH INIT ACTION
     const localData = JSON.parse(localStorage.getItem(crypto)); //2 RETRIEVE FROM LOCAL STORE
@@ -119,7 +161,7 @@ export const fetchHistory = (url, crypto) => async (dispatch, getState) => {
   }
 };
 
-export const fetchMarketData = (url, keysToPick) => async (
+export const fetchMarketDataAction = (url, keysToPick) => async (
   dispatch,
   getState
 ) => {
@@ -141,7 +183,10 @@ export const fetchMarketData = (url, keysToPick) => async (
   }
 };
 
-export const fetchNews = (url, keysToPick) => async (dispatch, getState) => {
+export const fetchNewsAction = (url, keysToPick) => async (
+  dispatch,
+  getState
+) => {
   if (shouldFetch(getState(), NEWS)) {
     dispatch(fetchInit(NEWS)); //1 DISPATCH INIT ACTION
     const localData = JSON.parse(localStorage.getItem(NEWS)); //2 RETRIEVE FROM LOCAL STORE

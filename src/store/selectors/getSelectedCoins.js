@@ -3,7 +3,9 @@ import { isFetched } from "../helpers";
 import _ from "lodash";
 
 const getFullData = (state) => {
-  return isFetched(state.apiData, "FULL_DATA") && state.apiData.FULL_DATA.data;
+  return (
+    isFetched(state.apiData, "MARKET_DATA") && state.apiData.MARKET_DATA.data
+  );
 };
 
 const getCurrency = (state) => state.apiPreferences.currency;
