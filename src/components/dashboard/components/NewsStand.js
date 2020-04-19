@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import _ from "lodash";
 import escapeRegExp from "../../../utils/escapeRegExp";
 import { getNews, isFetched } from "../../../store/helpers";
-import { useNewsData } from "../../../api/useNewsData";
+
 //MUI IMPORTS
 import { Card, CardContent, Typography, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const NewsStand = () => {
   const data = useSelector((state) => state.apiData);
   const classes = useStyles();
-  useNewsData();
+
   return (
     isFetched(data, "NEWS") &&
     _.map(

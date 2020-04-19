@@ -6,11 +6,6 @@ import {
 } from "./actionTypes";
 import { MARKET_DATA, HISTORY, NEWS } from "../constants";
 import axios from "axios";
-import {
-  cleanupFullData,
-  cleanupNewsData,
-  cleanupHistoryData,
-} from "../../utils/cleanupData";
 import isEmpty from "lodash/isEmpty";
 
 //ACTION CREATORS
@@ -43,21 +38,21 @@ export const invalidateData = (dataCategory) => {
 };
 
 //FETCH API DATA ABSTRACTIONS
-const needToFetch = (data, receivedAt, time) => {
-  if (isEmpty(data)) {
-    return true;
-  } else {
-    const minute = 1000 * 60;
-    const currentTime = Date.now();
-    const elapsedTime = currentTime - receivedAt;
-
-    return elapsedTime > time * minute;
-  }
-};
 
 const shouldFetch = (state, dataCategory) => {
   const category = state.apiData[dataCategory];
   const preferences = state.apiPreferences;
+  const needToFetch = (data, receivedAt, time) => {
+    if (isEmpty(data)) {
+      return true;
+    } else {
+      const minute = 1000 * 60;
+      const currentTime = Date.now();
+      const elapsedTime = currentTime - receivedAt;
+
+      return elapsedTime > time * minute;
+    }
+  };
 
   switch (dataCategory) {
     case HISTORY:
@@ -73,134 +68,69 @@ const shouldFetch = (state, dataCategory) => {
   }
 };
 
-// const fetchData = async (url, dataKey, state) => {
-//   if (shouldFetch(state, dataKey)) {
+export const fetchAction = (url, dataType, cleanupFn, params) => async (
+  dispatch,
+  getState
+) => {
+  if (shouldFetch(getState(), dataType)) {
+    try {
+      //Let the store know data is fetching
+      dispatch(fetchInit(dataType));
+      const result = await axios(url);
+      //Process data with according cleanup fn before dispatching to the store
+      const processed = cleanupFn(result.data, params);
+      //Dispatch pre processed data to the store
+      dispatch(receiveData(dataType, processed));
+    } catch (error) {
+      dispatch(fetchFailure(dataType, error));
+    }
+  }
+};
+
+// export const fetchHistoryAction = (url, params) => async (
+//   dispatch,
+//   getState
+// ) => {
+//   if (shouldFetch(getState(), HISTORY)) {
 //     try {
+//       dispatch(fetchInit(HISTORY)); //1 DISPATCH INIT ACTION
 //       const result = await axios(url);
-//       return result.data;
+//       const processed = cleanupHistoryData(result.data, params);
+//       dispatch(receiveData(HISTORY, processed));
 //     } catch (error) {
-//       return error;
+//       dispatch(fetchFailure(HISTORY, error));
 //     }
 //   }
 // };
 
-// export const fetchHistoryAction = (url, crypto) => async (
+// export const fetchMarketDataAction = (url, params) => async (
 //   dispatch,
 //   getState
 // ) => {
-//   //FETCH ACTION
-//   dispatch(fetchInit(HISTORY));
-//   const result = await fetchData(url, HISTORY, getState());
-
-//   //ERROR FETCHING
-//   if (result && result.message) {
-//     dispatch(fetchFailure(HISTORY, result.message));
-//   } else {
-//     //DO DATA PROCESSING
-//     const processed = cleanupHistoryData(result, crypto);
-//     // localStorage.setItem(crypto, JSON.stringify(processed));
-//     dispatch(receiveData(HISTORY, processed));
+//   if (shouldFetch(getState(), MARKET_DATA)) {
+//     try {
+//       dispatch(fetchInit(MARKET_DATA)); //1 DISPATCH INIT ACTION
+//       const result = await axios(url);
+//       let processed = cleanupFullData(result.data, params);
+//       dispatch(receiveData(MARKET_DATA, processed));
+//     } catch (error) {
+//       dispatch(fetchFailure(MARKET_DATA, error));
+//     }
 //   }
 // };
 
-// export const fetchMarketDataAction = (url, keysToPick) => async (
+// export const fetchNewsAction = (url, params) => async (
 //   dispatch,
 //   getState
 // ) => {
-//   //FETCH ACTION
-//   dispatch(fetchInit(MARKET_DATA));
-//   const result = await fetchData(url, MARKET_DATA, getState());
-
-//   //ERROR FETCHING
-//   if (result && result.message) {
-//     dispatch(fetchFailure(MARKET_DATA, result.message));
-//   } else {
-//     //DO DATA PROCESSING
-//     let processed = cleanupFullData(result, keysToPick);
-//     dispatch(receiveData(MARKET_DATA, processed));
+//   if (shouldFetch(getState(), NEWS)) {
+//     try {
+//       dispatch(fetchInit(NEWS)); //1 DISPATCH INIT ACTION
+//       const result = await axios(url);
+//       let processed = cleanupNewsData(result.data, params);
+//       dispatch(receiveData(NEWS, processed));
+//     } catch (error) {
+//       dispatch(fetchFailure(NEWS, error));
+//     }
 //   }
 // };
-// export const fetchNewsAction = (url, keysToPick) => async (
-//   dispatch,
-//   getState
-// ) => {
-//   //FETCH ACTION
-//   dispatch(fetchInit(NEWS));
-//   const result = await fetchData(url, NEWS, getState());
-
-//   //ERROR FETCHING
-//   if (result && result.message) {
-//     dispatch(fetchFailure(NEWS, result.message));
-//   } else {
-//     //DO DATA PROCESSING
-//     let processed = cleanupNewsData(result, keysToPick);
-//     dispatch(receiveData(NEWS, processed));
-//   }
-// };
-
-export const fetchHistoryAction = (url, crypto) => async (
-  dispatch,
-  getState
-) => {
-  if (shouldFetch(getState(), HISTORY)) {
-    dispatch(fetchInit(HISTORY)); //1 DISPATCH INIT ACTION
-    const localData = JSON.parse(localStorage.getItem(crypto)); //2 RETRIEVE FROM LOCAL STORE
-
-    if (localData) {
-      dispatch(receiveData(HISTORY, localData));
-    } else {
-      try {
-        const result = await axios(url);
-        const processed = cleanupHistoryData(result.data, crypto);
-        localStorage.setItem(crypto, JSON.stringify(processed));
-        dispatch(receiveData(HISTORY, processed));
-      } catch (error) {
-        dispatch(fetchFailure(HISTORY, error));
-      }
-    }
-  }
-};
-
-export const fetchMarketDataAction = (url, keysToPick) => async (
-  dispatch,
-  getState
-) => {
-  if (shouldFetch(getState(), MARKET_DATA)) {
-    dispatch(fetchInit(MARKET_DATA)); //1 DISPATCH INIT ACTION
-    const localData = JSON.parse(localStorage.getItem(MARKET_DATA)); //2 RETRIEVE FROM LOCAL STORE
-    if (localData) {
-      dispatch(receiveData(MARKET_DATA, localData));
-    } else {
-      try {
-        const result = await axios(url);
-        let processed = cleanupFullData(result.data, keysToPick);
-        localStorage.setItem(MARKET_DATA, JSON.stringify(processed));
-        dispatch(receiveData(MARKET_DATA, processed));
-      } catch (error) {
-        dispatch(fetchFailure(MARKET_DATA, error));
-      }
-    }
-  }
-};
-
-export const fetchNewsAction = (url, keysToPick) => async (
-  dispatch,
-  getState
-) => {
-  if (shouldFetch(getState(), NEWS)) {
-    dispatch(fetchInit(NEWS)); //1 DISPATCH INIT ACTION
-    const localData = JSON.parse(localStorage.getItem(NEWS)); //2 RETRIEVE FROM LOCAL STORE
-    if (localData) {
-      dispatch(receiveData(NEWS, localData));
-    } else {
-      try {
-        const result = await axios(url);
-        let processed = cleanupNewsData(result.data, keysToPick);
-        localStorage.setItem(NEWS, JSON.stringify(processed));
-        dispatch(receiveData(NEWS, processed));
-      } catch (error) {
-        dispatch(fetchFailure(NEWS, error));
-      }
-    }
-  }
-};

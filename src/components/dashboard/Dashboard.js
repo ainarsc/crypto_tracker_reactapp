@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { isFetching } from "../../store/helpers";
 import LoadingBar from "../ui/LoadingBar";
 import Copyright from "../Copyright";
-import { useMarketData } from "../../api/useMarketData";
+import { useMarketData, useHistoryData, useNewsData } from "../../api";
 
 //MUI IMPORTS
 import { makeStyles } from "@material-ui/core/styles";
@@ -35,6 +35,8 @@ export const Dashboard = () => {
   const apiData = useSelector((state) => state.apiData);
   const fetching = isFetching(apiData);
   useMarketData();
+  useHistoryData();
+  useNewsData();
 
   return (
     <main className={classes.root}>

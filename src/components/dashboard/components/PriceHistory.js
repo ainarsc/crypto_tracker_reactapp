@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import Tabs from "../../ui/Tabs";
 import { selectHistory } from "../../../store/actions/cryptoActions";
-import { useHistoryData } from "../../../api/useHistoryData";
 //HELPERS
 import { getTimeFrame } from "../../../store/selectors/getTimeFrame";
 import isEmpty from "lodash/isEmpty";
@@ -56,7 +55,6 @@ const PriceHistory = () => {
     );
   });
 
-  useHistoryData();
   //STYLES
   const classes = useStyles();
 
