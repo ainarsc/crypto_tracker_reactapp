@@ -9,7 +9,7 @@ export const isFetching = ({ MARKET_DATA, HISTORY, NEWS }) => {
 
 export const getFullData = (state) => state.MARKET_DATA.data;
 export const getPrice = (state, coin, currency) =>
-  state.MARKET_DATA.data[coin][currency].PRICE;
+  state.data[coin][currency].PRICE;
 export const getNews = (state) => state.NEWS.data;
 export const getDataPoint = (state, crypto, currency, dataPoint) =>
   state.MARKET_DATA.data[crypto][currency][dataPoint];
