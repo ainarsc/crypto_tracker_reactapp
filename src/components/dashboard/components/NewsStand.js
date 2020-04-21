@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Fragment } from "react";
 import moment from "moment";
 import { useSelector } from "react-redux";
-import _ from "lodash";
 import escapeRegExp from "../../../utils/escapeRegExp";
-import { getNews, isFetched } from "../../../store/helpers";
+import isEmpty from "lodash/isEmpty";
+import map from "lodash/map";
+import replace from "lodash/replace";
 
 //MUI IMPORTS
 import { Card, CardContent, Typography, Link } from "@material-ui/core";
@@ -14,6 +15,7 @@ import Bullet from "../../ui/Bullet";
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
+    minHeight: 30,
     margin: theme.spacing(1),
     borderWidth: 1,
     borderColor: theme.palette.divider,
@@ -28,37 +30,40 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NewsStand = () => {
-  const data = useSelector((state) => state.apiData);
+  const news = useSelector((state) => state.apiData.NEWS.data);
+  const isIdle = isEmpty(news);
   const classes = useStyles();
 
-  return (
-    isFetched(data, "NEWS") &&
-    _.map(
-      getNews(data),
-      ({ categories, title, source_info, url, published_on }, key) => (
-        <Link key={key} href={url} target="_blank" rel="noopener">
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography variant="caption" color="textSecondary" gutterBottom>
-                {_.replace(
-                  categories,
-                  new RegExp(escapeRegExp("|"), "g"),
-                  " | "
-                )}
-              </Typography>
-              <Typography variant="h5" component="h2">
-                {title}
-              </Typography>
-              <Typography variant="caption">
-                {source_info.name} <Bullet />{" "}
-                {moment.unix(published_on).format("MM.DD.YYYY")}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Link>
-      )
-    )
+  const Ghost = (props) => <div {...props} />;
+
+  return isIdle ? (
+    <Fragment>
+      <Ghost className={classes.root} />
+      <Ghost className={classes.root} />
+      <Ghost className={classes.root} />
+    </Fragment>
+  ) : (
+    map(news, ({ categories, title, source_info, url, published_on }, key) => (
+      <Link key={key} href={url} target="_blank" rel="noopener">
+        <Card className={classes.root}>
+          <CardContent>
+            <Typography variant="caption" color="textSecondary" gutterBottom>
+              {replace(categories, new RegExp(escapeRegExp("|"), "g"), " | ")}
+            </Typography>
+            <Typography variant="h5" component="h2">
+              {title}
+            </Typography>
+            <Typography variant="caption">
+              {source_info.name} <Bullet />{" "}
+              {moment.unix(published_on).format("MM.DD.YYYY")}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Link>
+    ))
   );
+
+  //END
 };
 
 export default NewsStand;

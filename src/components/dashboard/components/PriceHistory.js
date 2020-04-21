@@ -9,7 +9,6 @@ import isEmpty from "lodash/isEmpty";
 //MUI IMPORTS
 import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { LoadingCircleComp } from "../../ui/LoadingCircle";
 //RECHARTS COMPONENTS
 import {
   AreaChart,
@@ -47,12 +46,9 @@ const PriceHistory = () => {
   //STATE
   const data = useSelector((state) => getTimeFrame(state));
   const selected = useSelector((state) => state.cryptoReducer.priceHistory);
-  const isFetched = useSelector((state) => {
+  const isIdle = useSelector((state) => {
     const { crypto } = state.apiPreferences;
-    return (
-      !isEmpty(state.apiData.HISTORY.data[crypto]) &&
-      !state.apiData.HISTORY.isFetching
-    );
+    return isEmpty(state.apiData.HISTORY.data[crypto]);
   });
 
   //STYLES
@@ -125,14 +121,10 @@ const PriceHistory = () => {
     { indicator: "WEEK", displayName: "7 Days" },
     { indicator: "DAY", displayName: "1 Day" },
   ];
-  const LoadingOverlay = (
-    <div className={classes.loading}>
-      <LoadingCircleComp />
-    </div>
-  );
+  const Ghost = (props) => <div {...props} />;
 
-  return !isFetched ? (
-    LoadingOverlay
+  return isIdle ? (
+    <Ghost className={classes.root} />
   ) : (
     <Paper className={classes.root}>
       <Tabs

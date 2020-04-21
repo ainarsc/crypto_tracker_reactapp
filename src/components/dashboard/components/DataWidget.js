@@ -8,8 +8,8 @@ import {
   selectVolume,
   selectMktsupply,
 } from "../../../store/actions/cryptoActions";
-import { getDataPoint, isFetched } from "../../../store/helpers";
-import _ from "lodash";
+import isEmpty from "lodash/isEmpty";
+import round from "lodash/round";
 
 //STYLES
 const useStyles = makeStyles((theme) => ({
@@ -56,16 +56,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CenteredGrid = () => {
-  const classes = useStyles();
-  const data = useSelector((state) => state.apiData);
-  const { crypto, currency } = useSelector((state) => state.apiPreferences);
-  const { volume, priceChange, mktSupply } = useSelector(
-    (state) => state.cryptoReducer
-  );
+  const classes = useStyles(),
+    { crypto, currency } = useSelector((state) => state.apiPreferences),
+    { volume, priceChange, mktSupply } = useSelector(
+      (state) => state.cryptoReducer
+    ),
+    marketData = useSelector((state) => state.apiData.MARKET_DATA),
+    isIdle = isEmpty(marketData.data);
 
   //GET API DATA VALUES FROM STATE
-  const getValues = (indicator) =>
-    getDataPoint(data, crypto, currency, indicator);
+  const getValues = (indicator) => marketData.data[crypto][currency][indicator];
 
   const priceChangeTabs = [
     { indicator: "CHANGE24HOUR", displayName: "Δ(24h)" },
@@ -79,81 +79,82 @@ const CenteredGrid = () => {
     { indicator: "MKTCAP", displayName: "MKT CAP" },
     { indicator: "SUPPLY", displayName: "Supply" },
   ];
+  const Ghost = (props) => <div {...props} />;
 
-  return (
-    isFetched(data, "MARKET_DATA") && (
-      <Container className={classes.root}>
-        <Paper>
-          <Tabs
-            action={selectChange}
-            selectedTab={priceChange}
-            tabsArray={priceChangeTabs}
-          />
-          <div className={classes.content}>
-            <Typography variant="h4" component="h3">
-              <span className={classes.span}>{currency}</span>
-              {`${_.round(getValues(priceChange), 2)}`}
-            </Typography>
-          </div>
-        </Paper>
+  return isIdle ? (
+    <Ghost className={classes.root} />
+  ) : (
+    <Container className={classes.root}>
+      <Paper>
+        <Tabs
+          action={selectChange}
+          selectedTab={priceChange}
+          tabsArray={priceChangeTabs}
+        />
+        <div className={classes.content}>
+          <Typography variant="h4" component="h3">
+            <span className={classes.span}>{currency}</span>
+            {`${round(getValues(priceChange), 2)}`}
+          </Typography>
+        </div>
+      </Paper>
 
-        <Paper>
-          <Tabs
-            action={selectVolume}
-            selectedTab={volume}
-            tabsArray={volumeTabs}
-          />
-          <div className={classes.content}>
-            <Typography variant="h4" component="h3">
-              <span className={classes.span}>{currency}</span>
-              {`${_.round(getValues(volume), 1) / 1000}M`}
-            </Typography>
-          </div>
-        </Paper>
+      <Paper>
+        <Tabs
+          action={selectVolume}
+          selectedTab={volume}
+          tabsArray={volumeTabs}
+        />
+        <div className={classes.content}>
+          <Typography variant="h4" component="h3">
+            <span className={classes.span}>{currency}</span>
+            {`${round(getValues(volume), 1) / 1000}M`}
+          </Typography>
+        </div>
+      </Paper>
 
-        <Paper>
-          <Tabs
-            action={selectMktsupply}
-            selectedTab={mktSupply}
-            tabsArray={marketTabs}
-          />
-          <div className={classes.content}>
-            <Typography variant="h4" component="h3">
-              <span className={classes.span}>{currency}</span>
-              {`${_.round(getValues(mktSupply), -7) / 1000000000}B`}
-            </Typography>
-          </div>
-        </Paper>
+      <Paper>
+        <Tabs
+          action={selectMktsupply}
+          selectedTab={mktSupply}
+          tabsArray={marketTabs}
+        />
+        <div className={classes.content}>
+          <Typography variant="h4" component="h3">
+            <span className={classes.span}>{currency}</span>
+            {`${round(getValues(mktSupply), -7) / 1000000000}B`}
+          </Typography>
+        </div>
+      </Paper>
 
-        <Paper>
-          <div className={classes.price}>
-            <Typography color="textSecondary" variant="caption">
-              Open
-            </Typography>
-            <Typography variant="h5" component="h3">
-              <span className={classes.span}>{currency}</span>
-              {`${_.round(getValues("OPENDAY"), 2)}`}
-            </Typography>
-            <Divider />
-            <Typography color="textSecondary" variant="caption">
-              High
-            </Typography>
-            <Typography variant="h5" component="h3">
-              <span className={classes.span}>{currency}</span>
-              {`${_.round(getValues("HIGHDAY"), 2)}`}
-            </Typography>
-            <Divider />
-            <Typography color="textSecondary" variant="caption">
-              Low
-            </Typography>
-            <Typography variant="h5" component="h3">
-              <span className={classes.span}>{currency}</span>
-              {`${_.round(getValues("LOWDAY"), 2)}`}
-            </Typography>
-          </div>
-        </Paper>
-      </Container>
-    )
+      <Paper>
+        <div className={classes.price}>
+          <Typography color="textSecondary" variant="caption">
+            Open
+          </Typography>
+          <Typography variant="h5" component="h3">
+            <span className={classes.span}>{currency}</span>
+            {`${round(getValues("OPENDAY"), 2)}`}
+          </Typography>
+          <Divider />
+          <Typography color="textSecondary" variant="caption">
+            High
+          </Typography>
+          <Typography variant="h5" component="h3">
+            <span className={classes.span}>{currency}</span>
+            {`${round(getValues("HIGHDAY"), 2)}`}
+          </Typography>
+          <Divider />
+          <Typography color="textSecondary" variant="caption">
+            Low
+          </Typography>
+          <Typography variant="h5" component="h3">
+            <span className={classes.span}>{currency}</span>
+            {`${round(getValues("LOWDAY"), 2)}`}
+          </Typography>
+        </div>
+      </Paper>
+    </Container>
   );
 };
 

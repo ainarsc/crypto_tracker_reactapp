@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectTreeMap } from "../../../store/actions/cryptoActions";
 import { getSelectedCoins } from "../../../store/selectors";
+import isEmpty from "lodash/isEmpty";
 //MUI IMPORTS
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
@@ -24,10 +25,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MarketCap = () => {
-  const data = useSelector((state) => getSelectedCoins(state));
-  const selected = useSelector((state) => state.cryptoReducer.treeMap);
-  const classes = useStyles();
-
+  const coins = useSelector((state) => getSelectedCoins(state)),
+    selected = useSelector((state) => state.cryptoReducer.treeMap),
+    classes = useStyles(),
+    marketData = useSelector((state) => state.apiData.MARKET_DATA),
+    isIdle = isEmpty(marketData.data);
   //CUSTOM TOOLTIP
   const CustomizedContent = (props) => {
     const { x, y, width, height, name } = props;
@@ -52,8 +54,11 @@ const MarketCap = () => {
     { indicator: "SUPPLY", displayName: "Supply" },
     { indicator: "VOLUME24HOUR", displayName: "Volume" },
   ];
+  const Ghost = (props) => <div {...props} />;
 
-  return (
+  return isIdle ? (
+    <Ghost className={classes.root} />
+  ) : (
     <Paper className={classes.root}>
       <Tabs
         action={selectTreeMap}
@@ -63,7 +68,7 @@ const MarketCap = () => {
       <div className={classes.treeMap}>
         <ResponsiveContainer height={295}>
           <Treemap
-            data={data}
+            data={coins}
             dataKey={selected}
             ratio={1}
             fill="#151515"

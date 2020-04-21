@@ -1,13 +1,15 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCrypto } from "../../../store/actions/setPreferences";
-import _ from "lodash";
 //HELPERS
-import { getPrice, isFetched } from "../../../store/helpers";
+import { getPrice } from "../../../store/helpers";
 //MUI IMPORTS
 import { Grid, Paper, Typography, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import isEmpty from "lodash/isEmpty";
+import map from "lodash/map";
+import round from "lodash/round";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,38 +30,44 @@ const useStyles = makeStyles((theme) => ({
   selected: {
     backgroundColor: theme.palette.primary.light,
   },
+  loaderBg: theme.palette.primary.dark,
+  loaderFg: theme.palette.secondary.main,
 }));
 
 const PriceList = () => {
   const { currency, cryptoList } = useSelector((state) => state.apiPreferences);
-  const data = useSelector((state) => state.apiData);
+  const marketData = useSelector((state) => state.apiData.MARKET_DATA);
   const selectedCoin = useSelector((state) => state.apiPreferences.crypto);
   const dispatch = useDispatch();
   const classes = useStyles();
   const active = clsx(classes.root, classes.selected);
+  const isIdle = isEmpty(marketData.data);
 
   const handleClick = (coin) => {
     dispatch(setCrypto(coin));
   };
 
-  return (
-    isFetched(data, "MARKET_DATA") &&
-    _.map(cryptoList, (coin, index) => (
-      <Grid key={index} item xs={4} md={2}>
+  const Ghost = (props) => <div className={props.styles} />;
+
+  return map(cryptoList, (coin, index) => (
+    <Grid key={index} item xs={4} md={2}>
+      {isIdle ? (
+        <Ghost styles={classes.root} />
+      ) : (
         <Paper
           onClick={() => handleClick(coin)}
           className={selectedCoin === coin ? active : classes.root}
         >
           <Typography variant="subtitle1">{`${coin} - ${currency}`}</Typography>
           <Divider width="100%" orientation="horizontal" variant="middle" />
-          <Typography color="textSecondary" variant="h6">{`${_.round(
-            getPrice(data, coin, currency),
+          <Typography color="textSecondary" variant="h6">{`${round(
+            getPrice(marketData, coin, currency),
             2
           )}`}</Typography>
         </Paper>
-      </Grid>
-    ))
-  );
+      )}
+    </Grid>
+  ));
 };
 
 export default PriceList;
