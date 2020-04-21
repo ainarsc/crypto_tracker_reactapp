@@ -1,11 +1,9 @@
 import { createSelector } from "reselect";
-import { isFetched } from "../helpers";
-import _ from "lodash";
+import isEmpty from "lodash/isEmpty";
+import forIn from "lodash/forIn";
 
 const getFullData = (state) => {
-  return (
-    isFetched(state.apiData, "MARKET_DATA") && state.apiData.MARKET_DATA.data
-  );
+  return isEmpty(state.apiData.MARKET_DATA.data);
 };
 
 const getCurrency = (state) => state.apiPreferences.currency;
@@ -15,7 +13,7 @@ export const getSelectedCoins = createSelector(
 
   (data, currency) => {
     let arr = [];
-    _.forIn(data, (coin) => {
+    forIn(data, (coin) => {
       arr.push({
         name: coin[currency].FROMSYMBOL,
         MKTCAP: coin[currency].MKTCAP,
