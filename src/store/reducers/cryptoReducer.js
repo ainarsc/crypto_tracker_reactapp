@@ -10,7 +10,7 @@ const cryptoReducer = (
   state = {
     priceHistory: "MONTH",
     treeMap: "MKTCAP",
-    priceChange: "CHANGE24HOUR",
+    priceChange: "CHANGEPCT24HOUR",
     volume: "VOLUME24HOUR",
     mktSupply: "MKTCAP",
   },

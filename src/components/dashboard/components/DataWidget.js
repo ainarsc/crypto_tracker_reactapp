@@ -9,7 +9,6 @@ import {
   selectMktsupply,
 } from "../../../store/actions/cryptoActions";
 import isEmpty from "lodash/isEmpty";
-import round from "lodash/round";
 
 //STYLES
 const useStyles = makeStyles((theme) => ({
@@ -65,11 +64,27 @@ const CenteredGrid = () => {
     isIdle = isEmpty(marketData.data);
 
   //GET API DATA VALUES FROM STATE
-  const getValues = (indicator) => marketData.data[crypto][currency][indicator];
+
+  const nFormatter = (num) => {
+    let newNumber;
+    if (num >= 1000000000) {
+      newNumber = `${(num / 1000000000).toFixed(2)}B`;
+    } else if (num >= 100000) {
+      newNumber = (num / 1000000).toFixed(2) + "M";
+    } else {
+      newNumber = num.toFixed(2);
+    }
+    return newNumber;
+  };
+
+  const getValues = (indicator) => {
+    const number = marketData.data[crypto][currency][indicator];
+    return nFormatter(number);
+  };
 
   const priceChangeTabs = [
-    { indicator: "CHANGE24HOUR", displayName: "Δ(24h)" },
-    { indicator: "CHANGEHOUR", displayName: "Δ(1h)" },
+    { indicator: "CHANGEPCT24HOUR", displayName: "Δ(24h)" },
+    { indicator: "CHANGEPCTHOUR", displayName: "Δ(1h)" },
   ];
   const volumeTabs = [
     { indicator: "VOLUME24HOUR", displayName: "Vol(24h)" },
@@ -93,8 +108,7 @@ const CenteredGrid = () => {
         />
         <div className={classes.content}>
           <Typography variant="h4" component="h3">
-            <span className={classes.span}>{currency}</span>
-            {`${round(getValues(priceChange), 2)}`}
+            {`${getValues(priceChange)}%`}
           </Typography>
         </div>
       </Paper>
@@ -108,7 +122,7 @@ const CenteredGrid = () => {
         <div className={classes.content}>
           <Typography variant="h4" component="h3">
             <span className={classes.span}>{currency}</span>
-            {`${round(getValues(volume), 1) / 1000}M`}
+            {`${getValues(volume)}`}
           </Typography>
         </div>
       </Paper>
@@ -122,7 +136,7 @@ const CenteredGrid = () => {
         <div className={classes.content}>
           <Typography variant="h4" component="h3">
             <span className={classes.span}>{currency}</span>
-            {`${round(getValues(mktSupply), -7) / 1000000000}B`}
+            {`${getValues(mktSupply)}`}
           </Typography>
         </div>
       </Paper>
@@ -134,7 +148,7 @@ const CenteredGrid = () => {
           </Typography>
           <Typography variant="h5" component="h3">
             <span className={classes.span}>{currency}</span>
-            {`${round(getValues("OPENDAY"), 2)}`}
+            {`${getValues("OPENDAY")}`}
           </Typography>
           <Divider />
           <Typography color="textSecondary" variant="caption">
@@ -142,7 +156,7 @@ const CenteredGrid = () => {
           </Typography>
           <Typography variant="h5" component="h3">
             <span className={classes.span}>{currency}</span>
-            {`${round(getValues("HIGHDAY"), 2)}`}
+            {`${getValues("HIGHDAY")}`}
           </Typography>
           <Divider />
           <Typography color="textSecondary" variant="caption">
@@ -150,7 +164,7 @@ const CenteredGrid = () => {
           </Typography>
           <Typography variant="h5" component="h3">
             <span className={classes.span}>{currency}</span>
-            {`${round(getValues("LOWDAY"), 2)}`}
+            {`${getValues("LOWDAY")}`}
           </Typography>
         </div>
       </Paper>
