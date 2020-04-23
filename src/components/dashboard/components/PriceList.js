@@ -26,9 +26,10 @@ const useStyles = makeStyles((theme) => ({
     borderWidth: 1,
     borderColor: theme.palette.divider,
     borderStyle: "solid",
+    cursor: "pointer",
   },
   selected: {
-    backgroundColor: theme.palette.primary.light,
+    borderColor: theme.palette.secondary.main,
   },
   ghost: {
     height: 72,
