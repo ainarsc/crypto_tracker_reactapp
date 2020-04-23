@@ -30,8 +30,11 @@ const useStyles = makeStyles((theme) => ({
   selected: {
     backgroundColor: theme.palette.primary.light,
   },
-  loaderBg: theme.palette.primary.dark,
-  loaderFg: theme.palette.secondary.main,
+  ghost: {
+    height: 72,
+    minWidth: 100,
+    backgroundColor: theme.palette.background.paper,
+  },
 }));
 
 const PriceList = () => {

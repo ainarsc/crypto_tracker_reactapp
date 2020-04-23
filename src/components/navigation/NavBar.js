@@ -12,36 +12,38 @@ import DarkModeToggle from "./Switch";
 import CurrencySelect from "./Select";
 import { signOut } from "../../firebase";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearSession } from "../../store/actions/sessionActions";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import { isFetching } from "../../store/helpers";
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   appBar: {
     [theme.breakpoints.up("md")]: {
       width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth
+      marginLeft: drawerWidth,
     },
-    background: theme.palette.primary.main
+    background: theme.palette.primary.main,
   },
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up("md")]: {
-      display: "none"
-    }
+      display: "none",
+    },
   },
   toolbar: {
-    marginLeft: theme.spacing(2)
+    marginLeft: theme.spacing(2),
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   hide: {
     [theme.breakpoints.down("xs")]: {
-      display: "none"
-    }
-  }
+      display: "none",
+    },
+  },
 }));
 
 function NavBar(props) {
@@ -49,6 +51,7 @@ function NavBar(props) {
   const history = useHistory();
   const dispatch = useDispatch();
   const currentLocation = history.location.pathname.replace("/", "");
+  const state = useSelector((state) => state.apiData);
 
   const handleSignOut = async () => {
     await signOut();
@@ -86,6 +89,7 @@ function NavBar(props) {
             <AccountCircleIcon color="secondary" />
           </IconButton>
         </Toolbar>
+        {isFetching(state) && <LinearProgress color="secondary" />}
       </AppBar>
     </Fragment>
   );
@@ -94,7 +98,7 @@ function NavBar(props) {
 NavBar.propTypes = {
   container: PropTypes.instanceOf(
     typeof Element === "undefined" ? Object : Element
-  )
+  ),
 };
 
 export default NavBar;
