@@ -94,10 +94,17 @@ const CenteredGrid = () => {
     { indicator: "MKTCAP", displayName: "MKT CAP" },
     { indicator: "SUPPLY", displayName: "Supply" },
   ];
-  const Ghost = (props) => <Paper className={props.styles} />;
+  const Ghost = (props) => (
+    <Paper className={props.styles}>
+      <div className={props.fakeContent} />
+      <div className={props.fakeContent} />
+      <div className={props.fakeContent} />
+      <div className={props.fakeContent} />
+    </Paper>
+  );
 
   return isIdle ? (
-    <Ghost styles={classes.root} />
+    <Ghost styles={classes.root} fakeContent={classes.content} />
   ) : (
     <Container className={classes.root}>
       <Paper>
