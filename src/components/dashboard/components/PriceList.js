@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     borderColor: theme.palette.divider,
     borderStyle: "solid",
     cursor: "pointer",
+    "&:hover": {
+      borderColor: theme.palette.secondary.dark,
+    },
   },
   selected: {
     borderColor: theme.palette.secondary.main,
@@ -51,7 +54,7 @@ const PriceList = () => {
     dispatch(setCrypto(coin));
   };
 
-  const Ghost = (props) => <div className={props.styles} />;
+  const Ghost = (props) => <Paper className={props.styles} />;
 
   return map(cryptoList, (coin, index) => (
     <Grid key={index} item xs={4} md={2}>

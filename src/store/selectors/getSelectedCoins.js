@@ -3,7 +3,8 @@ import isEmpty from "lodash/isEmpty";
 import forIn from "lodash/forIn";
 
 const getFullData = (state) => {
-  return isEmpty(state.apiData.MARKET_DATA.data);
+  const data = state.apiData.MARKET_DATA.data;
+  return !isEmpty(data) && data;
 };
 
 const getCurrency = (state) => state.apiPreferences.currency;

@@ -7,7 +7,7 @@ import map from "lodash/map";
 import replace from "lodash/replace";
 
 //MUI IMPORTS
-import { Card, CardContent, Typography, Link } from "@material-ui/core";
+import { Card, CardContent, Typography, Link, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Bullet from "../../ui/Bullet";
 
@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
     borderWidth: 1,
     borderColor: theme.palette.divider,
     borderStyle: "solid",
+    "&:hover": {
+      borderColor: theme.palette.secondary.main,
+    },
     "& > *": {
       padding: theme.spacing(3),
       "&:last-child": {
@@ -34,13 +37,13 @@ const NewsStand = () => {
   const isIdle = isEmpty(news);
   const classes = useStyles();
 
-  const Ghost = (props) => <div {...props} />;
+  const Ghost = (props) => <Paper className={props.styles} />;
 
   return isIdle ? (
     <Fragment>
-      <Ghost className={classes.root} />
-      <Ghost className={classes.root} />
-      <Ghost className={classes.root} />
+      <Ghost styles={classes.root} />
+      <Ghost styles={classes.root} />
+      <Ghost styles={classes.root} />
     </Fragment>
   ) : (
     map(news, ({ categories, title, source_info, url, published_on }, key) => (

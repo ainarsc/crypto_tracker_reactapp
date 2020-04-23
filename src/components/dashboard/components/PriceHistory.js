@@ -121,10 +121,10 @@ const PriceHistory = () => {
     { indicator: "WEEK", displayName: "7 Days" },
     { indicator: "DAY", displayName: "1 Day" },
   ];
-  const Ghost = (props) => <div {...props} />;
+  const Ghost = (props) => <Paper className={props.styles} />;
 
   return isIdle ? (
-    <Ghost className={classes.root} />
+    <Ghost styles={classes.root} />
   ) : (
     <Paper className={classes.root}>
       <Tabs

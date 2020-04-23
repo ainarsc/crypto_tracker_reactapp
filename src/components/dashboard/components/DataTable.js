@@ -56,9 +56,9 @@ const DataTable = () => {
   const getStat = (crypto, indicator) =>
     getDataPoint(marketData, crypto, currency, indicator);
 
-  const Ghost = (props) => <div {...props} />;
+  const Ghost = (props) => <Paper className={props.styles} />;
   return isIdle ? (
-    <Ghost className={classes.root} />
+    <Ghost styles={classes.root} />
   ) : (
     <TableContainer className={classes.root} component={Paper}>
       <Table size="small" aria-label="a dense table">

@@ -54,10 +54,10 @@ const MarketCap = () => {
     { indicator: "SUPPLY", displayName: "Supply" },
     { indicator: "VOLUME24HOUR", displayName: "Volume" },
   ];
-  const Ghost = (props) => <div {...props} />;
+  const Ghost = (props) => <Paper className={props.styles} />;
 
   return isIdle ? (
-    <Ghost className={classes.root} />
+    <Ghost styles={classes.root} />
   ) : (
     <Paper className={classes.root}>
       <Tabs
