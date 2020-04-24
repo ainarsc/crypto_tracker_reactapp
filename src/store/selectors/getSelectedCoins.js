@@ -19,8 +19,7 @@ export const getSelectedCoins = createSelector(
         arr.push({
           name: coin[currency].FROMSYMBOL,
           MKTCAP: coin[currency].MKTCAP,
-          SUPPLY: coin[currency].SUPPLY,
-          VOLUME24HOUR: coin[currency].VOLUME24HOUR,
+          TOTALVOLUME24HTO: coin[currency].TOTALVOLUME24HTO,
         });
       }
     });

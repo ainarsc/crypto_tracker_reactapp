@@ -51,8 +51,7 @@ const MarketCap = () => {
   };
   const displayNames = [
     { indicator: "MKTCAP", displayName: "Market Cap" },
-    { indicator: "SUPPLY", displayName: "Supply" },
-    { indicator: "VOLUME24HOUR", displayName: "Volume" },
+    { indicator: "TOTALVOLUME24HTO", displayName: "Total Volume" },
   ];
   const Ghost = (props) => <Paper className={props.styles} />;
 

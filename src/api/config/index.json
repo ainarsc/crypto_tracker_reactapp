@@ -16,7 +16,7 @@
             "LOWDAY",
             "SUPPLY",
             "MKTCAP",
-            "TOTALVOLUME24H"
+            "TOTALVOLUME24HTO"
         ],
         "timeValid": 15
     },
