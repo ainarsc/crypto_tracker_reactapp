@@ -11,9 +11,9 @@ import {
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { getDataPoint } from "../../../store/helpers";
-import round from "lodash/round";
 import isEmpty from "lodash/isEmpty";
 import map from "lodash/map";
+import { nFormatter } from "../../../utils/nFormatter";
 
 //STYLES
 
@@ -38,23 +38,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DataTable = () => {
-  const classes = useStyles();
-  const marketData = useSelector((state) => state.apiData.MARKET_DATA);
-  const currency = useSelector((state) => state.apiPreferences.currency);
-  const isIdle = isEmpty(marketData.data);
+  const classes = useStyles(),
+    marketData = useSelector((state) => state.apiData.MARKET_DATA),
+    currency = useSelector((state) => state.apiPreferences.currency),
+    isIdle = isEmpty(marketData.data);
   let index = 1;
 
   //DATA POINT CONSTANTS
   const FROMSYMBOL = "FROMSYMBOL";
   const PRICE = "PRICE";
-  const CHANGEHOUR = "CHANGEHOUR";
-  const CHANGE24HOUR = "CHANGE24HOUR";
-  const TOTALVOLUME24H = "TOTALVOLUME24H";
+  const CHANGEPCTHOUR = "CHANGEPCTHOUR";
+  const CHANGEPCT24HOUR = "CHANGEPCT24HOUR";
+  const TOTALVOLUME24HTO = "TOTALVOLUME24HTO";
   const MKTCAP = "MKTCAP";
 
   //DATA POINT SELECTOR
-  const getStat = (crypto, indicator) =>
-    getDataPoint(marketData, crypto, currency, indicator);
+  const getStat = (crypto, indicator) => {
+    const num = getDataPoint(marketData, crypto, currency, indicator);
+    return typeof num === "number" ? nFormatter(num) : num;
+  };
 
   const Ghost = (props) => <Paper className={props.styles} />;
   return isIdle ? (
@@ -75,7 +77,7 @@ const DataTable = () => {
         </TableHead>
         <TableBody>
           {map(marketData.data, (coin, key) => (
-            <TableRow key={key} align="right">
+            <TableRow hover={true} component="tr" key={key} align="right">
               <StyledTableCell component="th" scope="row" align="right">
                 {index++}
               </StyledTableCell>
@@ -83,19 +85,19 @@ const DataTable = () => {
                 {getStat(key, FROMSYMBOL)}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {round(getStat(key, PRICE), 2)}
+                {`% ${getStat(key, PRICE)}`}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {round(getStat(key, CHANGEHOUR), 2)}
+                {`% ${getStat(key, CHANGEPCTHOUR)}`}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {round(getStat(key, CHANGE24HOUR), 2)}
+                {`% ${getStat(key, CHANGEPCT24HOUR)}`}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {round(getStat(key, TOTALVOLUME24H), -7) / 1000000}
+                {getStat(key, TOTALVOLUME24HTO)}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {round(getStat(key, MKTCAP), -7) / 1000000}
+                {getStat(key, MKTCAP)}
               </StyledTableCell>
             </TableRow>
           ))}
