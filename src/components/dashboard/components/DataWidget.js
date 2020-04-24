@@ -9,6 +9,7 @@ import {
   selectMktsupply,
 } from "../../../store/actions/cryptoActions";
 import isEmpty from "lodash/isEmpty";
+import { nFormatter } from "../../../utils/nFormatter";
 
 //STYLES
 const useStyles = makeStyles((theme) => ({
@@ -64,18 +65,6 @@ const CenteredGrid = () => {
     isIdle = isEmpty(marketData.data);
 
   //GET API DATA VALUES FROM STATE
-
-  const nFormatter = (num) => {
-    let newNumber;
-    if (num >= 1000000000) {
-      newNumber = `${(num / 1000000000).toFixed(2)}B`;
-    } else if (num >= 100000) {
-      newNumber = (num / 1000000).toFixed(2) + "M";
-    } else {
-      newNumber = num.toFixed(2);
-    }
-    return newNumber;
-  };
 
   const getValues = (indicator) => {
     const number = marketData.data[crypto][currency][indicator];
