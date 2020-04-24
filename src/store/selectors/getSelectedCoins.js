@@ -15,12 +15,14 @@ export const getSelectedCoins = createSelector(
   (data, currency) => {
     let arr = [];
     forIn(data, (coin) => {
-      arr.push({
-        name: coin[currency].FROMSYMBOL,
-        MKTCAP: coin[currency].MKTCAP,
-        SUPPLY: coin[currency].SUPPLY,
-        VOLUME24HOUR: coin[currency].VOLUME24HOUR,
-      });
+      if (arr.length < 9) {
+        arr.push({
+          name: coin[currency].FROMSYMBOL,
+          MKTCAP: coin[currency].MKTCAP,
+          SUPPLY: coin[currency].SUPPLY,
+          VOLUME24HOUR: coin[currency].VOLUME24HOUR,
+        });
+      }
     });
 
     return arr;
