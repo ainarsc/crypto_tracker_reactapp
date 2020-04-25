@@ -27,5 +27,9 @@
     },
     "history": {
         "timeValid": 720
+    },
+    "historyHourly": {
+        "timeValid": 60
     }
+
 }

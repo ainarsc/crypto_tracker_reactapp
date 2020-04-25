@@ -1,31 +1,33 @@
 import { createSelector } from "reselect";
-import _ from "lodash";
+import isEmpty from "lodash/isEmpty";
+import takeRight from "lodash/takeRight";
 
-const getPriceHistory = (state) => {
+const getDailyData = (state) => {
   const { data } = state.apiData.HISTORY;
   const { crypto } = state.apiPreferences;
-
-  return !_.isEmpty(data[crypto]) && data[crypto].Data;
+  return !isEmpty(data[crypto]) && data[crypto].Data;
+};
+const getHourlyData = (state) => {
+  const { data } = state.apiData.HISTORY_H;
+  const { crypto } = state.apiPreferences;
+  return !isEmpty(data[crypto]) && data[crypto].Data;
 };
 const getSelectedTimeFrame = (state) => state.cryptoReducer.priceHistory;
 
-const getDayData = (state) => {
-  return {};
-};
 export const getTimeFrame = createSelector(
-  [getPriceHistory, getSelectedTimeFrame],
-  (data, time) => {
+  [getDailyData, getHourlyData, getSelectedTimeFrame],
+  (daily, hourly, time) => {
     switch (time) {
       case "DAY":
-        return getDayData;
+        return takeRight(hourly, 24);
       case "WEEK":
-        return _.takeRight(data, 7);
+        return hourly;
       case "MONTH":
-        return _.takeRight(data, 30);
+        return takeRight(daily, 30);
       case "YEAR":
-        return _.takeRight(data, 365);
+        return takeRight(daily, 365);
       case "ALL":
-        return data;
+        return daily;
       default:
         break;
     }

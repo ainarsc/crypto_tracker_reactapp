@@ -4,7 +4,7 @@ import {
   INVALIDATE,
   FETCH_FAIL,
 } from "./actionTypes";
-import { MARKET_DATA, HISTORY, NEWS } from "../constants";
+import { MARKET_DATA, HISTORY, NEWS, HISTORY_H } from "../constants";
 import axios from "axios";
 import isEmpty from "lodash/isEmpty";
 import config from "../../api/config";
@@ -39,11 +39,7 @@ export const invalidateData = (dataCategory) => {
 };
 
 const shouldFetch = (state, dataCategory) => {
-  const category = state.apiData[dataCategory],
-    preferences = state.apiPreferences,
-    historyExpiry = config.history.timeValid,
-    marketExpiry = config.marketData.timeValid,
-    newsExpiry = config.news.timeValid;
+  const { data, lastUpdated } = state.apiData[dataCategory];
 
   //Check api data conditions
   const needToFetch = (data, receivedAt, time) => {
@@ -58,17 +54,23 @@ const shouldFetch = (state, dataCategory) => {
     }
   };
 
-  switch (dataCategory) {
-    case HISTORY:
-      const { crypto } = preferences;
-      const { data, lastUpdated } = category;
-      return needToFetch(data[crypto], lastUpdated, historyExpiry);
-    case MARKET_DATA:
-      return needToFetch(category.data, category.lastUpdated, marketExpiry);
-    case NEWS:
-      return needToFetch(category.data, category.lastUpdated, newsExpiry);
-    default:
-      break;
+  if (dataCategory === HISTORY) {
+    const { crypto } = state.apiPreferences,
+      historyExpiry = config.history.timeValid;
+    return needToFetch(data[crypto], lastUpdated, historyExpiry);
+  } else if (dataCategory === HISTORY_H) {
+    const { crypto } = state.apiPreferences,
+      historyHourlyExpiry = config.historyHourly.timeValid;
+    return needToFetch(data[crypto], lastUpdated, historyHourlyExpiry);
+  } else if (dataCategory === MARKET_DATA) {
+    const marketExpiry = config.marketData.timeValid;
+    return needToFetch(data, lastUpdated, marketExpiry);
+  } else if (dataCategory === NEWS) {
+    const newsExpiry = config.news.timeValid;
+    return needToFetch(data, lastUpdated, newsExpiry);
+  } else {
+    console.log("[shouldFetch]: INCORRECT ARGUMENT PASSED");
+    return false;
   }
 };
 

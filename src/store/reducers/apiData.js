@@ -68,6 +68,20 @@ const apiData = (
         LTC: {},
       },
     },
+    HISTORY_H: {
+      isFetching: false,
+      isError: false,
+      didInvalidate: false,
+      lastUpdated: "",
+      data: {
+        BTC: {},
+        ETH: {},
+        XRP: {},
+        BCH: {},
+        BSV: {},
+        LTC: {},
+      },
+    },
     NEWS: {
       isFetching: false,
       isError: false,
