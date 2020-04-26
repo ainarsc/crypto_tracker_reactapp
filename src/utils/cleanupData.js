@@ -3,6 +3,7 @@ import mapValues from "lodash/mapValues";
 import pick from "lodash/pick";
 import takeRight from "lodash/takeRight";
 import take from "lodash/take";
+import config from "../api/config";
 
 export const cleanupFullData = (apiData, ...args) => {
   const data = apiData.RAW; //axios.data.RAW.[crypto].[currency].Data
@@ -30,8 +31,8 @@ export const cleanupHistoryData = (apiData, crypto) => {
   const { TimeFrom, TimeTo } = apiData.Data;
   const reduced =
     crypto === "BTC"
-      ? takeRight(apiData.Data.Data, 2555)
-      : takeRight(apiData.Data.Data, 1095);
+      ? takeRight(apiData.Data.Data, config.history.lengthBTC)
+      : takeRight(apiData.Data.Data, config.history.lengthRest);
 
   let result = {
     [crypto]: {
