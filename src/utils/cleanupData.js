@@ -1,12 +1,16 @@
-import _ from "lodash";
+import forIn from "lodash/forIn";
+import mapValues from "lodash/mapValues";
+import pick from "lodash/pick";
+import takeRight from "lodash/takeRight";
+import take from "lodash/take";
 
 export const cleanupFullData = (apiData, ...args) => {
   const data = apiData.RAW; //axios.data.RAW.[crypto].[currency].Data
 
   let mapped = {};
-  _.forIn(data, (crypto, cryptoName) => {
-    mapped[cryptoName] = _.mapValues(crypto, (currency) => {
-      return _.pick(currency, ...args);
+  forIn(data, (crypto, cryptoName) => {
+    mapped[cryptoName] = mapValues(crypto, (currency) => {
+      return pick(currency, ...args);
     });
   });
 
@@ -14,16 +18,28 @@ export const cleanupFullData = (apiData, ...args) => {
 };
 
 export const cleanupNewsData = (apiData, ...args) => {
-  const data = _.take(apiData.Data, 8); //Pick last 8 news articles of API result
-  const result = _.mapValues(data, (item) => {
-    return _.pick(item, ...args);
+  const data = take(apiData.Data, 8); //Pick last 8 news articles of API result
+  const result = mapValues(data, (item) => {
+    return pick(item, ...args);
   });
 
   return result;
 };
 
 export const cleanupHistoryData = (apiData, crypto) => {
-  let result = { [crypto]: apiData.Data };
+  const { TimeFrom, TimeTo } = apiData.Data;
+  const reduced =
+    crypto === "BTC"
+      ? takeRight(apiData.Data.Data, 2555)
+      : takeRight(apiData.Data.Data, 1095);
+
+  let result = {
+    [crypto]: {
+      TimeFrom,
+      TimeTo,
+      Data: reduced,
+    },
+  };
 
   return result; // [crypto].{aggregated, timeFrom, timeTo, data{}}
 };
