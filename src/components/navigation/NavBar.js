@@ -75,9 +75,7 @@ function NavBar(props) {
           <Typography className={classes.title} variant="h6" noWrap>
             {currentLocation.toUpperCase()}
           </Typography>
-          <div className={classes.hide}>
-            <CurrencySelect />
-          </div>
+
           <div className={classes.hide}>
             <DarkModeToggle />
           </div>
