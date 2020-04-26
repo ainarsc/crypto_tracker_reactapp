@@ -144,8 +144,8 @@ const PriceHistory = () => {
         >
           <defs>
             <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#ff1744" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#ff1744" stopOpacity={0} />
+              <stop offset="5%" stopColor="#1ff2ac" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#1ff2ac" stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid fill="#131313" stroke="#252525" />
@@ -162,7 +162,7 @@ const PriceHistory = () => {
             width={50}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Area dataKey="close" stroke="#ff1744" fill="url(#colorPv)" />
+          <Area dataKey="close" stroke="#1ff2ac" fill="url(#colorPv)" />
         </AreaChart>
       </ResponsiveContainer>
     </Paper>

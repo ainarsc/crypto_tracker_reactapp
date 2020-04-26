@@ -35,7 +35,7 @@ const MarketCap = () => {
     const { x, y, width, height, name } = props;
     return (
       <g>
-        <rect x={x} y={y} width={width} height={height} stroke="#ff1744" />
+        <rect x={x} y={y} width={width} height={height} stroke="#1ff2ac" />
 
         <text
           x={x + width / 2}
