@@ -21,46 +21,46 @@ import bgSvg from "../../bgSvg.svg";
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   drawer: {
     [theme.breakpoints.up("md")]: {
       width: drawerWidth,
-      flexShrink: 0
-    }
+      flexShrink: 0,
+    },
   },
   appBar: {
     [theme.breakpoints.up("md")]: {
       width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth
-    }
+      marginLeft: drawerWidth,
+    },
   },
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up("md")]: {
-      display: "none"
-    }
+      display: "none",
+    },
   },
   toolbar: {
     theme: theme.mixins.toolbar,
-    marginLeft: theme.spacing(2)
+    marginLeft: theme.spacing(2),
   },
   drawerPaper: {
     width: drawerWidth,
     // backgroundColor: theme.palette.primary.main
-    backgroundImage: `url(${bgSvg})`
+    backgroundImage: `url(${bgSvg})`,
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3)
+    padding: theme.spacing(3),
   },
   link: {
     "&hover": {
-      textDecoration: "none"
-    }
-  }
+      textDecoration: "none",
+    },
+  },
 }));
 
 function ResponsiveDrawer(props) {
@@ -75,7 +75,7 @@ function ResponsiveDrawer(props) {
       <List>
         <Link
           underline="none"
-          to={"dashboard"}
+          to={"home"}
           component={RouterLink}
           color="textPrimary"
         >
@@ -83,7 +83,7 @@ function ResponsiveDrawer(props) {
             <ListItemIcon>
               <DashboardIcon color="secondary" />
             </ListItemIcon>
-            <ListItemText primary={"dashboard"} />
+            <ListItemText primary={"home"} />
           </ListItem>
         </Link>
 
@@ -171,10 +171,10 @@ function ResponsiveDrawer(props) {
           open={props.mobileOpen}
           onClose={props.handleDrawerToggle}
           classes={{
-            paper: classes.drawerPaper
+            paper: classes.drawerPaper,
           }}
           ModalProps={{
-            keepMounted: true // Better open performance on mobile.
+            keepMounted: true, // Better open performance on mobile.
           }}
         >
           {drawer}
@@ -183,7 +183,7 @@ function ResponsiveDrawer(props) {
       <Hidden smDown implementation="css">
         <Drawer
           classes={{
-            paper: classes.drawerPaper
+            paper: classes.drawerPaper,
           }}
           variant="permanent"
           open
@@ -202,7 +202,7 @@ ResponsiveDrawer.propTypes = {
    */
   container: PropTypes.instanceOf(
     typeof Element === "undefined" ? Object : Element
-  )
+  ),
 };
 
 export default ResponsiveDrawer;

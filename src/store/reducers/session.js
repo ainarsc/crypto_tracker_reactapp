@@ -3,19 +3,19 @@ import {
   INIT_SESSION,
   CLEAR_SESSION,
   SET_ERROR,
-  SESSION_LOADED
+  SESSION_LOADED,
 } from "../actions/actionTypes";
 
 const _initialState = {
-  fetching: false, //for testing
+  fetching: true,
   isAuthenticated: false,
   isError: false,
   errorMessage: "",
   data: {
     displayName: "",
     email: "",
-    uid: ""
-  }
+    uid: "",
+  },
 };
 
 const session = (state = _initialState, action) => {
@@ -26,7 +26,7 @@ const session = (state = _initialState, action) => {
         fetching: true,
         isAuthenticated: false,
         isError: false,
-        data: { ...state.data }
+        data: { ...state.data },
       };
     case SET_USER:
       return {
@@ -39,8 +39,8 @@ const session = (state = _initialState, action) => {
           ...state.data,
           displayName: action.payload.displayName,
           email: action.payload.email,
-          uid: action.payload.uid
-        }
+          uid: action.payload.uid,
+        },
       };
     case CLEAR_SESSION:
       return {
@@ -53,16 +53,16 @@ const session = (state = _initialState, action) => {
           ...state.data,
           displayName: "",
           email: "",
-          uid: ""
-        }
+          uid: "",
+        },
       };
     case SESSION_LOADED:
       return {
         ...state,
         fetching: false,
         data: {
-          ...state.data
-        }
+          ...state.data,
+        },
       };
     case SET_ERROR:
       return {
@@ -72,8 +72,8 @@ const session = (state = _initialState, action) => {
         isError: true,
         errorMessage: action.message,
         data: {
-          ...state.data
-        }
+          ...state.data,
+        },
       };
     default:
       return state;

@@ -83,6 +83,7 @@ function NavBar(props) {
             <SettingsIcon color="secondary" />
           </IconButton>
           <IconButton color="inherit" onClick={handleSignOut}>
+            <Typography variant="h6">Logout </Typography>
             <AccountCircleIcon color="secondary" />
           </IconButton>
         </Toolbar>

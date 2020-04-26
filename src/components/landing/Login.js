@@ -13,20 +13,20 @@ import {
   IconButton,
   Container,
   Typography,
-  Button
+  Button,
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 import clsx from "clsx";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     height: "100vh",
-    margin: "0 auto"
+    margin: "0 auto",
   },
 
   form: {
@@ -34,26 +34,27 @@ const useStyles = makeStyles(theme => ({
     width: 250,
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   buttonGroup: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
 
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   text: {
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   margin: {
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   button: {
     width: 120,
+    height: 63,
     alignSelf: "center",
-    color: "white"
-  }
+    color: "white",
+  },
 }));
 
 const Login = () => {
@@ -61,14 +62,14 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { errorMessage: message } = useSelector(state => state.session);
+  const { errorMessage: message } = useSelector((state) => state.session);
   const history = useHistory();
   const dispatch = useDispatch();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const handleMouseDownPassword = event => {
+  const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
@@ -80,7 +81,7 @@ const Login = () => {
       dispatch(setError(response.message));
     } else if (response.hasOwnProperty("uid")) {
       console.log("[Login]: Sign in successful");
-      history.push("/dashboard");
+      history.push("/crypto");
     } else {
       dispatch(setError("Something went wrong... the sadness"));
     }
@@ -95,7 +96,7 @@ const Login = () => {
         className={classes.form}
         noValidate
         autoComplete="on"
-        onSubmit={event => signInUser(event, email, password)}
+        onSubmit={(event) => signInUser(event, email, password)}
       >
         <Typography align="center" variant="h6" gutterBottom>
           Sing In
@@ -116,7 +117,7 @@ const Login = () => {
             name="email"
             type="text"
             value={email}
-            onChange={e => {
+            onChange={(e) => {
               setEmail(e.target.value);
             }}
             labelWidth={46}
@@ -139,7 +140,7 @@ const Login = () => {
             name="password"
             type={showPassword ? "text" : "password"}
             value={password}
-            onChange={e => {
+            onChange={(e) => {
               setPassword(e.target.value);
             }}
             endAdornment={
@@ -168,7 +169,7 @@ const Login = () => {
             color="secondary"
             onClick={() => history.push("/")}
           >
-            Go Back
+            Go To Start
           </Button>
           <Button
             className={classes.button}

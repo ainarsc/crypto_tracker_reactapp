@@ -17,14 +17,14 @@ import { createUser } from "../../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { setError, initSession } from "../../store/actions/sessionActions";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     height: "100vh",
-    margin: "0 auto"
+    margin: "0 auto",
   },
 
   form: {
@@ -32,26 +32,27 @@ const useStyles = makeStyles(theme => ({
     width: 250,
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   buttonGroup: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
 
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   text: {
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   margin: {
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   button: {
     width: 120,
+    height: 63,
     alignSelf: "center",
-    color: "white"
-  }
+    color: "white",
+  },
 }));
 
 const Register = () => {
@@ -62,13 +63,13 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
-  const { errorMessage: message } = useSelector(state => state.session);
+  const { errorMessage: message } = useSelector((state) => state.session);
   const history = useHistory();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const handleMouseDownPassword = event => {
+  const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
@@ -80,7 +81,7 @@ const Register = () => {
       dispatch(setError(response.message));
     } else if (response.hasOwnProperty("uid")) {
       console.log("[SignUp]: Sign Up successfully");
-      history.push("/dashboard");
+      history.push("/crypto");
     } else {
       dispatch(setError(response.message));
     }
@@ -94,7 +95,7 @@ const Register = () => {
       <form
         className={classes.form}
         autoComplete="on"
-        onSubmit={event => signUpUser(event, email, password)}
+        onSubmit={(event) => signUpUser(event, email, password)}
       >
         <Typography align="center" variant="h6" gutterBottom>
           Sign Up
@@ -114,7 +115,7 @@ const Register = () => {
             name="email"
             type="text"
             value={email}
-            onChange={e => {
+            onChange={(e) => {
               setEmail(e.target.value);
             }}
             labelWidth={46}
@@ -137,7 +138,7 @@ const Register = () => {
             name="password"
             type={showPassword ? "text" : "password"}
             value={password}
-            onChange={e => {
+            onChange={(e) => {
               setPassword(e.target.value);
             }}
             endAdornment={
@@ -170,7 +171,7 @@ const Register = () => {
             name="password"
             type={showPassword ? "text" : "password"}
             value={password2}
-            onChange={e => {
+            onChange={(e) => {
               setPassword2(e.target.value);
             }}
             endAdornment={
@@ -199,7 +200,7 @@ const Register = () => {
             color="secondary"
             onClick={() => history.push("/")}
           >
-            Go Back
+            Go To Start
           </Button>
           <Button
             className={classes.button}

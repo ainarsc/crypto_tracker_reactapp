@@ -11,7 +11,7 @@ const cryptoReducer = (
     priceHistory: "WEEK",
     treeMap: "MKTCAP",
     priceChange: "CHANGEPCT24HOUR",
-    volume: "VOLUME24HOUR",
+    volume: "TOTALVOLUME24HTO",
     mktSupply: "MKTCAP",
   },
   event

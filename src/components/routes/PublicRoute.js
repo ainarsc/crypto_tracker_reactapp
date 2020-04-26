@@ -3,17 +3,18 @@ import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const PublicRoute = ({ component: Component, isAuth, ...rest }) => {
-  const { isAuthenticated } = useSelector(state => state.session);
+  const { isAuthenticated } = useSelector((state) => state.session);
+
   return (
     <Route
       {...rest}
-      render={props => {
+      render={(props) => {
         if (isAuthenticated) {
           return (
             <Redirect
               to={{
-                pathname: "/dashboard",
-                state: { from: props.location }
+                pathname: "/crypto",
+                state: { from: props.location },
               }}
             />
           );

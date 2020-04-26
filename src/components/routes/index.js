@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { Landing, Login, Register, NotFound, Unauthorized } from "../landing";
 import Dashboard from "../dashboard";
+import { UnderDevelopment } from "../signedInRoutes/underDevelopment";
 import Preferences from "../preferences";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
@@ -9,12 +10,12 @@ import { PublicRoute } from "./PublicRoute";
 const BASE = "/";
 const LOGIN = "/login";
 const REGISTER = "/register";
-const DASHBOARD = "/dashboard";
+const HOME = "/home";
 const UNAUTHORIZED = "/unauthorized";
 const PREFERENCES = "/preferences";
 const CRYPTO = "/crypto";
 const STOCKS = "/stocks";
-const COMMODITIES = "/commodities";
+const NEWS = "/news";
 const FOREX = "/forex";
 
 const Routes = () => {
@@ -23,9 +24,13 @@ const Routes = () => {
       <PublicRoute exact path={BASE} component={Landing} />
       <PublicRoute exact path={LOGIN} component={Login} />
       <PublicRoute exact path={REGISTER} component={Register} />
-      <Route exact path={DASHBOARD} component={Dashboard} />
+      <PrivateRoute exact path={HOME} component={UnderDevelopment} />
+      <PrivateRoute exact path={CRYPTO} component={Dashboard} />
+      <PrivateRoute exact path={STOCKS} component={UnderDevelopment} />
+      <PrivateRoute exact path={NEWS} component={UnderDevelopment} />
+      <PrivateRoute exact path={FOREX} component={UnderDevelopment} />
       <PrivateRoute exact path={PREFERENCES} component={Preferences} />
-      <Route exact path={UNAUTHORIZED} component={Unauthorized} />
+      <PublicRoute exact path={UNAUTHORIZED} component={Unauthorized} />
       <Route component={NotFound} />
     </Switch>
   );
