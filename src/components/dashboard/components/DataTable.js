@@ -69,8 +69,8 @@ const DataTable = () => {
             <StyledTableCell align="right">#</StyledTableCell>
             <StyledTableCell align="right">Coin</StyledTableCell>
             <StyledTableCell align="right">Price</StyledTableCell>
-            <StyledTableCell align="right">Change 1H</StyledTableCell>
-            <StyledTableCell align="right">Change 24H</StyledTableCell>
+            <StyledTableCell align="right">Change 1H (%)</StyledTableCell>
+            <StyledTableCell align="right">Change 24H (%)</StyledTableCell>
             <StyledTableCell align="right">Total Vol 24H</StyledTableCell>
             <StyledTableCell align="right">Market Cap</StyledTableCell>
           </TableRow>
@@ -85,19 +85,19 @@ const DataTable = () => {
                 {getStat(key, FROMSYMBOL)}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {`% ${getStat(key, PRICE)}`}
+                {`$${getStat(key, PRICE)}`}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {`% ${getStat(key, CHANGEPCTHOUR)}`}
+                {`${getStat(key, CHANGEPCTHOUR)}`}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {`% ${getStat(key, CHANGEPCT24HOUR)}`}
+                {`${getStat(key, CHANGEPCT24HOUR)}`}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {getStat(key, TOTALVOLUME24HTO)}
+                {`$${getStat(key, TOTALVOLUME24HTO)}`}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {getStat(key, MKTCAP)}
+                {`$${getStat(key, MKTCAP)}`}
               </StyledTableCell>
             </TableRow>
           ))}
