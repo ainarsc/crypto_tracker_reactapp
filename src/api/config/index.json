@@ -9,7 +9,7 @@
             "CHANGEHOUR",
             "CHANGEPCTHOUR",
             "VOLUME24HOUR",
-            "VOLUMEHOUR",
+            "VOLUMEHOURTO",
             "VOLUME24HOUR",
             "OPENDAY",
             "HIGHDAY",

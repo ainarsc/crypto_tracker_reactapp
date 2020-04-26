@@ -76,8 +76,8 @@ const CenteredGrid = () => {
     { indicator: "CHANGEPCTHOUR", displayName: "Δ(1h)" },
   ];
   const volumeTabs = [
-    { indicator: "VOLUME24HOUR", displayName: "Vol(24h)" },
-    { indicator: "VOLUMEHOUR", displayName: "Vol(1h)" },
+    { indicator: "TOTALVOLUME24HTO", displayName: "Vol(24h)" },
+    { indicator: "VOLUMEHOURTO", displayName: "Vol(1h)" },
   ];
   const marketTabs = [
     { indicator: "MKTCAP", displayName: "MKT CAP" },
