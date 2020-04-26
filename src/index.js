@@ -8,12 +8,13 @@ import { PersistGate } from "redux-persist/integration/react";
 import firebaseServices, { firebaseContext } from "./firebase";
 import { ThemeProvider } from "@material-ui/styles";
 import darkTheme from "./theme";
+import LoadingScreen from "./components/ui/loadingScreen";
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate loading={<LoadingScreen />} persistor={persistor}>
       <firebaseContext.Provider value={firebaseServices}>
         <ThemeProvider theme={darkTheme}>
           <BrowserRouter>
