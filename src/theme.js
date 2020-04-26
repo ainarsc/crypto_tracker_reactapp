@@ -30,10 +30,32 @@ let darkTheme = createMuiTheme({
   },
   spacing: 2,
 });
+
 let lightTheme = createMuiTheme({
   palette: {
     type: "light",
+    primary: {
+      main: "#444444",
+    },
+    secondary: {
+      main: "#1ff2ac",
+    },
+    background: {
+      default: "#f7f7f7",
+      paper: "#ebebeb",
+    },
+    divider: "#f5f5f5",
+    text: {
+      secondary: "#1ff2ac",
+    },
   },
+  shape: {
+    borderRadius: 2,
+  },
+  typography: {
+    fontFamily: "monospace",
+  },
+  spacing: 2,
 });
 export const dark = responsiveFontSizes(darkTheme);
 export const light = responsiveFontSizes(lightTheme);
