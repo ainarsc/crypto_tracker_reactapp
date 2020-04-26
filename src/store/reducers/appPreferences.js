@@ -5,12 +5,12 @@ const appPreferences = (state = { darkMode: true }, event) => {
     case LIGHT_MODE:
       return {
         ...state,
-        darkMode: false
+        darkMode: false,
       };
     case DARK_MODE:
       return {
         ...state,
-        darkMode: true
+        darkMode: true,
       };
     default:
       return state;
